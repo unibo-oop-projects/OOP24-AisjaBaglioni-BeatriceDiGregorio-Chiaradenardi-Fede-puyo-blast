@@ -3,12 +3,17 @@
  */
 package it.unibo;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.stage.Stage;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+public class App extends javafx.application.Application {
+    @Override
+    public void start(Stage stage) throws Exception {
+        Group root = new Group();
+        Scene scene = new Scene(root, 500, 300);
+        stage.setTitle("Puyo Pop Blast!");
+        stage.setScene(scene);
+        stage.show();
     }
 }
