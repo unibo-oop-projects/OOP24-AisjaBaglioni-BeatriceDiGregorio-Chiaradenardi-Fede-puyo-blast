@@ -14,7 +14,7 @@ public class GameView extends JPanel implements GameViewInterface {
     private BackGround background;
 
     public GameView() {
-        background = new BackGround("src/main/resources/images/Senza titolo.png");
+        background = new BackGround("C:\\Users\\fede1\\Pictures\\2024-04-17\\Scan10008.JPG");
     }
 
     @Override
