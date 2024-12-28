@@ -6,6 +6,7 @@ import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ScreenManager {
     private final JFrame frame;
@@ -32,13 +33,8 @@ public class ScreenManager {
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
-            //popup con il livello selezionato
-            JOptionPane.showMessageDialog(
-                frame,
-                "Hai selezionato: " + selectedLevel,
-                "Livello Selezionato",
-                JOptionPane.INFORMATION_MESSAGE
-            );
+            //popup personalizzato con il livello selezionato
+            showLevelPopup(selectedLevel);
             //cambia schermata
             switchToGameView();
         });
@@ -80,5 +76,54 @@ public class ScreenManager {
         frame.revalidate();
         frame.repaint();
         gameView.startGame();
+    }
+
+    private void showLevelPopup(String level) {
+        JDialog levelDialog = new JDialog(frame, "Livello Selezionato", true);
+        levelDialog.setLayout(new BorderLayout());
+        levelDialog.setSize(450, 250);
+        levelDialog.setLocationRelativeTo(frame);
+        levelDialog.setBackground(new Color(28, 28, 28));
+        levelDialog.setUndecorated(true);  
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(50, 50, 50));
+        panel.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 5, true));  
+        panel.setLayout(new BorderLayout());
+        panel.setOpaque(true);
+
+        JLabel levelMessage = new JLabel("<html><div style='text-align: center;'>Hai selezionato il livello:<br><span style='color: #FF3C00; font-size: 24px; font-weight: bold;'>" + level + "</span></div></html>", JLabel.CENTER);
+        levelMessage.setFont(new Font("Roboto", Font.PLAIN, 18));
+        levelMessage.setForeground(Color.WHITE);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(50, 50, 50));
+        JButton okButton = new JButton("OK");
+        okButton.setFont(new Font("Roboto", Font.BOLD, 20));
+        okButton.setBackground(new Color(70, 130, 180));
+        okButton.setForeground(Color.WHITE);
+        okButton.setPreferredSize(new Dimension(200, 60));
+        okButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        okButton.setFocusPainted(false);
+        okButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        okButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                okButton.setBackground(new Color(100, 149, 237));
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                okButton.setBackground(new Color(70, 130, 180));
+            }
+        });
+
+        okButton.addActionListener(e -> levelDialog.dispose());
+
+        buttonPanel.add(okButton);
+
+        panel.add(levelMessage, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        levelDialog.add(panel);
+        levelDialog.setVisible(true);
     }
 }
