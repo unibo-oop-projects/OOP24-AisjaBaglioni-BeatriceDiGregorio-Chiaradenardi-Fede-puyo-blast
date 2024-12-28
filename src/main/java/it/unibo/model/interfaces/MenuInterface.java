@@ -6,7 +6,6 @@ public interface MenuInterface {
     JButton getStartButton();
     JButton getControlsButton();
     String getSelectedLevel();
-    void display();
 }
 
 

@@ -4,18 +4,14 @@ import javax.swing.*;
 import it.unibo.model.interfaces.MenuInterface;
 import java.awt.*;
 
-public class Menu extends JFrame implements MenuInterface {
+public class Menu extends JPanel implements MenuInterface {
     private JButton startButton = new JButton("Inizia Gioco");
     private JButton controlsButton = new JButton("Comandi");
     private JComboBox<String> levelsDropdown;
 
     public Menu(String[] levels) {
-        this.setTitle("Puyo Pop - Menù Iniziale");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(400, 300);
         this.setLayout(new BorderLayout());
 
-        //dropdown per i livelli
         levelsDropdown = new JComboBox<>(levels);
 
         JPanel centerPanel = new JPanel();
@@ -43,10 +39,5 @@ public class Menu extends JFrame implements MenuInterface {
     @Override
     public String getSelectedLevel() {
         return (String) levelsDropdown.getSelectedItem();
-    }
-
-    @Override
-    public void display() {
-        this.setVisible(true);
     }
 }
