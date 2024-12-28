@@ -1,0 +1,28 @@
+src/
+├── model/         
+│   ├── interfaces/           # Cartella per le interfacce
+│   │   ├── PuyoInterface.java
+│   │   ├── GridInterface.java
+│   │   └── GameStateInterface.java
+│   ├── Puyo.java             # Classe concreta
+│   ├── Grid.java             # Classe concreta
+│   └── GameState.java        # Classe concreta
+│
+├── view/          
+│   ├── interfaces/           # Cartella per le interfacce
+│   │   ├── GameViewInterface.java
+│   │   └── MenuViewInterface.java
+│   ├── GameView.java         # Classe concreta
+│   ├── MenuView.java         # Classe concreta
+│   └── SpriteManager.java    # Classe concreta
+│
+├── controller/    
+│   ├── interfaces/           # Cartella per le interfacce
+│   │   ├── GameControllerInterface.java
+│   │   ├── InputHandlerInterface.java
+│   │   └── LevelControllerInterface.java
+│   ├── GameController.java   # Classe concreta
+│   ├── InputHandler.java     # Classe concreta
+│   └── LevelController.java  # Classe concreta
+│
+└── Main.java                 # Punto di ingresso
