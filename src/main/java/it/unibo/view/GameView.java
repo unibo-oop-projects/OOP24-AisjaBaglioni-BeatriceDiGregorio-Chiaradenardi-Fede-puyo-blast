@@ -5,12 +5,12 @@
 //classe con il pannello di gioco avviato
 package it.unibo.view;
 
+import it.unibo.view.interfaces.GameViewInterface;
+
 import javax.swing.*;
 import java.awt.*;
 
-    
-
-public class GameView extends JPanel {
+public class GameView extends JPanel implements GameViewInterface {
     private BackGround background;
 
     public GameView() {
@@ -23,12 +23,17 @@ public class GameView extends JPanel {
         background.draw(g, getWidth(), getHeight());
     }
 
-    public void startGame() {
-        // Logica per avviare il gioco
-        System.out.println("Game started!");
+    @Override
+    public void render(Graphics g, int width, int height) {
+        background.draw(g, width, height);
     }
-}
-    
+
+    @Override
+    public void startGame() {
+        System.out.println("Game started! ciao belli");
+        // Logica aggiuntiva per avviare il gioco
+    }
+}    
 
 
 
