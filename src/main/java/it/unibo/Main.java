@@ -21,7 +21,11 @@ public class Main {
 
         menu.getStartButton().addActionListener(e -> {
             String selectedLevel = menu.getSelectedLevel();
-            System.out.println("Hai selezionato: " + selectedLevel);
+
+            JOptionPane.showMessageDialog(frame,
+                "Hai selezionato: " + selectedLevel,
+                "Livello Selezionato",
+                JOptionPane.INFORMATION_MESSAGE);
 
             //cambia il contenuto del frame per mostrare la GameView
             frame.getContentPane().removeAll();
@@ -32,8 +36,10 @@ public class Main {
         });
 
         menu.getControlsButton().addActionListener(e -> {
-            JOptionPane.showMessageDialog(null,
-                "Comandi:\n- Frecce per muovere\n- Barra spaziatrice per sparare");
+            JOptionPane.showMessageDialog(frame,
+                "Comandi:\n- Frecce per muovere\n- Barra spaziatrice per sparare",
+                "Comandi",
+                JOptionPane.INFORMATION_MESSAGE);
         });
 
         frame.add((JPanel) menu);
