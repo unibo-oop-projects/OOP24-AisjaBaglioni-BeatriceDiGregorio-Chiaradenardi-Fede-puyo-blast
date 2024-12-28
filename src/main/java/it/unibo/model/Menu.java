@@ -10,26 +10,22 @@ public class Menu extends JFrame implements MenuInterface {
     private JComboBox<String> levelsDropdown;
 
     public Menu(String[] levels) {
-        // Imposta il titolo e la chiusura del menù
         this.setTitle("Puyo Pop - Menù Iniziale");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 300);
         this.setLayout(new BorderLayout());
 
-        // Dropdown per i livelli
+        //dropdown per i livelli
         levelsDropdown = new JComboBox<>(levels);
 
-        // Pannello centrale
         JPanel centerPanel = new JPanel();
         centerPanel.add(new JLabel("Seleziona Livello:"));
         centerPanel.add(levelsDropdown);
 
-        // Pannello inferiore per i pulsanti
         JPanel bottomPanel = new JPanel();
         bottomPanel.add(startButton);
         bottomPanel.add(controlsButton);
 
-        // Aggiungi i pannelli alla finestra
         this.add(centerPanel, BorderLayout.CENTER);
         this.add(bottomPanel, BorderLayout.SOUTH);
     }
