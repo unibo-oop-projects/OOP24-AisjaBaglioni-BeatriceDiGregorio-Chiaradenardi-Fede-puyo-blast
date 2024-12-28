@@ -11,7 +11,7 @@ public class GameView extends JPanel {
     private BackGround background;
 
     public GameView() {
-        background = new BackGround("percorso");
+        background = new BackGround("src/main/resources/images/Senza titolo.png");
     }
 
     @Override
