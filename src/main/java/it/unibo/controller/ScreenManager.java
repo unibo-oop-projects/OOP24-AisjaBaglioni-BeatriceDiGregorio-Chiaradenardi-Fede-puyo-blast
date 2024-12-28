@@ -17,22 +17,28 @@ public class ScreenManager {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(800, 600);
 
-        // Inizializza le schermate
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.gameView = new GameView();
 
-        // Configura i listener per il menu
+        //configura i listener per il menu
         setupMenuListeners();
 
-        // Configura i listener per la schermata regole/comandi
+        //configura i listener per la schermata regole/comandi
         setupRulesListeners();
     }
 
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
-            System.out.println("Hai selezionato: " + selectedLevel);
+            //popup con il livello selezionato
+            JOptionPane.showMessageDialog(
+                frame,
+                "Hai selezionato: " + selectedLevel,
+                "Livello Selezionato",
+                JOptionPane.INFORMATION_MESSAGE
+            );
+            //cambia schermata
             switchToGameView();
         });
 
@@ -48,7 +54,7 @@ public class ScreenManager {
     }
 
     public void start() {
-        // Mostra la schermata iniziale
+        //schermata iniziale
         frame.add(menuView);
         frame.setVisible(true);
     }
@@ -75,4 +81,3 @@ public class ScreenManager {
         gameView.startGame();
     }
 }
-
