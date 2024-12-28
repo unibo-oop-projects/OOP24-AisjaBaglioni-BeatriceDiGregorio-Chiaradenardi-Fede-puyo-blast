@@ -16,4 +16,9 @@ public class App extends javafx.application.Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    public Object getGreeting() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getGreeting'");
+    }
 }
