@@ -36,7 +36,7 @@ public class MenuRules extends JPanel {
         //pannello inferiore con il pulsante "Indietro"
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(new Color(28, 28, 28));  
-        styleButton(backButton, new Color(70, 130, 180)); 
+        styleButton(backButton, new Color(50, 130, 255));  
 
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));  
         bottomPanel.add(backButton);
@@ -49,22 +49,26 @@ public class MenuRules extends JPanel {
      * Stile personalizzato per i pulsanti.
      */
     private void styleButton(JButton button, Color backgroundColor) {
-        button.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        button.setFont(new Font("Roboto", Font.BOLD, 24));  
         button.setBackground(backgroundColor);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        button.setPreferredSize(new Dimension(160, 50));  
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));  
+        button.setBorder(null);  
+        button.setPreferredSize(new Dimension(300, 60)); 
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        button.setMargin(new Insets(15, 40, 15, 40));  
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(100, 149, 237));  
+                button.setBackground(backgroundColor.brighter());  
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(70, 130, 180));  
+                button.setBackground(backgroundColor.darker());  
             }
         });
+
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));  
     }
 
     public void addBackButtonListener(ActionListener listener) {
