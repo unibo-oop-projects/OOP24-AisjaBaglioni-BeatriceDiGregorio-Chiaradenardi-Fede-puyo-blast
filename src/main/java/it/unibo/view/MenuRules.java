@@ -12,10 +12,10 @@ public class MenuRules extends JPanel {
 
         JTextArea rulesText = new JTextArea(
             "Regole del Gioco:\n" +
-            "- Combina almeno 4 Puyo dello stesso colore per eliminarli.\n" +
+            "- Combina almeno 2 Puyo dello stesso colore per eliminarli.\n" +
             "- Usa il cannone per lanciare i Puyo nella griglia.\n\n" +
             "Comandi:\n" +
-            "- Frecce direzionali per spostare.\n" +
+            "- Frecce direzionali dx e sx per spostare il cannone.\n" +
             "- Barra spaziatrice per sparare."
         );
         rulesText.setEditable(false);

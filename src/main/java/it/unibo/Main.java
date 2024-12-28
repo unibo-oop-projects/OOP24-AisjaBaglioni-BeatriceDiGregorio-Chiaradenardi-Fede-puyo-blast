@@ -1,8 +1,8 @@
 package it.unibo;
 
 import it.unibo.model.Menu;
-import it.unibo.model.interfaces.MenuInterface;
 import it.unibo.view.GameView;
+import it.unibo.view.MenuRules;
 import it.unibo.view.interfaces.GameViewInterface;
 
 import javax.swing.*;
@@ -15,19 +15,27 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
 
-        MenuInterface menu = new Menu(levels);
+        Menu menuView = new Menu(levels);
+        MenuRules rulesView = new MenuRules();
+        GameViewInterface gameView = new GameView();
 
-        GameViewInterface gameView = (GameViewInterface) new GameView();
+        //schermata del menù iniziale
+        frame.add(menuView);
+        frame.setVisible(true);
 
-        menu.getStartButton().addActionListener(e -> {
-            String selectedLevel = menu.getSelectedLevel();
-
-            JOptionPane.showMessageDialog(frame,
+        //per passare alla schermata del gioco
+        menuView.getStartButton().addActionListener(e -> {
+            String selectedLevel = menuView.getSelectedLevel();
+            
+            //pop up per liv selezionato
+            JOptionPane.showMessageDialog(
+                frame,
                 "Hai selezionato: " + selectedLevel,
                 "Livello Selezionato",
-                JOptionPane.INFORMATION_MESSAGE);
-
-            //cambia il contenuto del frame per mostrare la GameView
+                JOptionPane.INFORMATION_MESSAGE
+            );
+        
+            //cambia la schermata per mostrare la GameView
             frame.getContentPane().removeAll();
             frame.getContentPane().add((JPanel) gameView);
             frame.revalidate();
@@ -35,14 +43,20 @@ public class Main {
             gameView.startGame();
         });
 
-        menu.getControlsButton().addActionListener(e -> {
-            JOptionPane.showMessageDialog(frame,
-                "Comandi:\n- Frecce per muovere\n- Barra spaziatrice per sparare",
-                "Comandi",
-                JOptionPane.INFORMATION_MESSAGE);
+        //per passare alla schermata regole/comandi
+        menuView.getControlsButton().addActionListener(e -> {
+            frame.getContentPane().removeAll();
+            frame.getContentPane().add(rulesView);
+            frame.revalidate();
+            frame.repaint();
         });
 
-        frame.add((JPanel) menu);
-        frame.setVisible(true);
+        //per tornare al menù principale
+        rulesView.addBackButtonListener(e -> {
+            frame.getContentPane().removeAll();
+            frame.getContentPane().add(menuView);
+            frame.revalidate();
+            frame.repaint();
+        });
     }
 }
