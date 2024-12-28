@@ -14,7 +14,7 @@ public class GameView extends JPanel implements GameViewInterface {
     private BackGround background;
 
     public GameView() {
-        background = new BackGround("C:\\Users\\fede1\\Pictures\\2024-04-17\\Scan10008.JPG");
+        background = new BackGround("Scan10008.JPG");
     }
 
     @Override
@@ -33,9 +33,4 @@ public class GameView extends JPanel implements GameViewInterface {
         System.out.println("Game started! ciao belli");
         // Logica aggiuntiva per avviare il gioco
     }
-}    
-
-
-
-
-
+}
