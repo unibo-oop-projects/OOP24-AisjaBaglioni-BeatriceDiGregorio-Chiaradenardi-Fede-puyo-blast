@@ -1,4 +1,4 @@
-package model.interfaces;
+package it.unibo.model.interfaces;
 
 public interface PuyoInterface {
     String getColor();

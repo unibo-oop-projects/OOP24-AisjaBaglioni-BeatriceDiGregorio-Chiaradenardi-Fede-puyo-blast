@@ -1,6 +1,6 @@
-package model;
+package it.unibo.model;
 
-import model.interfaces.PuyoInterface;
+import it.unibo.model.interfaces.PuyoInterface;
 
 public class Puyo implements PuyoInterface {
     private String color;
