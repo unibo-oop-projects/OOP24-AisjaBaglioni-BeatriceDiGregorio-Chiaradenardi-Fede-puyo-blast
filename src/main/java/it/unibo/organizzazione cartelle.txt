@@ -26,3 +26,26 @@ src/
 │   └── LevelController.java  # Classe concreta
 │
 └── Main.java                 # Punto di ingresso
+
+-----------------------------------------------------------------------------------
+
+src/
+├── model/         
+│   ├── Puyo.java             
+│   └── GameState.java        
+│
+├── view/          
+│   ├── GameView.java         
+│   └── Background.java
+│
+├── controller/    
+│   ├── GameController.java   
+│   └── InputHandler.java     
+│
+├── resources/     # Cartella per le risorse
+│   ├── images/    # Sottocartella per le immagini
+│   │   └── background.png  # Immagine di sfondo
+│   ├── sounds/    # Sottocartella per i suoni
+│   └── fonts/     # Sottocartella per i font
+│
+└── Main.java
