@@ -15,6 +15,7 @@ public class GameView extends JPanel implements GameViewInterface {
     private final PuyoRenderer renderer;
     // private final Grid grid; 
 
+    //questo metodo fede
     public GameView() {
         background = new BackGround("Scan10008.JPG");
         this.renderer = new PuyoRenderer(); 

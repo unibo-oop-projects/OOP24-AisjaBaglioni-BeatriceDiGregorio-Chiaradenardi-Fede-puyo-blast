@@ -1,5 +1,8 @@
 //FEDE
 //tiene traccia dello stato generale del gioco(punteggio, livello corrente, ecc..)
+//Aggiornare questa classe ogni volta che il punteggio cambia o si verifica un evento importante (es. fine del livello, pausa).
+
+
 
 // Questa classe terrà traccia di:
 /*
