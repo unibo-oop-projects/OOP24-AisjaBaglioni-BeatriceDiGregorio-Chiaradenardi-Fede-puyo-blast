@@ -1,5 +1,8 @@
+//FEDE
+
 package it.unibo.model;
 
+import it.unibo.model.interfaces.GridInterface;
 import it.unibo.model.interfaces.PuyoInterface;
 
 public class Puyo implements PuyoInterface {
@@ -8,6 +11,7 @@ public class Puyo implements PuyoInterface {
     private int y;
     private boolean isFalling;
 
+    // Costruttore
     public Puyo(String color, int x, int y) {
         this.color = color;
         this.x = x;
@@ -58,14 +62,15 @@ public class Puyo implements PuyoInterface {
     @Override
     public void moveDown() {
         if (isFalling) {
-            y += 1;
+            y += 1; // Incrementa la posizione verticale
         }
     }
 
     @Override
-    public boolean checkCollision(PuyoInterface[][] grid) {
-        if (y + 1 >= grid.length || grid[y + 1][x] != null) {
-            isFalling = false;
+    public boolean checkCollision(GridInterface grid) {
+        // Controlla se il Puyo ha raggiunto il fondo o se c'è un altro Puyo sotto
+        if (!grid.isValidPosition(x, y + 1) || grid.getPuyo(x, y + 1) != null) {
+            isFalling = false; // Ferma il movimento del Puyo
             return true;
         }
         return false;
@@ -77,10 +82,14 @@ public class Puyo implements PuyoInterface {
     }
 
     @Override
-    public void updateGrid(PuyoInterface[][] grid) {
-        grid[y][x] = null;
-        if (isFalling) {
-            grid[y + 1][x] = this;
+    public void updateGrid(GridInterface grid) {
+        // Rimuovi il Puyo dalla posizione corrente nella griglia
+        grid.removePuyo(x, y);
+
+        // Se il Puyo è in caduta, aggiornalo nella nuova posizione
+        if (isFalling && grid.isValidPosition(x, y + 1)) {
+            y += 1; // Aggiorna la posizione del Puyo
+            grid.addPuyo(this, x, y);
         }
     }
 }
