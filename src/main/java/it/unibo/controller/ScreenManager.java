@@ -1,9 +1,12 @@
 //chiara
 package it.unibo.controller;
 
+import it.unibo.model.Grid;
 import it.unibo.model.Menu;
+import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
+import java.util.List;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +31,11 @@ public class ScreenManager {
 
         //configura i listener per la schermata regole/comandi
         setupRulesListeners();
+
+        //Grid grid = new Grid(12, 6);  // Griglia 12x6
+        //List<Puyo> puyos = grid.getPuyos();  // Ottieni i Puyo dalla griglia
+        GameView gameView = new GameView();
+
     }
 
     private void setupMenuListeners() {
