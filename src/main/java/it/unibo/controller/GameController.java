@@ -12,8 +12,9 @@ package it.unibo.controller;
 
 
 import it.unibo.model.GameState;
+import it.unibo.controller.interfaces.GameControllerInterface;
 
-public class GameController {
+public class GameController implements GameControllerInterface {
     private GameState gameState;
 
     public GameController(GameState gameState) {
