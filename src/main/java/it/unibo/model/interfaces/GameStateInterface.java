@@ -59,6 +59,6 @@ public interface GameStateInterface {
     /**
      * Resetta lo stato del gioco.
      */
-    void resertGame();
+    void resetGame();
 }
 
