@@ -1,12 +1,13 @@
 //chiara
 package it.unibo.controller;
 
+import it.unibo.controller.interfaces.PuyoDropperInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
 import java.util.Random;
 
-public class PuyoDropper {
+public class PuyoDropper implements PuyoDropperInterface{
     private final Grid grid;
     private final GameView gameView;
     private final Random random;
@@ -38,7 +39,8 @@ public class PuyoDropper {
     }
 
     //trova la prima posizione disponibile in una colonna a partire dalla riga più bassa
-    private int findAvailableYPosition(int x) {
+    @Override
+    public int findAvailableYPosition(int x) {
         for (int y = grid.getRows() - 1; y >= 0; y--) { //controlla dalla riga più bassa
             if (grid.getPuyo(x, y) == null) {
                 return y; //restituisce la prima riga vuota (dall'alto verso il basso)
@@ -48,7 +50,8 @@ public class PuyoDropper {
     }
 
     //logica di caduta del Puyo
-    private void dropPuyo(Puyo puyo) {
+    @Override
+    public void dropPuyo(Puyo puyo) {
         int posY = puyo.getY(); //posizione iniziale del Puyo
         boolean isFalling = true;
 

@@ -1,6 +1,7 @@
 //chiara
 package it.unibo.controller;
 
+import it.unibo.controller.interfaces.ScreenManagerInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Menu;
 import it.unibo.model.Puyo;
@@ -10,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class ScreenManager {
+public class ScreenManager implements ScreenManagerInterface{
     private final JFrame frame;
     private final Menu menuView;
     private final MenuRules rulesView;
@@ -71,26 +72,30 @@ public class ScreenManager {
         });
     }
 
+    @Override
     public void start() {
         frame.add(menuView);
         frame.setVisible(true);
     }
 
-    private void switchToMenuView() {
+    @Override
+    public void switchToMenuView() {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(menuView);
         frame.revalidate();
         frame.repaint();
     }
 
-    private void switchToRulesView() {
+    @Override
+    public void switchToRulesView() {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(rulesView);
         frame.revalidate();
         frame.repaint();
     }
 
-    private void switchToGameView() {
+    @Override
+    public void switchToGameView() {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(gameView);
         frame.revalidate();
@@ -98,7 +103,8 @@ public class ScreenManager {
         gameView.startGame();
     }
 
-    private void showLevelPopup(String level) {
+    @Override
+    public void showLevelPopup(String level) {
         JDialog levelDialog = new JDialog(frame, "Livello Selezionato", true);
         levelDialog.setLayout(new BorderLayout());
         levelDialog.setSize(450, 250);
