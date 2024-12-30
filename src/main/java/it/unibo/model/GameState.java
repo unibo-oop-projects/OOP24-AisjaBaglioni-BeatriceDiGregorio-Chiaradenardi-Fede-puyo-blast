@@ -45,24 +45,36 @@ public class GameState implements GameStateInterface {
         return level;
     }
 
-    //
+    //incrementa il livello
     public void nextLevel() {
         this.level++;
     }
 
+    //controlla se il gioco è in pausa
     public boolean isPaused() {
         return isPaused;
     }
 
+    //metodo per mettere in pausa il gioco
     public void togglePause() {
         this.isPaused = !this.isPaused;
     }
 
+    //controlla se il gioco è finito
     public boolean isGameOver() {
         return isGameOver;
     }
 
+    //metodo per impostare il gioco come finito
     public void setGameOver(boolean isGameOver) {
         this.isGameOver = isGameOver;
+    }
+
+    //resetta lo stato del gioco (restart/nuova partita)
+    public void resetGame(){
+        this.score = 0;
+        this.level = 1;
+        this.isPaused = false;
+        this.isGameOver = false;
     }
 }

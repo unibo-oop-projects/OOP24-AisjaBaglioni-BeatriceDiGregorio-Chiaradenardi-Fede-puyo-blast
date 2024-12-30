@@ -55,5 +55,10 @@ public interface GameStateInterface {
      * @param isGameOver true per indicare che il gioco è terminato, false altrimenti
      */
     void setGameOver(boolean isGameOver);
+
+    /**
+     * Resetta lo stato del gioco.
+     */
+    void resertGame();
 }
 
