@@ -3,10 +3,12 @@ package it.unibo.controller;
 
 import it.unibo.model.Grid;
 import it.unibo.model.Menu;
+import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class ScreenManager {
     private final JFrame frame;
@@ -15,22 +17,31 @@ public class ScreenManager {
     private final GameView gameView;
 
     public ScreenManager(String[] levels) {
-        this.frame = new JFrame("Puyo Pop");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(800, 600);
-    
-        Grid grid = new Grid(12, 6);  // Griglia 12x6
-        this.gameView = new GameView(grid); // Assegna direttamente al campo di istanza
-    
-        this.menuView = new Menu(levels);
-        this.rulesView = new MenuRules();
-    
-        // Configura i listener per il menu
-        setupMenuListeners();
-    
-        // Configura i listener per la schermata regole/comandi
-        setupRulesListeners();
+    this.frame = new JFrame("Puyo Pop");
+    this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    this.frame.setSize(800, 600);
+
+    Grid grid = new Grid(12, 6);  // Griglia 12x6
+
+    //popola la griglia con Puyo di esempio
+    String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"};
+    Random random = new Random();
+    for (int y = 0; y < grid.getRows(); y++) {
+        for (int x = 0; x < grid.getCols(); x++) {
+            String randomColor = colors[random.nextInt(colors.length)];
+            grid.addPuyo(new Puyo(randomColor, x, y), x, y);
+        }
     }
+
+    this.menuView = new Menu(levels);
+    this.rulesView = new MenuRules();
+    this.gameView = new GameView(grid);
+
+    //configura i listener
+    setupMenuListeners();
+    setupRulesListeners();
+}
+
     
 
     private void setupMenuListeners() {
