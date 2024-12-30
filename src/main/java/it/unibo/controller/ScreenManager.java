@@ -25,22 +25,27 @@ public class ScreenManager implements ScreenManagerInterface{
         this.frame = new JFrame("Puyo Pop");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(800, 600);
-
+    
         grid = new Grid(6, 6); 
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.gameView = new GameView(grid);
-
+    
         puyoDropper = new PuyoDropper(grid, gameView); 
-
+    
         setupMenuListeners();
         setupRulesListeners();
-        //inizializza la griglia con 2 righe di Puyo
         initializeGrid();
-        //timer per la caduta dei Puyo (1 secondi per un Puyo che cade)
-        dropTimer = new Timer(1000, e -> puyoDropper.spawnAndDropPuyo());
-        dropTimer.start(); // Avvia il timer
+    
+        //ritardo iniziale di 3 secondi prima di avviare il timer dei Puyo
+        Timer initialDelayTimer = new Timer(2000, e -> {
+            dropTimer = new Timer(1000, event -> puyoDropper.spawnAndDropPuyo());
+            dropTimer.start();
+        });
+        initialDelayTimer.setRepeats(false); //non ripetere il timer
+        initialDelayTimer.start(); //avvia il timer per il ritardo iniziale
     }
+    
 
     //metodo per inizializzare le due righe di Puyo
     private void initializeGrid() {
