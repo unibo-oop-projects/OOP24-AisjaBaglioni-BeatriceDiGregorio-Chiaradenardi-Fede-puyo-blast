@@ -5,6 +5,9 @@ import it.unibo.controller.interfaces.PuyoDropperInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PuyoDropper implements PuyoDropperInterface{
@@ -12,11 +15,13 @@ public class PuyoDropper implements PuyoDropperInterface{
     private final GameView gameView;
     private final Random random;
     private final String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"};
+    private final List<Puyo> puyosInGame; //per memorizzare i Puyo nella griglia
     
     public PuyoDropper(Grid grid, GameView gameView) {
         this.grid = grid;
         this.gameView = gameView;
         this.random = new Random();
+        this.puyosInGame = new ArrayList<>();
     }
 
     //metodo per generare un Puyo casuale e farlo cadere
@@ -32,6 +37,7 @@ public class PuyoDropper implements PuyoDropperInterface{
             //aggiungi il Puyo nella posizione trovata
             Puyo puyo = new Puyo(randomColor, startX, startY);
             grid.addPuyo(puyo, startX, startY);
+            puyosInGame.add(puyo); // Memorizza il Puyo in una lista
 
             //avvia il movimento del Puyo che cade in un nuovo thread
             new Thread(() -> dropPuyo(puyo)).start();
@@ -59,7 +65,7 @@ public class PuyoDropper implements PuyoDropperInterface{
             if (posY < grid.getRows() - 1) {
                 //verifica se la cella sotto è vuota
                 if (grid.getPuyo(puyo.getX(), posY + 1) == null) {
-                    grid.removePuyo(puyo.getX(), posY); //rimuove il Puyo dalla posizione precedente
+                    grid.removePuyo(puyo.getX(), posY); //rimuove il Puyo dalla posizione precedente (per simulare movimento)
                     posY++; 
                     puyo.setY(posY); //aggiorna la posizione Y
                     grid.addPuyo(puyo, puyo.getX(), posY); //aggiungi il Puyo nella nuova posizione
@@ -79,5 +85,10 @@ public class PuyoDropper implements PuyoDropperInterface{
                 isFalling = false;
             }
         }
+    }
+
+    //metodo per ottenere la lista di Puyo memorizzati nella griglia
+    public List<Puyo> getPuyosInGame() {
+        return puyosInGame;
     }
 }
