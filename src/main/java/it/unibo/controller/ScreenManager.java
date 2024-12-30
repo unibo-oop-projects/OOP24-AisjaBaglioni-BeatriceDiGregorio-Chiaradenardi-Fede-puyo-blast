@@ -1,4 +1,3 @@
-//chiara
 package it.unibo.controller;
 
 import it.unibo.model.Grid;
@@ -17,39 +16,39 @@ public class ScreenManager {
     private final GameView gameView;
 
     public ScreenManager(String[] levels) {
-    this.frame = new JFrame("Puyo Pop");
-    this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.frame.setSize(800, 600);
+        this.frame = new JFrame("Puyo Pop");
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setSize(800, 600);
 
-    Grid grid = new Grid(9, 6);  // Griglia 9x6
+        Grid grid = new Grid(6, 6);  // Griglia 6x6
 
-    //popola la griglia con Puyo di esempio
-    String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"};
-    Random random = new Random();
-    for (int y = 0; y < grid.getRows(); y++) {
-        for (int x = 0; x < grid.getCols(); x++) {
-            String randomColor = colors[random.nextInt(colors.length)];
-            grid.addPuyo(new Puyo(randomColor, x, y), x, y);
+        // Popola solo le ultime due righe con Puyo di esempio
+        String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"};
+        Random random = new Random();
+
+        // Riempie solo le ultime due righe
+        for (int y = 4; y < grid.getRows(); y++) {  // Comincia dalla riga 4 (le ultime due righe)
+            for (int x = 0; x < grid.getCols(); x++) {
+                String randomColor = colors[random.nextInt(colors.length)];
+                grid.addPuyo(new Puyo(randomColor, x, y), x, y);
+            }
         }
+
+        this.menuView = new Menu(levels);
+        this.rulesView = new MenuRules();
+        this.gameView = new GameView(grid);
+
+        // Configura i listener
+        setupMenuListeners();
+        setupRulesListeners();
     }
-
-    this.menuView = new Menu(levels);
-    this.rulesView = new MenuRules();
-    this.gameView = new GameView(grid);
-
-    //configura i listener
-    setupMenuListeners();
-    setupRulesListeners();
-}
-
-    
 
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
-            //popup personalizzato con il livello selezionato
+            // Popup personalizzato con il livello selezionato
             showLevelPopup(selectedLevel);
-            //cambia schermata
+            // Cambia schermata
             switchToGameView();
         });
 
@@ -65,7 +64,7 @@ public class ScreenManager {
     }
 
     public void start() {
-        //schermata iniziale
+        // Schermata iniziale
         frame.add(menuView);
         frame.setVisible(true);
     }
@@ -98,10 +97,10 @@ public class ScreenManager {
         levelDialog.setSize(450, 250);
         levelDialog.setLocationRelativeTo(frame);
         levelDialog.setBackground(new Color(28, 28, 28));
-        levelDialog.setUndecorated(true);  
+        levelDialog.setUndecorated(true);
         JPanel panel = new JPanel();
         panel.setBackground(new Color(50, 50, 50));
-        panel.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 5, true));  
+        panel.setBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 5, true));
         panel.setLayout(new BorderLayout());
         panel.setOpaque(true);
 
