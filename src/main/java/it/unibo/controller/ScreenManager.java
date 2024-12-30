@@ -5,7 +5,6 @@ import it.unibo.model.Menu;
 import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
@@ -20,6 +19,9 @@ public class ScreenManager {
     private Grid grid; // Riferimento alla griglia
     private String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"}; // Colori dei Puyo
     private Random random = new Random(); // Generatore di numeri casuali
+    private boolean isPuyoFalling = false; // Flag per evitare che più di un Puyo cada contemporaneamente
+    private final int dropInterval = 1000; // Intervallo tra i Puyo che cadono (2 secondi)
+    
 
     public ScreenManager(String[] levels) {
         this.frame = new JFrame("Puyo Pop");
@@ -33,12 +35,10 @@ public class ScreenManager {
 
         setupMenuListeners();
         setupRulesListeners();
-
         // Inizializza la griglia con 2 righe di Puyo
         initializeGrid();
-
         // Timer per la caduta dei Puyo (2 secondi per un Puyo che cade)
-        dropTimer = new Timer(2000, e -> spawnAndDropPuyo());
+        dropTimer = new Timer(dropInterval, e -> spawnAndDropPuyo());
         dropTimer.start(); // Avvia il timer
     }
 
@@ -53,21 +53,28 @@ public class ScreenManager {
             }
         }
     }
-
     private void spawnAndDropPuyo() {
+        // Se c'è già un Puyo che sta cadendo, non generiamo un altro
+        if (isPuyoFalling) {
+            return;
+        }
+
         // Genera un nuovo Puyo con un colore casuale
         String randomColor = colors[random.nextInt(colors.length)];
-    
+
         // Trova una colonna dove c'è spazio per far cadere un Puyo
         int startX = random.nextInt(grid.getCols()); // Posizione casuale X
         int startY = findAvailableYPosition(startX); // Trova la Y disponibile per il Puyo nella colonna
-    
+
         if (startY != -1) {
             // Aggiungi il Puyo nella posizione trovata
             Puyo puyo = new Puyo(randomColor, startX, startY);
             grid.addPuyo(puyo, startX, startY);
-            
-            // Avvia il movimento del Puyo che cade
+
+            // Imposta il flag per indicare che un Puyo sta cadendo
+            isPuyoFalling = true;
+
+            // Avvia il movimento del Puyo che cade in un nuovo thread
             new Thread(() -> dropPuyo(puyo)).start();
         }
     }
@@ -85,7 +92,7 @@ public class ScreenManager {
     private void dropPuyo(Puyo puyo) {
         int posY = puyo.getY(); // Posizione iniziale del Puyo
         boolean isFalling = true;
-    
+
         while (isFalling) {
             if (posY < grid.getRows() - 1) {
                 // Verifica se la cella sotto è vuota
@@ -94,10 +101,10 @@ public class ScreenManager {
                     posY++; // Incrementa la posizione Y
                     puyo.setY(posY); // Aggiorna la posizione Y
                     grid.addPuyo(puyo, puyo.getX(), posY); // Aggiungi il Puyo nella nuova posizione
-                    gameView.repaint();  // Rende la visualizzazione aggiornata
-    
+                    gameView.repaint(); // Rende la visualizzazione aggiornata
+
                     try {
-                        Thread.sleep(300); // Ritardo per l'animazione (300 ms per ogni passo)
+                        Thread.sleep(150); // Ritardo per l'animazione (abbiamo ridotto a 150 ms per accelerare la caduta)
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -110,10 +117,11 @@ public class ScreenManager {
                 isFalling = false;
             }
         }
+
+        // Quando la caduta è terminata, resettiamo il flag
+        isPuyoFalling = false;
     }
     
-    
-                    
     
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
