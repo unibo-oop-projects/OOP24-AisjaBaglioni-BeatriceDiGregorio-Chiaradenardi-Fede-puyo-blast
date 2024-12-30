@@ -21,7 +21,7 @@ public class ScreenManager {
     this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.frame.setSize(800, 600);
 
-    Grid grid = new Grid(12, 6);  // Griglia 12x6
+    Grid grid = new Grid(9, 6);  // Griglia 9x6
 
     //popola la griglia con Puyo di esempio
     String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"};

@@ -22,7 +22,7 @@ public class GameView extends JPanel implements GameViewInterface {
     public GameView(Grid grid) {
         this.background = new BackGround("Scan10008.JPG");
         this.renderer = new PuyoRenderer(); 
-        this.grid = grid;  // Inizializzazione corretta
+        this.grid = grid;  
     }
     
 
