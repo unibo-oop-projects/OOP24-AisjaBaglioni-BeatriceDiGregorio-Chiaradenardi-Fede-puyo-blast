@@ -20,6 +20,9 @@ public class GameState implements GameStateInterface {
     private boolean isPaused;
     private boolean isGameOver;
 
+    //soglie di punteggio per passare al livello successivo
+    private final int[] levelThresholds = {1000, 2000, 3000, 4000, 5000}; // Esempio
+
     public GameState() {
         this.score = 0;
         this.level = 1;
@@ -27,18 +30,22 @@ public class GameState implements GameStateInterface {
         this.isGameOver = false;
     }
 
+    //getter per il punteggio
     public int getScore() {
         return score;
     }
 
+    //aggiunge punti al punteggio
     public void addScore(int points) {
         this.score += points;
     }
 
+    //getter livello
     public int getLevel() {
         return level;
     }
 
+    //
     public void nextLevel() {
         this.level++;
     }

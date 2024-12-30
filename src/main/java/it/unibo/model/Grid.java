@@ -88,19 +88,7 @@ public class Grid implements GridInterface {
     //aggiorna la griglia facendo cadere i puyos nelle posizioni pù basse disponibili
     @Override
     public void updateGrid() {
-        for (int x = 0; x < cols; x++) {
-            for (int y = rows - 1; y >= 0; y--) {
-                if (grid[y][x] == null) {
-                    for (int k = y - 1; k >= 0; k--) {
-                        if (grid[k][x] != null) {
-                            grid[y][x] = grid[k][x];
-                            grid[k][x] = null;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+        
     }
 
     @Override
