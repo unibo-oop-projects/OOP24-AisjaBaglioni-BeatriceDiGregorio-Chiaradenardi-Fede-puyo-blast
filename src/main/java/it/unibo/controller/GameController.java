@@ -10,6 +10,25 @@
 
 package it.unibo.controller;
 
+
+import it.unibo.model.GameState;
+
 public class GameController {
-    
+    private GameState gameState;
+
+    public GameController(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public void togglePause() {
+        gameState.togglePause();
+        if (gameState.isPaused()) {
+            System.out.println("Game paused");
+            // Blocca il ciclo di gioco
+        } else {
+            System.out.println("Game resumed");
+            // Riprendi il ciclo di gioco
+        }
+    }
 }
+
