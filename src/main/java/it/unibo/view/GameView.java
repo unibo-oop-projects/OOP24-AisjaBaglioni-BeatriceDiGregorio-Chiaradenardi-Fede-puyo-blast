@@ -5,6 +5,9 @@
 //classe con il pannello di gioco avviato
 package it.unibo.view;
 
+import it.unibo.model.Grid;
+import it.unibo.model.Puyo;
+import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
 
 import javax.swing.*;
@@ -13,41 +16,38 @@ import java.awt.*;
 public class GameView extends JPanel implements GameViewInterface {
     private BackGround background;
     private final PuyoRenderer renderer;
-    // private final Grid grid; 
+    private final Grid grid; 
 
     //questo metodo fede
-    public GameView() {
-        background = new BackGround("Scan10008.JPG");
+    public GameView(Grid grid) {
+        this.background = new BackGround("Scan10008.JPG");
         this.renderer = new PuyoRenderer(); 
-        //this.grid = grid;  
+        this.grid = grid;  // Inizializzazione corretta
     }
+    
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         background.draw(g, getWidth(), getHeight());
 
-        /*
-         * 
-         * //disegna i Puyo dalla griglia
-        List<Puyo> puyos = grid.getPuyos();
-        for (Puyo puyo : puyos) {
-            renderer.render(g, puyo);
-        }
-         */
-    }
-
-    /**
-     * public void updateGame() {
-        // Aggiorna la griglia, ad esempio facendo cadere i Puyo
-        for (Puyo puyo : grid.getPuyos()) {
-            if (puyo.isFalling() && !puyo.checkCollision(grid.getGrid())) {
-                puyo.moveDown();
+        //disegna i Puyo dalla griglia
+        for (int y = 0; y < grid.getRows(); y++) {
+            for (int x = 0; x < grid.getCols(); x++) {
+                PuyoInterface puyo = grid.getPuyo(x, y);
+                if (puyo != null) {
+                    renderer.render(g, (Puyo) puyo);
+                }
             }
         }
-        repaint(); // Richiama paintComponent per aggiornare la grafica
     }
-     */
+
+    //chiara
+    public void updateGame() {
+        grid.updateGrid(); //logica di caduta dei Puyo
+        repaint(); //aggiorna la grafica
+    }
+    
 
     @Override
     public void render(Graphics g, int width, int height) {
@@ -57,12 +57,9 @@ public class GameView extends JPanel implements GameViewInterface {
     @Override
     public void startGame() {
         System.out.println("Game started! ciao belli");
-        // Logica aggiuntiva per avviare il gioco
 
-        /**
-         * // Logica per avviare il gioco
+        //logica per avviare il gioco
         Timer timer = new Timer(500, e -> updateGame());
         timer.start();
-         */
     }
 }

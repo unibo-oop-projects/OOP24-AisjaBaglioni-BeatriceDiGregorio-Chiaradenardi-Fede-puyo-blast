@@ -3,11 +3,8 @@ package it.unibo.controller;
 
 import it.unibo.model.Grid;
 import it.unibo.model.Menu;
-import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
-import java.util.List;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,22 +18,20 @@ public class ScreenManager {
         this.frame = new JFrame("Puyo Pop");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(800, 600);
-
+    
+        Grid grid = new Grid(12, 6);  // Griglia 12x6
+        this.gameView = new GameView(grid); // Assegna direttamente al campo di istanza
+    
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
-        this.gameView = new GameView();
-
-        //configura i listener per il menu
+    
+        // Configura i listener per il menu
         setupMenuListeners();
-
-        //configura i listener per la schermata regole/comandi
+    
+        // Configura i listener per la schermata regole/comandi
         setupRulesListeners();
-
-        //Grid grid = new Grid(12, 6);  // Griglia 12x6
-        //List<Puyo> puyos = grid.getPuyos();  // Ottieni i Puyo dalla griglia
-        GameView gameView = new GameView();
-
     }
+    
 
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
