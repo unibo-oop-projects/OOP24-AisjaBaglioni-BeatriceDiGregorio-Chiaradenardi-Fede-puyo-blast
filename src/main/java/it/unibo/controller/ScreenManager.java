@@ -61,18 +61,18 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.repaint();
         gameView.startGame();
     
-        // Stop qualsiasi Timer precedente
+        //stop qualsiasi Timer precedente
         if (dropTimer != null) {
             dropTimer.stop();
         }
     
-        // Avvia il Timer solo al momento dell'avvio del gioco
+        //avvia il Timer solo al momento dell'avvio del gioco
         dropTimer = new Timer(config.getDelay(), event -> {
             for (int i = 0; i < config.getPuyoCount(); i++) {
                 puyoDropper.spawnAndDropPuyo();
             }
         });
-        dropTimer.setInitialDelay(2000); // Ritardo di 2 secondi prima di iniziare
+        dropTimer.setInitialDelay(2000); //ritardo di 2 secondi prima di iniziare
         dropTimer.start();
     }    
 
@@ -116,7 +116,6 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.repaint();
         currentLevel = ""; //resetta il livello selezionato
 
-        // Ferma il Timer se esiste
         if (dropTimer != null) {
             dropTimer.stop();
         }
@@ -129,7 +128,6 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.revalidate();
         frame.repaint();
 
-        // Ferma il Timer se esiste
         if (dropTimer != null) {
             dropTimer.stop();
         }
