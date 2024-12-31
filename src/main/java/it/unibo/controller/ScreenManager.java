@@ -39,14 +39,6 @@ public class ScreenManager implements ScreenManagerInterface{
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
-    
-        //ritardo iniziale di 3 secondi prima di avviare il timer dei Puyo
-        Timer initialDelayTimer = new Timer(2000, e -> {
-            dropTimer = new Timer(1000, event -> puyoDropper.spawnAndDropPuyo());
-            dropTimer.start();
-        });
-        initialDelayTimer.setRepeats(false); //non ripetere il timer
-        initialDelayTimer.start(); //avvia il timer per il ritardo iniziale
     }
     
 
@@ -69,17 +61,20 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.repaint();
         gameView.startGame();
     
+        // Stop qualsiasi Timer precedente
         if (dropTimer != null) {
             dropTimer.stop();
         }
+    
+        // Avvia il Timer solo al momento dell'avvio del gioco
         dropTimer = new Timer(config.getDelay(), event -> {
             for (int i = 0; i < config.getPuyoCount(); i++) {
                 puyoDropper.spawnAndDropPuyo();
             }
         });
+        dropTimer.setInitialDelay(2000); // Ritardo di 2 secondi prima di iniziare
         dropTimer.start();
-    }
-    
+    }    
 
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
@@ -120,6 +115,11 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.revalidate();
         frame.repaint();
         currentLevel = ""; //resetta il livello selezionato
+
+        // Ferma il Timer se esiste
+        if (dropTimer != null) {
+            dropTimer.stop();
+        }
     }
 
     @Override
@@ -128,6 +128,11 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.getContentPane().add(rulesView);
         frame.revalidate();
         frame.repaint();
+
+        // Ferma il Timer se esiste
+        if (dropTimer != null) {
+            dropTimer.stop();
+        }
     }
 
     @Override
