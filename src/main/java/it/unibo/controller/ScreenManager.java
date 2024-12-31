@@ -20,6 +20,8 @@ public class ScreenManager implements ScreenManagerInterface{
     private Timer dropTimer; //timer per far cadere i Puyo
     private Grid grid; 
     private PuyoDropper puyoDropper; 
+    private String currentLevel = "";
+
 
     public ScreenManager(String[] levels) {
         this.frame = new JFrame("Puyo Pop");
@@ -76,17 +78,24 @@ public class ScreenManager implements ScreenManagerInterface{
             }
         });
         dropTimer.start();
-    } 
+    }
+    
 
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
-            int level = Integer.parseInt(selectedLevel); 
-            LevelManager.LevelConfig config = levelManager.getLevelConfig(level);
-            showLevelPopup(selectedLevel);
-            startGameWithConfig(config);
+            if (!selectedLevel.equals(currentLevel)) {
+                currentLevel = selectedLevel; //aggiorna il livello corrente
+                LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
+                showLevelPopup(selectedLevel); //mostra il popup
+                startGameWithConfig(config);  //avvia il gioco
+            } else {
+                //se il livello è già stato selezionato, avvia direttamente il gioco
+                LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
+                startGameWithConfig(config);
+            }
         });
-
+    
         menuView.getControlsButton().addActionListener(e -> {
             switchToRulesView();
         });
@@ -110,6 +119,7 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.getContentPane().add(menuView);
         frame.revalidate();
         frame.repaint();
+        currentLevel = ""; //resetta il livello selezionato
     }
 
     @Override
