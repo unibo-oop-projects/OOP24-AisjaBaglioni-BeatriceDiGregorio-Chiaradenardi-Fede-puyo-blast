@@ -16,6 +16,10 @@ public class MenuRules extends JPanel {
             "Regole del Gioco:\n" +
             "- Combina almeno 2 Puyo dello stesso colore per eliminarli.\n" +
             "- Usa il cannone per lanciare i Puyo nella griglia.\n\n" +
+            "Difficoltà dei livelli: \n" +
+            "- Livello 1: 1 pallina ogni 3 secondi \n" +
+            "- Livello 2: 2 palline ogni 2 secondi \n" +
+            "- Livello 3: 3 palline ogni secondo \n\n" +
             "Comandi:\n" +
             "- Frecce direzionali dx e sx per spostare il cannone.\n" +
             "- Barra spaziatrice per sparare."

@@ -37,5 +37,10 @@ public class LevelManager {
             return puyoCount;
         }
     }
+
+    public LevelConfig getLevelConfig(int level) {
+        return levels.getOrDefault(level, new LevelConfig(3000, 1)); //default al livello 1
+    }
+    
 }
 

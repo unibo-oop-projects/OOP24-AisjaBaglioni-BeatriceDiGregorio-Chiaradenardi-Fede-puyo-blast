@@ -16,7 +16,7 @@ public class ScreenManager implements ScreenManagerInterface{
     private final Menu menuView;
     private final MenuRules rulesView;
     private final GameView gameView;
-
+    private LevelManager levelManager;
     private Timer dropTimer; //timer per far cadere i Puyo
     private Grid grid; 
     private PuyoDropper puyoDropper; 
@@ -30,8 +30,9 @@ public class ScreenManager implements ScreenManagerInterface{
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.gameView = new GameView(grid);
-    
         puyoDropper = new PuyoDropper(grid, gameView); 
+        this.levelManager = new LevelManager();
+        setupMenuListeners();
     
         setupMenuListeners();
         setupRulesListeners();
@@ -59,11 +60,31 @@ public class ScreenManager implements ScreenManagerInterface{
         }
     }
 
+    private void startGameWithConfig(LevelManager.LevelConfig config) {
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(gameView);
+        frame.revalidate();
+        frame.repaint();
+        gameView.startGame();
+    
+        if (dropTimer != null) {
+            dropTimer.stop();
+        }
+        dropTimer = new Timer(config.getDelay(), event -> {
+            for (int i = 0; i < config.getPuyoCount(); i++) {
+                puyoDropper.spawnAndDropPuyo();
+            }
+        });
+        dropTimer.start();
+    } 
+
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
+            int level = Integer.parseInt(selectedLevel); 
+            LevelManager.LevelConfig config = levelManager.getLevelConfig(level);
             showLevelPopup(selectedLevel);
-            switchToGameView();
+            startGameWithConfig(config);
         });
 
         menuView.getControlsButton().addActionListener(e -> {
