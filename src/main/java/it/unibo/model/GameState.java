@@ -1,6 +1,8 @@
 package it.unibo.model;
 
-public class GameState {
+import it.unibo.model.interfaces.GameStateInterface;
+
+public class GameState implements GameStateInterface {
     private boolean isGameOver = false;
     private final int minScoreForOneStar;
 
