@@ -2,14 +2,11 @@
 
 //pausa: bloccare il movimento dei puyo, sospendere il movimento dei puyo, sospendere il timer o il ciclo di aggiornamento del gioco
 
-
 //Coordina le azioni del gioco, come far cadere i Puyo, gestire esplosioni e aggiornare il punteggio.
-
 
 //bloccare il movimento dei pujo (fede),  Integrare la pausa nel ciclo di aggiornamento del gioco. (fede)
 
 package it.unibo.controller;
-
 
 import it.unibo.model.GameState;
 import it.unibo.model.ScoreModel;
@@ -19,7 +16,7 @@ public class GameController implements GameControllerInterface {
     private GameState gameState;
     private final ScoreModel score;
 
-    public GameController(GameState gameState) {
+    public GameController(GameState gameState, final ScoreModel score) {
         this.gameState = gameState;
         this.score = score;
     }
@@ -37,11 +34,10 @@ public class GameController implements GameControllerInterface {
 
     @Override
     final public void updateGame(final boolean gridIsFull) {
-        if (gameState.isGameOver(score.getScore(), gridIsFull)) {
+        if (gameState.isGameOver()) {
             System.out.println("Game Over!");
             /* Mancano le azioni di fine partita */
 
         }
     }
 }
-
