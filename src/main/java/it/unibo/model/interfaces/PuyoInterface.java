@@ -10,7 +10,7 @@ public interface PuyoInterface {
     boolean isFalling();
     void setFalling(boolean isFalling);
     void moveDown();
-    boolean checkCollision(PuyoInterface[][] grid);
+    boolean checkCollision(GridInterface grid);
     void explode();
-    void updateGrid(PuyoInterface[][] grid);
+    void updateGrid(GridInterface grid);
 }
