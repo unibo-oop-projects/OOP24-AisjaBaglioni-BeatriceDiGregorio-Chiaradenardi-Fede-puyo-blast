@@ -13,4 +13,6 @@ public interface CannonModelInterface {
 
     int getAngle();
 
+    int getY();
+
 }
