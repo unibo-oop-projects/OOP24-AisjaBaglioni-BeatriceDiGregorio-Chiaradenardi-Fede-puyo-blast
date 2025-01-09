@@ -29,6 +29,11 @@ public class CannonModel implements CannonModelInterface {
     }
 
     @Override
+    final public int getY() {
+        return this.y;
+    }
+
+    @Override
     final public void aimUp() {
         if (this.angle < 90) {
             this.angle++;

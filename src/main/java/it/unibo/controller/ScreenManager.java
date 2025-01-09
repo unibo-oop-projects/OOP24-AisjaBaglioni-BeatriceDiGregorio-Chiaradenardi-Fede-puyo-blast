@@ -2,7 +2,6 @@
 package it.unibo.controller;
 
 import it.unibo.controller.interfaces.ScreenManagerInterface;
-import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
 import it.unibo.model.Menu;
 import it.unibo.model.Puyo;
@@ -17,6 +16,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final Menu menuView;
     private final MenuRules rulesView;
     private final GameView gameView;
+    private final CannonController cannon;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -32,6 +32,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.gameView = new GameView(grid);
+        this.cannon = new CannonController(this.gameView.getCannonView());
         puyoDropper = new PuyoDropper(grid, gameView);
         this.levelManager = new LevelManager();
         setupMenuListeners();
@@ -63,7 +64,7 @@ public class ScreenManager implements ScreenManagerInterface {
 
         gameView.startGame();
 
-        configureInputHandlers(gameView);
+        configureInputHandlers();
 
         // stop qualsiasi Timer precedente
         if (dropTimer != null) {
@@ -80,8 +81,8 @@ public class ScreenManager implements ScreenManagerInterface {
         dropTimer.start();
     }
 
-    private void configureInputHandlers(GameView gameView) {
-        InputHandler inputHandler = new InputHandler(new CannonModel(), gameView.getCannonView(), frame.getWidth());
+    private void configureInputHandlers() {
+        InputHandler inputHandler = new InputHandler(this.cannon, this.cannon.getModel());
         gameView.addKeyListener(inputHandler);
         gameView.setFocusable(true);
     }
