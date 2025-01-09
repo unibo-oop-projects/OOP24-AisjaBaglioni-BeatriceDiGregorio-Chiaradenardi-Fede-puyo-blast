@@ -1,64 +1,26 @@
 package it.unibo.model;
 
-import it.unibo.model.interfaces.CannonInterface;
+import it.unibo.model.interfaces.CannonModelInterface;
 
-public class CannonModel implements CannonInterface {
-    private int chargeLevel;
-    private final int maxCharge;
+public class CannonModel implements CannonModelInterface {
     private int x;
     private int y;
+    private int angle;
 
     public CannonModel() {
-        this.chargeLevel = 0;
-        this.maxCharge = 100;
-        this.x = 0;
-        this.y = 0;
-    }
-
-    @Override
-    final public void increaseCharge() {
-        if (this.chargeLevel < this.maxCharge) {
-            this.chargeLevel++;
-        }
-    }
-
-    @Override
-    final public void decreaseCharge() {
-        if (this.chargeLevel > 0) {
-            this.chargeLevel--;
-        }
-    }
-
-    @Override
-    final public int getChargeLevel() {
-        return this.chargeLevel;
-    }
-
-    @Override
-    final public void resetCharge() {
-        this.chargeLevel = 0;
+        this.x = 310;
+        this.y = 200;
+        this.angle = 0;
     }
 
     @Override
     final public void moveLeft() {
-        this.x--;
+        this.x = this.x - 5;
     }
 
     @Override
     final public void moveRight() {
-        this.x++;
-    }
-
-    @Override
-    final public void moveUp() {
-        // limite della y
-        this.y--;
-    }
-
-    @Override
-    final public void moveDown() {
-        // limite della y < 0
-        this.y++;
+        this.x = this.x + 5;
     }
 
     @Override
@@ -67,8 +29,22 @@ public class CannonModel implements CannonInterface {
     }
 
     @Override
-    final public int getY() {
-        return this.y;
+    final public void aimUp() {
+        if (this.angle < 90) {
+            this.angle++;
+        }
+    }
+
+    @Override
+    final public void aimDown() {
+        if (this.angle > -90) {
+            this.angle--;
+        }
+    }
+
+    @Override
+    final public int getAngle() {
+        return this.angle;
     }
 
 }
