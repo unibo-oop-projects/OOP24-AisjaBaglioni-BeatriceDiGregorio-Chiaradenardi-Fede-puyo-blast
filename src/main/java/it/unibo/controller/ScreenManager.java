@@ -2,6 +2,7 @@
 package it.unibo.controller;
 
 import it.unibo.controller.interfaces.ScreenManagerInterface;
+import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
 import it.unibo.model.Menu;
 import it.unibo.model.Puyo;
@@ -11,86 +12,95 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class ScreenManager implements ScreenManagerInterface{
+public class ScreenManager implements ScreenManagerInterface {
     private final JFrame frame;
     private final Menu menuView;
     private final MenuRules rulesView;
     private final GameView gameView;
     private LevelManager levelManager;
-    private Timer dropTimer; //timer per far cadere i Puyo
-    private Grid grid; 
-    private PuyoDropper puyoDropper; 
+    private Timer dropTimer; // timer per far cadere i Puyo
+    private Grid grid;
+    private PuyoDropper puyoDropper;
     private String currentLevel = "";
-
 
     public ScreenManager(String[] levels) {
         this.frame = new JFrame("Puyo Pop");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(800, 600);
-    
-        grid = new Grid(6, 6); 
+
+        grid = new Grid(6, 6);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.gameView = new GameView(grid);
-        puyoDropper = new PuyoDropper(grid, gameView); 
+        puyoDropper = new PuyoDropper(grid, gameView);
         this.levelManager = new LevelManager();
         setupMenuListeners();
-    
+
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
     }
-    
 
-    //metodo per inizializzare le due righe di Puyo
+    // metodo per inizializzare le due righe di Puyo
     private void initializeGrid() {
-        String[] initialColors = {"red", "blue", "green", "yellow", "purple", "cyan"};
-        for (int y = 4; y < 6; y++) { //la griglia ha 6 righe (0-5), quindi le righe 4 e 5 sono le ultime
+        String[] initialColors = { "red", "blue", "green", "yellow", "purple", "cyan" };
+        for (int y = 4; y < 6; y++) { // la griglia ha 6 righe (0-5), quindi le righe 4 e 5 sono le ultime
             for (int x = 0; x < grid.getCols(); x++) {
                 String randomColor = initialColors[new Random().nextInt(initialColors.length)];
                 Puyo puyo = new Puyo(randomColor, x, y);
-                grid.addPuyo(puyo, x, y); //posiziona un Puyo nelle righe 4 e 5
+                grid.addPuyo(puyo, x, y); // posiziona un Puyo nelle righe 4 e 5
             }
         }
     }
 
     private void startGameWithConfig(LevelManager.LevelConfig config) {
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(gameView);
-        frame.revalidate();
-        frame.repaint();
+
+        frame.getContentPane().add(gameView, BorderLayout.CENTER);
+
+        frame.getContentPane().revalidate();
+        frame.getContentPane().repaint();
+
         gameView.startGame();
-    
-        //stop qualsiasi Timer precedente
+
+        configureInputHandlers(gameView);
+
+        // stop qualsiasi Timer precedente
         if (dropTimer != null) {
             dropTimer.stop();
         }
-    
-        //avvia il Timer solo al momento dell'avvio del gioco
+
+        // avvia il Timer solo al momento dell'avvio del gioco
         dropTimer = new Timer(config.getDelay(), event -> {
             for (int i = 0; i < config.getPuyoCount(); i++) {
                 puyoDropper.spawnAndDropPuyo();
             }
         });
-        dropTimer.setInitialDelay(2000); //ritardo di 2 secondi prima di iniziare
+        dropTimer.setInitialDelay(2000); // ritardo di 2 secondi prima di iniziare
         dropTimer.start();
-    }    
+    }
+
+    private void configureInputHandlers(GameView gameView) {
+        InputHandler inputHandler = new InputHandler(new CannonModel(), gameView.getCannonView(), frame.getWidth());
+        gameView.addKeyListener(inputHandler);
+        gameView.setFocusable(true);
+    }
 
     private void setupMenuListeners() {
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
             if (!selectedLevel.equals(currentLevel)) {
-                currentLevel = selectedLevel; //aggiorna il livello corrente
+                currentLevel = selectedLevel; // aggiorna il livello corrente
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
-                showLevelPopup(selectedLevel); //mostra il popup
-                startGameWithConfig(config);  //avvia il gioco
+                showLevelPopup(selectedLevel); // mostra il popup
+                startGameWithConfig(config); // avvia il gioco
             } else {
-                //se il livello è già stato selezionato, avvia direttamente il gioco
+                // se il livello è già stato selezionato, avvia direttamente il gioco
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
                 startGameWithConfig(config);
             }
         });
-    
+
         menuView.getControlsButton().addActionListener(e -> {
             switchToRulesView();
         });
@@ -114,7 +124,7 @@ public class ScreenManager implements ScreenManagerInterface{
         frame.getContentPane().add(menuView);
         frame.revalidate();
         frame.repaint();
-        currentLevel = ""; //resetta il livello selezionato
+        currentLevel = ""; // resetta il livello selezionato
 
         if (dropTimer != null) {
             dropTimer.stop();
@@ -156,7 +166,10 @@ public class ScreenManager implements ScreenManagerInterface{
         panel.setLayout(new BorderLayout());
         panel.setOpaque(true);
 
-        JLabel levelMessage = new JLabel("<html><div style='text-align: center;'>Hai selezionato il livello:<br><span style='color: #FF3C00; font-size: 24px; font-weight: bold;'>" + level + "</span></div></html>", JLabel.CENTER);
+        JLabel levelMessage = new JLabel(
+                "<html><div style='text-align: center;'>Hai selezionato il livello:<br><span style='color: #FF3C00; font-size: 24px; font-weight: bold;'>"
+                        + level + "</span></div></html>",
+                JLabel.CENTER);
         levelMessage.setFont(new Font("Roboto", Font.PLAIN, 18));
         levelMessage.setForeground(Color.WHITE);
 
