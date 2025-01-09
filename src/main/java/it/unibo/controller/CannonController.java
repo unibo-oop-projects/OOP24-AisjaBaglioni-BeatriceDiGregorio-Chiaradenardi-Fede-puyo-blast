@@ -8,18 +8,27 @@ public class CannonController {
     private final CannonView cannonView;
     private final InputHandler inputHandler;
 
-    public CannonController(CannonModel model, CannonView view, int windowWidth) {
-        this.cannonModel = model;
+    public CannonController(CannonView view) {
+        this.cannonModel = new CannonModel();
         this.cannonView = view;
-        this.inputHandler = new InputHandler(model, view, windowWidth);
+        this.inputHandler = new InputHandler(this, cannonModel);
     }
 
     public CannonModel getModel() {
-        return cannonModel;
+        return this.cannonModel;
+    }
+
+    public CannonView getView(){
+        return this.cannonView;
     }
 
     public InputHandler getInputHandler() {
-        return inputHandler;
+        return this.inputHandler;
+    }
+
+    // Metodo per aggiornare l'angolo del cannone
+    public void updateCannonAngle(final int angle) {
+        // logica per aggiornare la rotazione dell'immagine
     }
 
 }
