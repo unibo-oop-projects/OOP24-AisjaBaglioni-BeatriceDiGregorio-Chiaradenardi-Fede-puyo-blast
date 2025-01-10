@@ -11,6 +11,7 @@ public class CannonController {
     public CannonController(CannonView view) {
         this.cannonModel = new CannonModel();
         this.cannonView = view;
+        this.cannonView.setCannonPosition(350, 450);
         this.inputHandler = new InputHandler(this, cannonModel);
     }
 
@@ -24,6 +25,15 @@ public class CannonController {
 
     public InputHandler getInputHandler() {
         return this.inputHandler;
+    }
+
+    // Metodo per aggiornare la posizione del cannone
+    public void updateCannonPosition() {
+        int newX = cannonModel.getX();
+        int newY = cannonModel.getY();
+
+        cannonView.setCannonPosition(newX, newY);
+
     }
 
     // Metodo per aggiornare l'angolo del cannone
