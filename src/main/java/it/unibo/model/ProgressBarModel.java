@@ -4,25 +4,9 @@ import it.unibo.model.interfaces.ProgressBarModelInterface;
 
 public class ProgressBarModel implements ProgressBarModelInterface {
     private int chargeLevel;
-    private final int maxCharge;
 
     public ProgressBarModel() {
         this.chargeLevel = 0;
-        this.maxCharge = 100;
-    }
-
-    @Override
-    final public void increaseCharge() {
-        if (this.chargeLevel < this.maxCharge) {
-            this.chargeLevel++;
-        }
-    }
-
-    @Override
-    final public void decreaseCharge() {
-        if (this.chargeLevel > 0) {
-            this.chargeLevel--;
-        }
     }
 
     @Override
@@ -33,5 +17,26 @@ public class ProgressBarModel implements ProgressBarModelInterface {
     @Override
     final public void resetCharge() {
         this.chargeLevel = 0;
+    }
+
+    @Override
+    final public int getProgress() {
+        return this.chargeLevel;
+    }
+
+    @Override
+    final public void setProgress(int chargeLevel) {
+        if (chargeLevel < 0) {
+            this.chargeLevel = 0;
+        } else if (chargeLevel > 100) {
+            this.chargeLevel = 100;
+        } else {
+            this.chargeLevel = chargeLevel;
+        }
+    }
+
+    @Override
+    final public void incrementProgress(int increment) {
+        setProgress(this.chargeLevel + increment);
     }
 }
