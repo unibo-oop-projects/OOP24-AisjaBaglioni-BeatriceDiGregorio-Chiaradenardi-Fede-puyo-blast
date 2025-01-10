@@ -36,12 +36,12 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
             case KeyEvent.VK_SPACE -> System.out.println("Cannon fired!");
             case KeyEvent.VK_UP -> {
                 model.aimUp();
-                controller.updateCannonAngle(model.getAngle());
+                controller.updateCannonAngle();
                 System.out.println("Cannon aimed up. Current angle: " + model.getAngle());
             }
             case KeyEvent.VK_DOWN -> {
                 model.aimDown();
-                controller.updateCannonAngle(model.getAngle());
+                controller.updateCannonAngle();
                 System.out.println("Cannon aimed down. Current angle: " + model.getAngle());
             }
             default -> {
