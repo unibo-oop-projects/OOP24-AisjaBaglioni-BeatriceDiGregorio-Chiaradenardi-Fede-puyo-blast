@@ -37,8 +37,10 @@ public class CannonController {
     }
 
     // Metodo per aggiornare l'angolo del cannone
-    public void updateCannonAngle(final int angle) {
-        // logica per aggiornare la rotazione dell'immagine
+    public void updateCannonAngle() {
+        int newAngle = cannonModel.getAngle();
+
+        cannonView.setCannonAngle(newAngle);
     }
 
 }
