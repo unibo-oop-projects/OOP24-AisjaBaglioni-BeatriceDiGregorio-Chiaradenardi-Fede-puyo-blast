@@ -6,13 +6,11 @@ import it.unibo.view.CannonView;
 public class CannonController {
     private final CannonModel cannonModel;
     private final CannonView cannonView;
-    private final InputHandler inputHandler;
 
     public CannonController(CannonView view) {
         this.cannonModel = new CannonModel();
         this.cannonView = view;
-        this.cannonView.setCannonPosition(350, 450);
-        this.inputHandler = new InputHandler(this, cannonModel);
+        this.cannonView.setCannonPosition(350, 425);
     }
 
     public CannonModel getModel() {
@@ -21,10 +19,6 @@ public class CannonController {
 
     public CannonView getView(){
         return this.cannonView;
-    }
-
-    public InputHandler getInputHandler() {
-        return this.inputHandler;
     }
 
     // Metodo per aggiornare la posizione del cannone
