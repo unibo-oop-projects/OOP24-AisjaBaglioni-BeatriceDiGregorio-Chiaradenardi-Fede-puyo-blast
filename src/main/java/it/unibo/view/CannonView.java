@@ -9,6 +9,8 @@ public class CannonView extends JPanel {
     private  Image cannonImage;
     private  int cannonWidth;
     private  int cannonHeight;
+    private int cannonX;
+    private int cannonY;
 
 
     public CannonView(final String imagePath) {
@@ -23,10 +25,18 @@ public class CannonView extends JPanel {
         this.cannonImage = new ImageIcon(imageUrl).getImage();
         this.cannonHeight = cannonImage.getWidth(null);
         this.cannonWidth = cannonImage.getHeight(null);
+        this.cannonX = 0;
+        this.cannonY = 0;
     }  
 
-    public final void draw(final Graphics g, final int x, final int y) {
-        g.drawImage(cannonImage, x, y, null );
+    public final void draw(final Graphics g) {
+        g.drawImage(cannonImage, cannonX, cannonY, null );
+    }
+
+    public void setCannonPosition(int newX, int newY){
+        this.cannonX = newX; 
+        this.cannonY = newY;
+
     }
 
     // Metodo per ottenere la larghezza del cannone
