@@ -31,8 +31,9 @@ public class GameView extends JPanel implements GameViewInterface {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         background.draw(g, getWidth(), getHeight());
-        cannonView.draw(g, 350, 450);
+        cannonView.draw(g);
 
 
         //disegna i Puyo dalla griglia
