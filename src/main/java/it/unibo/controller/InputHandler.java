@@ -9,10 +9,13 @@ import java.awt.event.KeyListener;
 public class InputHandler implements InputHandlerInterface, KeyListener {
     private final CannonModel model;
     private final CannonController controller;
+    private final ProgressBarController progressBarController;
 
-    public InputHandler(CannonController controller, CannonModel model) {
+    public InputHandler(CannonController controller, CannonModel model, ProgressBarController progressBarController) {
         this.controller = controller;
         this.model = model;
+        this.progressBarController = progressBarController;
+
     }
 
     // Metodo per gestire l'input da tastiera
@@ -27,13 +30,17 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
                 }
             }
             case KeyEvent.VK_RIGHT -> {
-                if( model.getX() + 5 <= 700){ 
+                if (model.getX() + 5 <= 700) {
                     model.moveRight();
                     controller.updateCannonPosition();
                     System.out.println("Cannon moved right. Current position: " + model.getX());
                 }
             }
-            case KeyEvent.VK_SPACE -> System.out.println("Cannon fired!");
+            case KeyEvent.VK_SPACE -> {
+                progressBarController.resetProgressBar();
+                progressBarController.startProgress();
+                System.out.println("Cannon fired!");
+            }
             case KeyEvent.VK_UP -> {
                 model.aimUp();
                 controller.updateCannonAngle();
@@ -58,6 +65,5 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
     public void keyTyped(KeyEvent e) {
         // Non utilizzato in questo esempio
     }
-
 
 }
