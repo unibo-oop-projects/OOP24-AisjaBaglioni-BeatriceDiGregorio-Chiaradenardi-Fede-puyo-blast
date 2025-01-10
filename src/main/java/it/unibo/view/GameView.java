@@ -18,12 +18,14 @@ public class GameView extends JPanel implements GameViewInterface {
     private final PuyoRenderer renderer;
     private final Grid grid; 
     private final CannonView cannonView;
+    private final ProgressBarView progressBarView;
 
     //questo metodo fede
     public GameView(Grid grid) {
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(); 
         this.cannonView = new CannonView("CannonImage.png");
+        this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarEmpty.png");
         this.grid = grid;  
     }
     
@@ -34,6 +36,7 @@ public class GameView extends JPanel implements GameViewInterface {
 
         background.draw(g, getWidth(), getHeight());
         cannonView.draw(g);
+        progressBarView.paintComponent(g);
 
 
         //disegna i Puyo dalla griglia
@@ -50,12 +53,15 @@ public class GameView extends JPanel implements GameViewInterface {
     //chiara
     public void updateGame() {
         grid.updateGrid(); //logica di caduta dei Puyo
-        //aggiumgi il redrow del cannone
         repaint(); //aggiorna la grafica
     }
 
     public CannonView getCannonView(){
         return this.cannonView;
+    }
+
+    public ProgressBarView getProgressBarView() {
+        return this.progressBarView;
     }
     
 
