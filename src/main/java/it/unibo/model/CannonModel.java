@@ -8,8 +8,8 @@ public class CannonModel implements CannonModelInterface {
     private int angle;
 
     public CannonModel() {
-        this.x = 310;
-        this.y = 200;
+        this.x = 350;
+        this.y = 450;
         this.angle = 0;
     }
 
