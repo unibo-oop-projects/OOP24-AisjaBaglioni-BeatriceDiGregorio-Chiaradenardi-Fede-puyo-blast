@@ -22,12 +22,14 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
             case KeyEvent.VK_LEFT -> {
                 if (model.getX() - 5 >= 0) {
                     model.moveLeft();
+                    controller.updateCannonPosition();
                     System.out.println("Cannon moved left. Current position: " + model.getX());
                 }
             }
             case KeyEvent.VK_RIGHT -> {
-                if( model.getX() + 5 <= 750){ 
+                if( model.getX() + 5 <= 700){ 
                     model.moveRight();
+                    controller.updateCannonPosition();
                     System.out.println("Cannon moved right. Current position: " + model.getX());
                 }
             }
