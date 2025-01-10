@@ -9,7 +9,7 @@ public class CannonModel implements CannonModelInterface {
 
     public CannonModel() {
         this.x = 350;
-        this.y = 450;
+        this.y = 425;
         this.angle = 0;
     }
 

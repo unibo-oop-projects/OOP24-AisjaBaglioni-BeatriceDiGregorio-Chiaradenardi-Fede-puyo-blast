@@ -42,7 +42,7 @@ public class CannonView extends JPanel {
     public final void updateImage() {
         String imagePath = "";
 
-        if (this.Angle >= 0 && this.Angle <= 10) {
+        if (this.Angle <= 10) {
             imagePath = angleImages[0];
         } else if (this.Angle >= 11 && this.Angle <= 20) {
             imagePath = angleImages[1];
