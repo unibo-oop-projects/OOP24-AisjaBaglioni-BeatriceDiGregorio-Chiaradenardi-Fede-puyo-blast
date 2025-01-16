@@ -14,7 +14,7 @@ public class PuyoDropper implements PuyoDropperInterface{
     private final Grid grid;
     private final GameView gameView;
     private final Random random;
-    private final String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan"};
+    private final String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan", "pink"};
     private final List<Puyo> puyosInGame; //per memorizzare i Puyo nella griglia
     
     public PuyoDropper(Grid grid, GameView gameView) {

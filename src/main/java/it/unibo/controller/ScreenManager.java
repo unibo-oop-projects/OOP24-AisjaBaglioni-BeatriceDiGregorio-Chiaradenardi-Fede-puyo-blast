@@ -29,7 +29,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(800, 600);
 
-        grid = new Grid(6, 6);
+        grid = new Grid(8, 8);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.gameView = new GameView(grid);

@@ -4,8 +4,10 @@ package it.unibo.model;
 
 import it.unibo.model.interfaces.GridInterface;
 import it.unibo.model.interfaces.PuyoInterface;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Puyo implements PuyoInterface {
+    private long identifier;
     private String color;
     private int x;
     private int y;
@@ -16,7 +18,12 @@ public class Puyo implements PuyoInterface {
         this.color = color;
         this.x = x;
         this.y = y;
+        this.identifier = Math.abs(ThreadLocalRandom.current().nextLong());
         this.isFalling = true;
+    }
+
+    public long getIdentifier() {
+        return identifier;
     }
 
     @Override
