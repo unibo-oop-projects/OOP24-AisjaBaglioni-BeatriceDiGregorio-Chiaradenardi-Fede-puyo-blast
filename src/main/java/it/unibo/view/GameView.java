@@ -7,6 +7,7 @@ package it.unibo.view;
 
 import it.unibo.model.Grid;
 import it.unibo.model.Puyo;
+import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
 
@@ -19,21 +20,22 @@ public class GameView extends JPanel implements GameViewInterface {
     private final Grid grid; 
     private final CannonView cannonView;
     private final ProgressBarView progressBarView;
-
+    private Scale scale;
+    
     //questo metodo fede
-    public GameView(Grid grid) {
+    public GameView(Grid grid, Scale scale) {
+        this.scale = scale;
         this.background = new BackGround("background.jpg");
-        this.renderer = new PuyoRenderer(); 
-        this.cannonView = new CannonView("CannonImage.png");
+        this.renderer = new PuyoRenderer(this.scale); 
+        this.cannonView = new CannonView("CannonImage.png", scale);
         this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarEmpty.png");
-        this.grid = grid;  
+        this.grid = grid;
     }
     
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         background.draw(g, getWidth(), getHeight());
         cannonView.draw(g);
         progressBarView.paintComponent(g);

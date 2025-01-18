@@ -1,6 +1,9 @@
 package it.unibo.view;
 
 import javax.swing.*;
+
+import it.unibo.model.Scale;
+
 import java.awt.*;
 import java.net.URL;
 
@@ -12,6 +15,7 @@ public class CannonView extends JPanel {
     private int cannonX;
     private int cannonY;
     private int Angle;
+    private Scale scale;
 
     // Immagini per i diversi angoli
     private final String[] angleImages = {
@@ -22,8 +26,8 @@ public class CannonView extends JPanel {
             "CannonImage4.png" // per angoli da 41 in poi
     };
 
-    public CannonView(final String imagePath) {
-
+    public CannonView(final String imagePath, Scale scale) {
+        this.scale = scale;
         final URL imageUrl = getClass().getClassLoader().getResource("images/" + imagePath);
 
         if (imageUrl == null) {
@@ -74,7 +78,6 @@ public class CannonView extends JPanel {
     public void setCannonPosition(int newX, int newY) {
         this.cannonX = newX;
         this.cannonY = newY;
-
     }
 
     public void setCannonAngle(int newAngle) {

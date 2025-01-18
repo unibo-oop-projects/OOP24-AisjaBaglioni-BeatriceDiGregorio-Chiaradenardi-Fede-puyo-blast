@@ -5,6 +5,7 @@ import it.unibo.controller.interfaces.ScreenManagerInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Menu;
 import it.unibo.model.Puyo;
+import it.unibo.model.Scale;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import javax.swing.*;
@@ -23,16 +24,26 @@ public class ScreenManager implements ScreenManagerInterface {
     private Grid grid;
     private PuyoDropper puyoDropper;
     private String currentLevel = "";
+    private Scale scale;
+
+
+    //Ottieni scala
+    public Scale getScale(){
+        return this.scale;
+    }
 
     public ScreenManager(String[] levels) {
+        this.scale = new Scale();
         this.frame = new JFrame("Puyo Pop");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setSize(800, 600);
+        this.frame.setSize(scale.getScale(), scale.getScale());
+        this.frame.setResizable(false);
+
 
         grid = new Grid(8, 8);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
-        this.gameView = new GameView(grid);
+        this.gameView = new GameView(grid, scale);
         this.cannon = new CannonController(this.gameView.getCannonView());
         this.progressaBar = new ProgressBarController(this.gameView.getProgressBarView());
         puyoDropper = new PuyoDropper(grid, gameView);
