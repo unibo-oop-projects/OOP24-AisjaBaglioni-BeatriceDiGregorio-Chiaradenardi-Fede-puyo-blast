@@ -1,9 +1,12 @@
 package it.unibo.view;
 
 import javax.swing.*;
+
+import it.unibo.view.interfaces.ProgressBarViewInterface;
+
 import java.awt.*;
 
-public class ProgressBarView extends JPanel {
+public class ProgressBarView extends JPanel implements ProgressBarViewInterface{
 
     private final Image progressBarImage;
     private final Image progressBarFullImage;
@@ -20,6 +23,7 @@ public class ProgressBarView extends JPanel {
         
     }
 
+    @Override
     public void setProgress(int chargeLevel) {
         this.chargeLevel = chargeLevel;
         repaint();
