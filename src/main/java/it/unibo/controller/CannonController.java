@@ -1,9 +1,10 @@
 package it.unibo.controller;
 
+import it.unibo.controller.interfaces.CannonControllerInterface;
 import it.unibo.model.CannonModel;
 import it.unibo.view.CannonView;
 
-public class CannonController {
+public class CannonController implements CannonControllerInterface{
     private final CannonModel cannonModel;
     private final CannonView cannonView;
 
