@@ -1,6 +1,9 @@
 package it.unibo.view;
 
 import javax.swing.*;
+
+import it.unibo.view.interfaces.CannonViewInterface;
+
 import java.awt.*;
 import java.net.URL;
 
