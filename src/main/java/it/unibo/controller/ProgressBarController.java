@@ -1,10 +1,11 @@
 package it.unibo.controller;
 
+import it.unibo.controller.interfaces.ProgressBarControllerInterface;
 import it.unibo.model.ProgressBarModel;
 import it.unibo.view.ProgressBarView;
 import javax.swing.*;
 
-public class ProgressBarController {
+public class ProgressBarController implements ProgressBarControllerInterface {
     private final ProgressBarModel progressBarModel;
     private final ProgressBarView progressBarView;
     private Timer progressBarTimer;
