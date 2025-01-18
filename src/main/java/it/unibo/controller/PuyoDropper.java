@@ -44,6 +44,13 @@ public class PuyoDropper implements PuyoDropperInterface{
         }
     }
 
+    public void fillGridRandomly(int puyoCount) {
+        for (int i = 0; i < puyoCount; i++) {
+            spawnAndDropPuyo(); // Genera e fa cadere un nuovo Puyo
+        }
+    }
+    
+
     //trova la prima posizione disponibile in una colonna a partire dalla riga più bassa
     @Override
     public int findAvailableYPosition(int x) {
@@ -58,34 +65,34 @@ public class PuyoDropper implements PuyoDropperInterface{
     //logica di caduta del Puyo
     @Override
     public void dropPuyo(Puyo puyo) {
-        int posY = puyo.getY(); //posizione iniziale del Puyo
+        int posY = puyo.getY();
         boolean isFalling = true;
 
         while (isFalling) {
             if (posY < grid.getRows() - 1) {
-                //verifica se la cella sotto è vuota
+                // Controlla se la cella sotto è vuota
                 if (grid.getPuyo(puyo.getX(), posY + 1) == null) {
-                    grid.removePuyo(puyo.getX(), posY); //rimuove il Puyo dalla posizione precedente (per simulare movimento)
-                    posY++; 
-                    puyo.setY(posY); //aggiorna la posizione Y
-                    grid.addPuyo(puyo, puyo.getX(), posY); //aggiungi il Puyo nella nuova posizione
-                    gameView.repaint(); //rende la visualizzazione aggiornata
+                    grid.removePuyo(puyo.getX(), posY); // Rimuove dalla posizione corrente
+                    posY++;
+                    puyo.setY(posY); // Aggiorna la posizione Y
+                    grid.addPuyo(puyo, puyo.getX(), posY); // Aggiunge nella nuova posizione
+                    gameView.repaint(); // Aggiorna la vista
 
                     try {
-                        Thread.sleep(150); //ritardo per l'animazione
+                        Thread.sleep(100); // Ritardo per l'animazione
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 } else {
-                    //se la cella sotto è occupata, il Puyo si ferma
-                    isFalling = false;
+                    isFalling = false; // Ferma se c'è un ostacolo sotto
                 }
             } else {
-                //se il Puyo raggiunge la fine della griglia, si ferma
-                isFalling = false;
+                isFalling = false; // Ferma se raggiunge la fine
             }
         }
+        puyo.setFalling(false); // Segnala che il Puyo si è fermato
     }
+
 
     //metodo per ottenere la lista di Puyo memorizzati nella griglia
     public List<Puyo> getPuyosInGame() {

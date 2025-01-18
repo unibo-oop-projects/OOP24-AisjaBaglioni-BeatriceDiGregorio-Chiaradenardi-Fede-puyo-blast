@@ -46,15 +46,21 @@ public class ScreenManager implements ScreenManagerInterface {
 
     // metodo per inizializzare le due righe di Puyo
     private void initializeGrid() {
+        fillBottomRows(grid);
+    }
+    
+
+    private void fillBottomRows(Grid grid) {
         String[] initialColors = { "red", "blue", "green", "yellow", "purple", "cyan" };
-        for (int y = 4; y < 6; y++) { // la griglia ha 6 righe (0-5), quindi le righe 4 e 5 sono le ultime
+        for (int y = grid.getRows() - 2; y < grid.getRows(); y++) { // Ultime due righe
             for (int x = 0; x < grid.getCols(); x++) {
                 String randomColor = initialColors[new Random().nextInt(initialColors.length)];
                 Puyo puyo = new Puyo(randomColor, x, y);
-                grid.addPuyo(puyo, x, y); // posiziona un Puyo nelle righe 4 e 5
+                grid.addPuyo(puyo, x, y);
             }
         }
     }
+    
 
     private void startGameWithConfig(LevelManager.LevelConfig config) {
         frame.getContentPane().removeAll();
@@ -74,12 +80,10 @@ public class ScreenManager implements ScreenManagerInterface {
             dropTimer.stop();
         }
 
-        // avvia il Timer solo al momento dell'avvio del gioco
         dropTimer = new Timer(config.getDelay(), event -> {
-            for (int i = 0; i < config.getPuyoCount(); i++) {
-                puyoDropper.spawnAndDropPuyo();
-            }
+            puyoDropper.fillGridRandomly(config.getPuyoCount());
         });
+
         dropTimer.setInitialDelay(2000); // ritardo di 2 secondi prima di iniziare
         dropTimer.start();
     }
