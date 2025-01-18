@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 
-public class CannonView extends JPanel {
+public class CannonView extends JPanel implements CannonViewInterface {
 
     private Image cannonImage;
     private int cannonWidth;
