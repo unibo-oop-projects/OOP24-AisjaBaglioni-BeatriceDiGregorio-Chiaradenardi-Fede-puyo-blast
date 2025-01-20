@@ -10,7 +10,7 @@ public class ProgressBarController implements ProgressBarControllerInterface {
     private final ProgressBarView progressBarView;
     private Timer progressBarTimer;
 
-    public ProgressBarController(ProgressBarView view){
+    public ProgressBarController(final ProgressBarView view) {
         this.progressBarModel = new ProgressBarModel();
         this.progressBarView = view;
 
@@ -20,33 +20,38 @@ public class ProgressBarController implements ProgressBarControllerInterface {
         });
     }
 
-    public void startProgress() {
+    @Override
+    final public void startProgress() {
         // Avvia il timer per l'aggiornamento della progress bar
         progressBarTimer.start();
     }
 
-    public void setProgress(int progress) {
+    @Override
+    final public void setProgress(final int progress) {
         progressBarModel.setProgress(progress); // Aggiorna il modello
         progressBarView.setProgress(progressBarModel.getProgress()); // Aggiorna la vista
     }
 
-    public void stopProgress(){
+    @Override
+    final public void stopProgress() {
         progressBarTimer.stop();
     }
 
-    public void resetProgress(){
+    @Override
+    final public void resetProgress() {
         progressBarModel.resetCharge();
         progressBarView.repaint();
     }
 
-    public void resetProgressBar(){
+    @Override
+    final public void resetProgressBar() {
         stopProgress();
         resetProgress();
     }
 
-    public int getProgress() {
+    @Override
+    final public int getProgress() {
         return progressBarModel.getProgress();
     }
-
 
 }

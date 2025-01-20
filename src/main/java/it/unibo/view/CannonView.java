@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import it.unibo.model.Scale;
 
-
 import it.unibo.view.interfaces.CannonViewInterface;
 
 import java.awt.*;
@@ -74,26 +73,29 @@ public class CannonView extends JPanel implements CannonViewInterface {
         this.cannonWidth = cannonImage.getHeight(null);
     }
 
-    public final void draw(final Graphics g) {
+    @Override
+    final public void draw(final Graphics g) {
         g.drawImage(cannonImage, cannonX, cannonY, null);
     }
 
-    public void setCannonPosition(int newX, int newY) {
+    @Override
+    final public void setCannonPosition(final int newX, final int newY) {
         this.cannonX = newX;
         this.cannonY = newY;
     }
 
-    public void setCannonAngle(int newAngle) {
+    @Override
+    final public void setCannonAngle(final int newAngle) {
         this.Angle = newAngle;
         updateImage();
     }
 
     // Metodo per ottenere la larghezza del cannone
-    public int getCannonWidth() {
+    final public int getCannonWidth() {
         return this.cannonWidth;
     }
 
-    public int getCannonHeight() {
+    final public int getCannonHeight() {
         return this.cannonHeight;
     }
 

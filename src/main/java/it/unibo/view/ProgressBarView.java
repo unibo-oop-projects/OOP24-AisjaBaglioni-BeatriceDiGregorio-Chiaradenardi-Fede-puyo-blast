@@ -6,25 +6,25 @@ import it.unibo.view.interfaces.ProgressBarViewInterface;
 
 import java.awt.*;
 
-public class ProgressBarView extends JPanel implements ProgressBarViewInterface{
+public class ProgressBarView extends JPanel implements ProgressBarViewInterface {
 
     private final Image progressBarImage;
     private final Image progressBarFullImage;
     private int chargeLevel;
 
-
     public ProgressBarView(final String imagePathEmpty, final String imagePathFull) {
-        //caricamento delle immagini
-        progressBarImage = new ImageIcon(getClass().getClassLoader().getResource("images/" + imagePathEmpty)).getImage();
-        progressBarFullImage = new ImageIcon(getClass().getClassLoader().getResource("images/" + imagePathFull)).getImage();
+        progressBarImage = new ImageIcon(getClass().getClassLoader().getResource("images/" + imagePathEmpty))
+                .getImage();
+        progressBarFullImage = new ImageIcon(getClass().getClassLoader().getResource("images/" + imagePathFull))
+                .getImage();
 
         this.chargeLevel = 0;
         this.setPreferredSize(new Dimension(progressBarImage.getWidth(null), progressBarImage.getHeight(null)));
-        
+
     }
 
     @Override
-    public void setProgress(int chargeLevel) {
+    final public void setProgress(final int chargeLevel) {
         this.chargeLevel = chargeLevel;
         repaint();
     }
@@ -34,12 +34,12 @@ public class ProgressBarView extends JPanel implements ProgressBarViewInterface{
         super.paintComponent(g);
 
         // Disegna l'immagine dello sfondo
-        g.drawImage(progressBarImage, 300, 640, null);
+        g.drawImage(progressBarImage, 290, 640, null);
 
         // Calcola la larghezza del riempimento
         int fillWidth = (int) (progressBarFullImage.getWidth(null) * (chargeLevel / 100.0));
 
         // Disegna la parte piena
-        g.drawImage(progressBarFullImage, 300, 640, fillWidth, progressBarFullImage.getHeight(null), null);
+        g.drawImage(progressBarFullImage, 290, 640, fillWidth, progressBarFullImage.getHeight(null), null);
     }
 }

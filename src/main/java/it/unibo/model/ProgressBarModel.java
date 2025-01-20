@@ -25,7 +25,7 @@ public class ProgressBarModel implements ProgressBarModelInterface {
     }
 
     @Override
-    final public void setProgress(int chargeLevel) {
+    final public void setProgress(final int chargeLevel) {
         if (chargeLevel < 0) {
             this.chargeLevel = 0;
         } else if (chargeLevel > 100) {
@@ -36,7 +36,7 @@ public class ProgressBarModel implements ProgressBarModelInterface {
     }
 
     @Override
-    final public void incrementProgress(int increment) {
+    final public void incrementProgress(final int increment) {
         setProgress(this.chargeLevel + increment);
     }
 }
