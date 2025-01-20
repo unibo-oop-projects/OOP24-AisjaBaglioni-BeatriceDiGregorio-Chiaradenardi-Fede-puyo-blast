@@ -28,7 +28,7 @@ public class GameView extends JPanel implements GameViewInterface {
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale); 
         this.cannonView = new CannonView("CannonImage.png", scale);
-        this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarEmpty.png");
+        this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarFull.png");
         this.grid = grid;
     }
     
