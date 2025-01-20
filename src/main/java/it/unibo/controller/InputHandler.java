@@ -3,6 +3,7 @@ package it.unibo.controller;
 
 import it.unibo.controller.interfaces.InputHandlerInterface;
 import it.unibo.model.CannonModel;
+import it.unibo.model.CannonSightModel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -10,30 +11,34 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
     private final CannonModel model;
     private final CannonController controller;
     private final ProgressBarController progressBarController;
+    private final CannonSightModel sightModel;
+    private final CannonSightController sightController;
 
-    public InputHandler(CannonController controller, CannonModel model, ProgressBarController progressBarController) {
+    public InputHandler(CannonController controller, CannonModel model, ProgressBarController progressBarController,
+            CannonSightController sightController, CannonSightModel sightModel) {
         this.controller = controller;
         this.model = model;
         this.progressBarController = progressBarController;
+        this.sightModel = sightModel;
+        this.sightController = sightController;
 
     }
 
     // Metodo per gestire l'input da tastiera
     @Override
-    public void keyPressed(KeyEvent e) {
+    final public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
+            // movimenti del cannone
             case KeyEvent.VK_LEFT -> {
                 if (model.getX() - 5 >= 0) {
                     model.moveLeft();
                     controller.updateCannonPosition();
-                    System.out.println("Cannon moved left. Current position: " + model.getX());
                 }
             }
             case KeyEvent.VK_RIGHT -> {
                 if (model.getX() + 5 <= 700) {
                     model.moveRight();
                     controller.updateCannonPosition();
-                    System.out.println("Cannon moved right. Current position: " + model.getX());
                 }
             }
             case KeyEvent.VK_SPACE -> {
@@ -44,12 +49,35 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
             case KeyEvent.VK_UP -> {
                 model.aimUp();
                 controller.updateCannonAngle();
-                System.out.println("Cannon aimed up. Current angle: " + model.getAngle());
             }
             case KeyEvent.VK_DOWN -> {
                 model.aimDown();
                 controller.updateCannonAngle();
-                System.out.println("Cannon aimed down. Current angle: " + model.getAngle());
+            }
+            // movimenti mirino del cannone
+            case KeyEvent.VK_A -> {
+                if (sightModel.getX() - 3 >= 50) {
+                    sightModel.moveLeft();
+                    sightController.updateCannonSightPosition();
+                }
+            }
+            case KeyEvent.VK_D -> {
+                if (sightModel.getX() + 3 <= 550) {
+                    sightModel.moveRight();
+                    sightController.updateCannonSightPosition();
+                }
+            }
+            case KeyEvent.VK_W -> {
+                if (sightModel.getY() - 3 >= 25) {
+                    sightModel.moveUp();
+                    sightController.updateCannonSightPosition();
+                }
+            }
+            case KeyEvent.VK_S -> {
+                if (sightModel.getY() + 3 <= 400) {
+                    sightModel.moveDown();
+                    sightController.updateCannonSightPosition();
+                }
             }
             default -> {
             }
