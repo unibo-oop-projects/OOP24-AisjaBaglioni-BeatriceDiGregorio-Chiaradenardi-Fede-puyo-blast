@@ -2,6 +2,7 @@
 package it.unibo.view;
 
 import it.unibo.model.Puyo;
+import it.unibo.model.Scale;
 
 import javax.swing.ImageIcon;
 
@@ -11,11 +12,13 @@ import java.util.Map;
 import java.net.URL;
 
 public class PuyoRenderer {
-    private static final int CELL_SIZE = 40;  //dimensione della cella della griglia
+    //private static final int CELL_SIZE = 40;  //dimensione della cella della griglia
     private final Map<String, Integer> colorMap;  //mappa per associare i colori
     private final Image sprites;
-
-    public PuyoRenderer() {
+    private Scale scale;
+    
+    public PuyoRenderer(Scale scale) {
+        this.scale = scale;
         colorMap = new HashMap<>();
         colorMap.put("red", 0);
         colorMap.put("green", 1);
@@ -30,14 +33,18 @@ public class PuyoRenderer {
 
 
     public void render(Graphics g, Puyo puyo) {
+        int cellsize = this.scale.getScale()/16;
+        // metà dei pezzi avanzati
+        int offset_gridx = cellsize * 4;
+        int offset_gridy = cellsize;
         int offset_animation = 0;
         if (((System.currentTimeMillis()/30) ^ puyo.getIdentifier())%101 < 2) {
             offset_animation = 32 * 16;
         }
         //ottieni il colore del Puyo dalla mappa
         Integer puyoRow = colorMap.get(puyo.getColor().toLowerCase());
-        int x = puyo.getX() * CELL_SIZE;  
-        int y = puyo.getY() * CELL_SIZE;  
+        int x = puyo.getX() * cellsize;  
+        int y = puyo.getY() * cellsize;  
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);  //anticrossing per bordi più morbidi
@@ -57,6 +64,6 @@ public class PuyoRenderer {
         g2d.setColor(new Color(255, 255, 255, 80));  
         g2d.fillOval(x + 10, y + 10, CELL_SIZE - 20, CELL_SIZE - 20);  */
         //  	drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, ImageObserver observer)
-        g2d.drawImage(sprites, x, y, x + CELL_SIZE, y + CELL_SIZE, offset_animation, 32*puyoRow, offset_animation + 32, 32*puyoRow+32, null);
+        g2d.drawImage(sprites, x + offset_gridx, y + offset_gridy, x + cellsize + offset_gridx, y + cellsize + offset_gridy, offset_animation, 32*puyoRow, offset_animation + 32, 32*puyoRow+32, null);
     }
 }
