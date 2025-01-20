@@ -34,12 +34,12 @@ public class ProgressBarView extends JPanel implements ProgressBarViewInterface{
         super.paintComponent(g);
 
         // Disegna l'immagine dello sfondo
-        g.drawImage(progressBarImage, 335, 535, null);
+        g.drawImage(progressBarImage, 300, 640, null);
 
         // Calcola la larghezza del riempimento
         int fillWidth = (int) (progressBarFullImage.getWidth(null) * (chargeLevel / 100.0));
 
         // Disegna la parte piena
-        g.drawImage(progressBarFullImage, 335, 535, fillWidth, progressBarFullImage.getHeight(null), null);
+        g.drawImage(progressBarFullImage, 300, 640, fillWidth, progressBarFullImage.getHeight(null), null);
     }
 }

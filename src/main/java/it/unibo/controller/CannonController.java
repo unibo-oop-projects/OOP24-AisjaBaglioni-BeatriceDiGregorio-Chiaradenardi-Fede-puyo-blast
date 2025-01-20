@@ -11,7 +11,7 @@ public class CannonController implements CannonControllerInterface{
     public CannonController(CannonView view) {
         this.cannonModel = new CannonModel();
         this.cannonView = view;
-        this.cannonView.setCannonPosition(350, 425);
+        this.cannonView.setCannonPosition(315, 545);
     }
 
     public CannonModel getModel() {
