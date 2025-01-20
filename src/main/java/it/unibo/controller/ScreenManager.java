@@ -18,6 +18,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final MenuRules rulesView;
     private final GameView gameView;
     private final CannonController cannon;
+    private final CannonSightController sightController;
     private final ProgressBarController progressaBar;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
@@ -45,6 +46,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.rulesView = new MenuRules();
         this.gameView = new GameView(grid, scale);
         this.cannon = new CannonController(this.gameView.getCannonView());
+        this.sightController = new CannonSightController(this.gameView.getCannonSightView());
         this.progressaBar = new ProgressBarController(this.gameView.getProgressBarView());
         puyoDropper = new PuyoDropper(grid, gameView);
         this.levelManager = new LevelManager();
@@ -100,7 +102,7 @@ public class ScreenManager implements ScreenManagerInterface {
     }
 
     private void configureInputHandlers() {
-        InputHandler inputHandler = new InputHandler(this.cannon, this.cannon.getModel(), this.progressaBar);
+        InputHandler inputHandler = new InputHandler(this.cannon, this.cannon.getModel(), this.progressaBar, this.sightController, this.sightController.getModel()) ;
         gameView.addKeyListener(inputHandler);
         gameView.setFocusable(true);
     }
