@@ -48,15 +48,15 @@ public class CannonView extends JPanel implements CannonViewInterface {
     public final void updateImage() {
         String imagePath = "";
 
-        if (this.Angle <= 10) {
+        if (this.Angle <= 12) {
             imagePath = angleImages[0];
-        } else if (this.Angle >= 11 && this.Angle <= 20) {
+        } else if (this.Angle >= 13 && this.Angle <= 24) {
             imagePath = angleImages[1];
-        } else if (this.Angle >= 21 && this.Angle <= 30) {
+        } else if (this.Angle >= 25 && this.Angle <= 36) {
             imagePath = angleImages[2];
-        } else if (this.Angle >= 31 && this.Angle <= 40) {
+        } else if (this.Angle >= 37 && this.Angle <= 48) {
             imagePath = angleImages[3];
-        } else if (this.Angle >= 41) {
+        } else if (this.Angle >= 49) {
             imagePath = angleImages[4];
         }
 
