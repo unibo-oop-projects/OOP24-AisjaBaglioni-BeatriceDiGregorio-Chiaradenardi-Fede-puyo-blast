@@ -8,19 +8,19 @@ public class CannonModel implements CannonModelInterface {
     private int angle;
 
     public CannonModel() {
-        this.x = 315;
+        this.x = 305;
         this.y = 545;
         this.angle = 0;
     }
 
     @Override
     final public void moveLeft() {
-        this.x = this.x - 5;
+        this.x = this.x - 3;
     }
 
     @Override
     final public void moveRight() {
-        this.x = this.x + 5;
+        this.x = this.x + 3;
     }
 
     @Override
