@@ -30,15 +30,19 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
         switch (e.getKeyCode()) {
             // movimenti del cannone
             case KeyEvent.VK_LEFT -> {
-                if (model.getX() - 5 >= 0) {
+                if (model.getX() - 3 >= 10) {
                     model.moveLeft();
+                    sightModel.moveLeft();
                     controller.updateCannonPosition();
+                    sightController.updateCannonSightPosition();
                 }
             }
             case KeyEvent.VK_RIGHT -> {
-                if (model.getX() + 5 <= 700) {
+                if (model.getX() + 3 <= 600) {
                     model.moveRight();
+                    sightModel.moveRight();
                     controller.updateCannonPosition();
+                    sightController.updateCannonSightPosition();
                 }
             }
             case KeyEvent.VK_SPACE -> {
@@ -47,37 +51,20 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
                 System.out.println("Cannon fired!");
             }
             case KeyEvent.VK_UP -> {
-                model.aimUp();
-                controller.updateCannonAngle();
+                if (sightModel.getY() - 3 >= 25) {
+                    model.aimUp();
+                    sightModel.moveUp();
+                    controller.updateCannonAngle();
+                    sightController.updateCannonSightPosition();
+                } 
             }
             case KeyEvent.VK_DOWN -> {
-                model.aimDown();
-                controller.updateCannonAngle();
-            }
-            // movimenti mirino del cannone
-            case KeyEvent.VK_A -> {
-                if (sightModel.getX() - 3 >= 50) {
-                    sightModel.moveLeft();
-                    sightController.updateCannonSightPosition();
-                }
-            }
-            case KeyEvent.VK_D -> {
-                if (sightModel.getX() + 3 <= 550) {
-                    sightModel.moveRight();
-                    sightController.updateCannonSightPosition();
-                }
-            }
-            case KeyEvent.VK_W -> {
-                if (sightModel.getY() - 3 >= 25) {
-                    sightModel.moveUp();
-                    sightController.updateCannonSightPosition();
-                }
-            }
-            case KeyEvent.VK_S -> {
                 if (sightModel.getY() + 3 <= 400) {
+                    model.aimDown();
                     sightModel.moveDown();
+                    controller.updateCannonAngle();
                     sightController.updateCannonSightPosition();
-                }
+                }                
             }
             default -> {
             }
