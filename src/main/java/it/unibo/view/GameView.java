@@ -6,7 +6,6 @@
 package it.unibo.view;
 
 import it.unibo.model.Grid;
-import it.unibo.model.PauseModel;
 import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
@@ -24,7 +23,7 @@ public class GameView extends JPanel implements GameViewInterface {
     private final ProgressBarView progressBarView;
     private Scale scale;
     private PauseView pauseView;
-    private PauseModel pauseModel;
+   //private PauseModel pauseModel;
 
     //questo metodo fede
     public GameView(Grid grid, Scale scale) {
@@ -35,7 +34,7 @@ public class GameView extends JPanel implements GameViewInterface {
         this.cannonSightView = new CannonSightView("CannonSightView.png");
         this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarFull.png");
         this.grid = grid;
-        this.pauseView = new PauseView(this.pauseModel, this);
+        this.pauseView = new PauseView(this);
     }
     
 

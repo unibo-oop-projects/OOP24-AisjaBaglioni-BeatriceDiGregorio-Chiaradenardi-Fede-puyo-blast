@@ -1,6 +1,5 @@
 package it.unibo.view;
 
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -12,7 +11,7 @@ public class PauseView {
     private JButton pause_button;
     private PauseModel model;
     
-    public PauseView(PauseModel model, JPanel p) {
+    public PauseView(JPanel p) {
         this.pause_button = new JButton();
         p.add(this.pause_button);
         this.model = new PauseModel();
@@ -21,7 +20,7 @@ public class PauseView {
     }
 
     final public void draw() {
-        if (model.getPause()) {
+        if (this.model.getPause()) {
             this.pause_button.setText("Play");
         } else {
             this.pause_button.setText("Pause");
