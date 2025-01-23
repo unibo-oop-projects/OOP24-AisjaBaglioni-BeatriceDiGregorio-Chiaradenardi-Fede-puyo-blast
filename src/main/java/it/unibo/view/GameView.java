@@ -6,7 +6,6 @@
 package it.unibo.view;
 
 import it.unibo.model.Grid;
-import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
@@ -51,7 +50,7 @@ public class GameView extends JPanel implements GameViewInterface {
             for (int x = 0; x < grid.getCols(); x++) {
                 PuyoInterface puyo = grid.getPuyo(x, y);
                 if (puyo != null) {
-                    renderer.render(g, (Puyo) puyo);
+                    renderer.render(g, grid, y, x);
                     cannonSightView.draw(g);
                 }
             }

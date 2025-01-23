@@ -13,4 +13,5 @@ public interface PuyoInterface {
     boolean checkCollision(GridInterface grid);
     void explode();
     void updateGrid(GridInterface grid);
+    long getIdentifier();
 }
