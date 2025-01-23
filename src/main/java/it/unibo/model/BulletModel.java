@@ -3,66 +3,44 @@
 package it.unibo.model;
 
 public class BulletModel {
-    private int x;
-    private int y;
-    private int dx;
-    private int dy;
+    private Point2D source;
+    private Point2D target;
     private boolean active;
+    private int ticks;
+    private static final int ANIMATIONTIME = 60;
 
-    public BulletModel(int x, int y, int dx, int dy) {
-        this.x = x;
-        this.y = y;
-        this.dx = dx;
-        this.dy = dy;
+    public BulletModel(Point2D source, Point2D target) {
+        this.source = source;
+        this.target = target;
         this.active = false;
+        this.ticks = 0;
     }
 
     public void shootBullet() {
         this.active = true;
+        this.ticks = 0;
     }
 
     public boolean targetReached() {
-        if (this.x == this.dx && this.y == this.dy) {
+        if (this.ticks == ANIMATIONTIME) {
             this.active = false;
             return true;
         }
         return false;
     }
 
-    // se x è a sx del target, allora devo incrementare verso destra
-    // se x è a dx del target, devo decrementare verso sinistra
-    // y è sempre più sopra
-    public int getDistanceX() {
-        return this.dx - this.x;
-    }
-
-    public int getDistanceY() {
-        return this.dy - this.y;
-    }
-
     public void updatePosition() {
-        if (!this.active) {
-            return;
-        }
-        if (!this.targetReached()) {
-            if (this.getDistanceX() > 0) {
-                this.x++;
-            } else if (this.getDistanceX() < 0) {
-                this.x--;
-            }
-            this.y++;
-        }
-    }
-
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
+        this.ticks++;
     }
 
     public boolean isActive() {
         return this.active;
+    }
+
+    public Point2D getCurrentPosition() {
+        double alpha = ((double) this.ticks) / ((double) ANIMATIONTIME);
+        Point2D left = Point2D.mul(source, 1.0 - alpha);
+        Point2D right = Point2D.mul(target, alpha);
+        return Point2D.add(left, right);
     }
 }

@@ -9,6 +9,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 import it.unibo.model.BulletModel;
+import it.unibo.model.Point2D;
 import it.unibo.model.Scale;
 
 public class BulletView {
@@ -31,8 +32,9 @@ public class BulletView {
 
     public void draw(Graphics g) {
         int cellsize = this.scale.getScale() / 16;
-        int x = model.getX();
-        int y = model.getY();
-        g.drawImage(sprites, x, y, x + cellsize, y + cellsize, 18*32, 3*32, 19*32, 5*32, null);
+        Point2D curPos = Point2D.mul(this.model.getCurrentPosition(), (double)scale.getScale());
+        int x = (int)curPos.x();
+        int y = (int)curPos.y();
+        g.drawImage(sprites, x, y, x + cellsize, y + cellsize, 18*32, 3*32, 19*32, 4*32, null);
     }
 }
