@@ -86,17 +86,21 @@ public class PuyoRenderer {
                                                                                                   // bordi più morbidi
         String puyoColor = puyo.getColor();
         int mask = 0;
-        mask <<= 1;
+        // null, null, null, null
         mask |= sameColorNeighbour(grid, row, col - 1, puyoColor); // <-
-
+        // null, null, null, sinistra
         mask <<= 1;
+        // null, null, sinistra, null
         mask |= sameColorNeighbour(grid, row - 1, col, puyoColor); // ^
-
+        // null, null, sinistra, su
         mask <<= 1;
+        // null, sinistra, su, null
         mask |= sameColorNeighbour(grid, row, col + 1, puyoColor); // ->
-
+        // null, sinistra, su, destra
         mask <<= 1;
+        // sinistra, su, destra, null
         mask |= sameColorNeighbour(grid, row + 1, col, puyoColor); // v
+        // sinistra, su, destra, giù
 
         if (mask != 0) {
             offset_animation = SPRITE_MAPPER[mask] * 32;
