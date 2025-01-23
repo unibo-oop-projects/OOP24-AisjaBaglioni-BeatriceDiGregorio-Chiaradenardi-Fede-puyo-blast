@@ -22,7 +22,7 @@ public class BulletModel {
     }
 
     public boolean targetReached() {
-        if (this.ticks == ANIMATIONTIME) {
+        if (this.ticks >= ANIMATIONTIME) {
             this.active = false;
             return true;
         }
@@ -30,7 +30,9 @@ public class BulletModel {
     }
 
     public void updatePosition() {
-        this.ticks++;
+        if (isActive()) {
+            this.ticks++;
+        }
     }
 
     public boolean isActive() {
