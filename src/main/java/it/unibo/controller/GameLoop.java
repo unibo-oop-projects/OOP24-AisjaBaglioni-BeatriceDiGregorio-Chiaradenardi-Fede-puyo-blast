@@ -15,6 +15,7 @@ public class GameLoop implements Runnable {
     private final GameView gameView;
 
     private boolean running;
+    private boolean paused;
     private final int targetFPS = 60; // Frame rate desiderato
 
     private final Set<TickListenerInterface> tickListeners ;
@@ -24,6 +25,7 @@ public class GameLoop implements Runnable {
         this.grid = grid;
         this.gameView = gameView;
         this.running = false;
+        this.paused = false;
         this.tickListeners = tickListeners;
 
 
@@ -39,9 +41,6 @@ public class GameLoop implements Runnable {
         this.tickListeners.remove(tickListener);
     }   
 
-
-
-
     // Avvia il ciclo di gioco
     public void start() {
         running = true;
@@ -51,6 +50,15 @@ public class GameLoop implements Runnable {
     // Ferma il ciclo di gioco
     public void stop() {
         running = false;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+
+    //alterna lo stato di pausa
+    public void togglePaused() {
+        this.paused = !this.paused;
     }
 
     @Override
@@ -63,21 +71,22 @@ public class GameLoop implements Runnable {
             if ((now - lastTime) >= nsPerFrame) {
                 lastTime = now;
 
-                // Aggiorna lo stato del gioco
-                update();
+                if(!paused) {
+                    // Aggiorna lo stato del gioco
+                    update();
 
-                // Ridisegna la grafica
-                render();
-            }
-
-            // Controlla la pausa
-            if (gameState.isPaused()) {
-                try {
-                    Thread.sleep(100); // Riduce il consumo di CPU in pausa
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    // Ridisegna la grafica
+                    render();
+                }else{
+                    try {
+                        Thread.sleep(100); // Riduce il consumo di CPU in pausa
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                
             }
+
         }
     }
 
