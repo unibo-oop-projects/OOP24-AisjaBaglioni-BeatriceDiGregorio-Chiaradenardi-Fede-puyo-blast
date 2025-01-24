@@ -51,8 +51,6 @@ public class ScreenManager implements ScreenManagerInterface {
         puyoDropper = new PuyoDropper(grid, gameView);
         this.levelManager = new LevelManager();
         setupMenuListeners();
-
-        setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
     }

@@ -21,7 +21,6 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
         this.progressBarController = progressBarController;
         this.sightModel = sightModel;
         this.sightController = sightController;
-
     }
 
     // Metodo per gestire l'input da tastiera
