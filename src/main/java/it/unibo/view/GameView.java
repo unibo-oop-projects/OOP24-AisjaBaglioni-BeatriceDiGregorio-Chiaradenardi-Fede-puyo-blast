@@ -9,11 +9,13 @@ import it.unibo.model.Grid;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 
-public class GameView extends JPanel implements GameViewInterface {
+public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private BackGround background;
     private final PuyoRenderer renderer;
     private final Grid grid; 
@@ -22,7 +24,11 @@ public class GameView extends JPanel implements GameViewInterface {
     private final ProgressBarView progressBarView;
     private Scale scale;
     private PauseView pauseView;
-   //private PauseModel pauseModel;
+
+    //pausa
+    private boolean isPaused; //stato di pausa
+    private Timer gameTimer; //timer per aggiornare il gioco
+
 
     //questo metodo fede
     public GameView(Grid grid, Scale scale) {
@@ -34,6 +40,13 @@ public class GameView extends JPanel implements GameViewInterface {
         this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarFull.png");
         this.grid = grid;
         this.pauseView = new PauseView(this);
+        this.isPaused = false;
+
+        this.addKeyListener(this);
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+
+        gameTimer = new Timer(500, e -> updateGame());
     }
     
 
@@ -55,6 +68,22 @@ public class GameView extends JPanel implements GameViewInterface {
                 }
             }
         }
+
+        //disegna il messaggio di pausa
+        if (isPaused) {
+            drawPauseMessage(g);
+        }
+    }
+
+    //fede
+    private void drawPauseMessage(Graphics g) {
+        String pauseText = "Game Paused";
+        g.setFont(new Font("Arial", Font.BOLD, 36));
+        g.setColor(Color.RED);
+        FontMetrics metrics = g.getFontMetrics();
+        int x = (getWidth() - metrics.stringWidth(pauseText)) / 2;
+        int y = getHeight() / 2;
+        g.drawString(pauseText, x, y);
     }
 
     //chiara
@@ -87,7 +116,45 @@ public class GameView extends JPanel implements GameViewInterface {
         System.out.println("Game started! ciao belli");
 
         //logica per avviare il gioco
-        Timer timer = new Timer(500, e -> updateGame());
-        timer.start();
+        //Timer timer = new Timer(500, e -> updateGame());
+        gameTimer.start();
+    }
+
+    //fede
+    // Metodi per mettere in pausa e riprendere il gioco
+    public void togglePause() {
+        isPaused = !isPaused;
+        if (isPaused) {
+            gameTimer.stop(); // Ferma il timer
+        } else {
+            gameTimer.start(); // Riprendi il timer
+        }
+        repaint(); // Aggiorna la grafica per mostrare il messaggio di pausa
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        // Non utilizzato
+    }
+
+    //fede
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_P) {
+            togglePause(); // Alterna lo stato di pausa
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Non utilizzato
+    }
+
+
+    @Override
+    public boolean isPaused() {
+
+        return isPaused;
     }
 }
