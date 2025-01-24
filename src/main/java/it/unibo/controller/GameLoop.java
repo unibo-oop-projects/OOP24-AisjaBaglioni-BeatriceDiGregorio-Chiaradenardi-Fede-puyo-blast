@@ -64,30 +64,28 @@ public class GameLoop implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        double nsPerFrame = 1_000_000_000.0 / targetFPS;
+    double nsPerFrame = 1_000_000_000.0 / targetFPS;
 
-        while (running) {
-            long now = System.nanoTime();
-            if ((now - lastTime) >= nsPerFrame) {
-                lastTime = now;
+    while (running) {
+        long now = System.nanoTime();
+        if ((now - lastTime) >= nsPerFrame) {
+            lastTime = now;
 
-                if(!paused) {
-                    // Aggiorna lo stato del gioco
-                    update();
+            if (!paused) {
+                // Aggiorna lo stato del gioco solo se non è in pausa
+                update();
 
-                    // Ridisegna la grafica
-                    render();
-                }else{
-                    try {
-                        Thread.sleep(100); // Riduce il consumo di CPU in pausa
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                // Ridisegna la grafica solo se non è in pausa
+                render();
+            } else {
+                try {
+                    Thread.sleep(100); // Riduce il consumo di CPU in pausa
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                
             }
-
         }
+    }
     }
 
     // Metodo per aggiornare lo stato del gioco

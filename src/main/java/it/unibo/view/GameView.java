@@ -57,19 +57,22 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         cannonView.draw(g);
         progressBarView.paintComponent(g);
         pauseView.draw();
-
-        //disegna i Puyo dalla griglia
-        for (int y = 0; y < grid.getRows(); y++) {
-            for (int x = 0; x < grid.getCols(); x++) {
-                PuyoInterface puyo = grid.getPuyo(x, y);
-                if (puyo != null) {
-                    renderer.render(g, grid, y, x);
-                    cannonSightView.draw(g);
+    
+        // Disegna i Puyo dalla griglia
+        if(!isPaused){
+            for (int y = 0; y < grid.getRows(); y++) {
+                for (int x = 0; x < grid.getCols(); x++) {
+                    PuyoInterface puyo = grid.getPuyo(x, y);
+                    if (puyo != null) {
+                        renderer.render(g, grid, y, x);
+                        cannonSightView.draw(g);
+                    }
                 }
-            }
+            }    
         }
-
-        //disegna il messaggio di pausa
+        
+    
+        // Disegna il messaggio di pausa
         if (isPaused) {
             drawPauseMessage(g);
         }
@@ -88,8 +91,11 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
 
     //chiara
     public void updateGame() {
-        grid.updateGrid(); //logica di caduta dei Puyo
-        repaint(); //aggiorna la grafica
+        if(!isPaused){
+            grid.updateGrid(); //logica di caduta dei Puyo
+            repaint(); //aggiorna la grafica
+        }
+        
     }
 
     public CannonView getCannonView(){
@@ -123,13 +129,16 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     //fede
     // Metodi per mettere in pausa e riprendere il gioco
     public void togglePause() {
-        isPaused = !isPaused;
-        if (isPaused) {
-            gameTimer.stop(); // Ferma il timer
-        } else {
-            gameTimer.start(); // Riprendi il timer
-        }
-        repaint(); // Aggiorna la grafica per mostrare il messaggio di pausa
+        System.out.println("Toggling pause: " + isPaused);
+    isPaused = !isPaused;
+    if (isPaused) {
+        gameTimer.stop();
+        System.out.println("Game Timer stopped");
+    } else {
+        gameTimer.start();
+        System.out.println("Game Timer started");
+    }
+    repaint();
     }
 
 
