@@ -46,8 +46,10 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
                 }
             }
             case KeyEvent.VK_SPACE -> {
-                progressBarController.resetProgressBar();
-                progressBarController.startProgress();
+                if (progressBarController.getProgress() == 100) {
+                    progressBarController.resetProgressBar();
+                    progressBarController.startProgress();
+                }
                 System.out.println("Cannon fired!");
             }
             case KeyEvent.VK_UP -> {
@@ -56,7 +58,7 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
                     sightModel.moveUp();
                     controller.updateCannonAngle();
                     sightController.updateCannonSightPosition();
-                } 
+                }
             }
             case KeyEvent.VK_DOWN -> {
                 if (sightModel.getY() + 3 <= 400) {
@@ -64,7 +66,7 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
                     sightModel.moveDown();
                     controller.updateCannonAngle();
                     sightController.updateCannonSightPosition();
-                }                
+                }
             }
             default -> {
             }
