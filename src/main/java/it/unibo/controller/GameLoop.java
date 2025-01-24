@@ -5,6 +5,9 @@ package it.unibo.controller;
 import it.unibo.model.GameState;
 import it.unibo.model.Grid;
 import it.unibo.view.GameView;
+import it.unibo.controller.interfaces.TickListenerInterface;
+
+import java.util.Set;
 
 public class GameLoop implements Runnable {
     private final GameState gameState;
@@ -14,12 +17,30 @@ public class GameLoop implements Runnable {
     private boolean running;
     private final int targetFPS = 60; // Frame rate desiderato
 
-    public GameLoop(GameState gameState, Grid grid, GameView gameView) {
+    private final Set<TickListenerInterface> tickListeners ;
+
+    public GameLoop(GameState gameState, Grid grid, GameView gameView, Set<TickListenerInterface> tickListeners) {
         this.gameState = gameState;
         this.grid = grid;
         this.gameView = gameView;
         this.running = false;
+        this.tickListeners = tickListeners;
+
+
     }
+
+    //metodo per aggiungere un listener
+    public void addTickListener(TickListenerInterface tickListener){
+        this.tickListeners.add(tickListener);
+    }
+
+    //metodo per rimuovere un listener
+    public void removeTickListener(TickListenerInterface tickListener){
+        this.tickListeners.remove(tickListener);
+    }   
+
+
+
 
     // Avvia il ciclo di gioco
     public void start() {
@@ -65,6 +86,11 @@ public class GameLoop implements Runnable {
         if (!gameState.isGameOver()) {
             // Aggiorna la logica della griglia
             grid.updateGrid();
+
+            //ntifica tutti i listener
+            for (TickListenerInterface tickListener : tickListeners) {
+                tickListener.onTick();
+            }
 
             // Verifica condizioni di fine partita
             if (grid.isGridFull()) {
