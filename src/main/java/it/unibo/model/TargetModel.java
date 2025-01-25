@@ -1,12 +1,12 @@
 package it.unibo.model;
 
-import it.unibo.model.interfaces.CannonSightModelInterface;
+import it.unibo.model.interfaces.TargetModelInterface;
 
-public class CannonSightModel implements CannonSightModelInterface {
+public class TargetModel implements TargetModelInterface {
     private int x;
     private int y;
 
-    public CannonSightModel() {
+    public TargetModel() {
         this.x = 300;
         this.y = 400;
     }

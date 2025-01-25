@@ -3,7 +3,7 @@ package it.unibo.controller;
 
 import it.unibo.controller.interfaces.InputHandlerInterface;
 import it.unibo.model.CannonModel;
-import it.unibo.model.CannonSightModel;
+import it.unibo.model.TargetModel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -11,11 +11,11 @@ public class InputHandler implements InputHandlerInterface, KeyListener {
     private final CannonModel model;
     private final CannonController controller;
     private final ProgressBarController progressBarController;
-    private final CannonSightModel sightModel;
-    private final CannonSightController sightController;
+    private final TargetModel sightModel;
+    private final TargetController sightController;
 
     public InputHandler(CannonController controller, CannonModel model, ProgressBarController progressBarController,
-            CannonSightController sightController, CannonSightModel sightModel) {
+            TargetController sightController, TargetModel sightModel) {
         this.controller = controller;
         this.model = model;
         this.progressBarController = progressBarController;

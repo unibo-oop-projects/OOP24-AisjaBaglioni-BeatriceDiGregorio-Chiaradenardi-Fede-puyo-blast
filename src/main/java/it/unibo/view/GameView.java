@@ -20,7 +20,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final PuyoRenderer renderer;
     private final Grid grid; 
     private final CannonView cannonView;
-    private final CannonSightView cannonSightView;
+    private final TargetView cannonSightView;
     private final ProgressBarView progressBarView;
     private Scale scale;
     private PauseView pauseView;
@@ -36,7 +36,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale); 
         this.cannonView = new CannonView("CannonImage.png", scale);
-        this.cannonSightView = new CannonSightView("CannonSightView.png");
+        this.cannonSightView = new TargetView("CannonSightView.png");
         this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarFull.png");
         this.grid = grid;
         this.pauseView = new PauseView(this);
@@ -102,7 +102,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         return this.cannonView;
     }
 
-    public CannonSightView getCannonSightView(){
+    public TargetView getCannonSightView(){
         return this.cannonSightView;
     }
 

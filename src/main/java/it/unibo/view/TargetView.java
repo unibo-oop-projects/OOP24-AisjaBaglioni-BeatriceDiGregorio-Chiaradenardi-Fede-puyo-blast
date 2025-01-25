@@ -2,18 +2,18 @@ package it.unibo.view;
 
 import javax.swing.*;
 
-import it.unibo.view.interfaces.CannonSightViewInterface;
+import it.unibo.view.interfaces.TargetViewInterface;
 
 import java.awt.*;
 import java.net.URL;
 
-public class CannonSightView extends JPanel implements CannonSightViewInterface {
+public class TargetView extends JPanel implements TargetViewInterface {
     
     private Image cannonSightImage;
     private int cannonSightX;
     private int cannonSightY;
 
-    public CannonSightView(final String imagePath){
+    public TargetView(final String imagePath){
         final URL imageUrl = getClass().getClassLoader().getResource("images/"+ imagePath);
 
         if (imageUrl == null){
