@@ -5,7 +5,9 @@
 //classe con il pannello di gioco avviato
 package it.unibo.view;
 
+import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
+import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
@@ -24,7 +26,8 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final ProgressBarView progressBarView;
     private Scale scale;
     private PauseView pauseView;
-
+    private CannonModel cannonModel = new CannonModel();
+    private ProgressBarModel progressModel = new ProgressBarModel();
     //pausa
     private boolean isPaused; //stato di pausa
     private Timer gameTimer; //timer per aggiornare il gioco
@@ -35,9 +38,9 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.scale = scale;
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale); 
-        this.cannonView = new CannonView("CannonImage.png", scale);
+        this.cannonView = new CannonView(this.scale, this.cannonModel);
         this.cannonSightView = new TargetView("CannonSightView.png");
-        this.progressBarView = new ProgressBarView("ProgressBarEmpty.png", "ProgressBarFull.png");
+        this.progressBarView = new ProgressBarView(this.progressModel, this.scale);
         this.grid = grid;
         this.pauseView = new PauseView(this);
         this.isPaused = false;
