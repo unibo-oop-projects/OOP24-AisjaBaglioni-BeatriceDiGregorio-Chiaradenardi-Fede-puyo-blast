@@ -7,18 +7,24 @@ import it.unibo.model.Grid;
 import it.unibo.view.GameView;
 import it.unibo.controller.interfaces.TickListenerInterface;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Set;
+import javax.swing.Timer;
 
-public class GameLoop implements Runnable {
+public class GameLoop implements ActionListener {
     private final GameState gameState;
     private final Grid grid;
     private final GameView gameView;
 
     private boolean running;
     private boolean paused;
-    private final int targetFPS = 60; // Frame rate desiderato
+    private Timer gameTimer;
 
-    private final Set<TickListenerInterface> tickListeners ;
+    private static final int delay = 33; // 30 FPS 
+    private final Set<TickListenerInterface> tickListeners;
+
+
 
     public GameLoop(GameState gameState, Grid grid, GameView gameView, Set<TickListenerInterface> tickListeners) {
         this.gameState = gameState;
@@ -27,8 +33,12 @@ public class GameLoop implements Runnable {
         this.running = false;
         this.paused = false;
         this.tickListeners = tickListeners;
+        this.gameTimer = new Timer(delay, this);
+    }
 
-
+    //metodo per avviare il gioco
+    public void startGame() {
+        this.gameTimer.start();
     }
 
     //metodo per aggiungere un listener
@@ -41,16 +51,7 @@ public class GameLoop implements Runnable {
         this.tickListeners.remove(tickListener);
     }   
 
-    // Avvia il ciclo di gioco
-    public void start() {
-        running = true;
-        new Thread(this).start(); // Esegui il loop in un thread separato
-    }
-
-    // Ferma il ciclo di gioco
-    public void stop() {
-        running = false;
-    }
+    
 
     public void setPaused(boolean paused) {
         this.paused = paused;
@@ -59,33 +60,6 @@ public class GameLoop implements Runnable {
     //alterna lo stato di pausa
     public void togglePaused() {
         this.paused = !this.paused;
-    }
-
-    @Override
-    public void run() {
-        long lastTime = System.nanoTime();
-    double nsPerFrame = 1_000_000_000.0 / targetFPS;
-
-    while (running) {
-        long now = System.nanoTime();
-        if ((now - lastTime) >= nsPerFrame) {
-            lastTime = now;
-
-            if (!paused) {
-                // Aggiorna lo stato del gioco solo se non è in pausa
-                update();
-
-                // Ridisegna la grafica solo se non è in pausa
-                render();
-            } else {
-                try {
-                    Thread.sleep(100); // Riduce il consumo di CPU in pausa
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
     }
 
     // Metodo per aggiornare lo stato del gioco
@@ -110,5 +84,14 @@ public class GameLoop implements Runnable {
     private void render() {
         gameView.repaint();
     }
+
+    //fa update e render
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        update();
+        render();
+    }
+
+    
 }
 
