@@ -2,13 +2,9 @@ package it.unibo.model.interfaces;
 
 public interface ProgressBarModelInterface {
 
-    int getChargeLevel();
+    double getChargeLevel();
 
     void resetCharge();
 
-    int getProgress();
-
-    void setProgress(int chargeLevel);
-
-    void incrementProgress(int increment);
+    void incrementProgress();
 }
