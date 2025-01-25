@@ -2,10 +2,8 @@ package it.unibo.controller.interfaces;
 
 import java.awt.event.KeyEvent;
 
-
-public interface InputHandlerInterface {
-
+public interface KeyboardControllerInterface {
     void keyReleased(KeyEvent e);
 
-    void keyTyped(KeyEvent e);
+    void keyPressed(KeyEvent e);
 }
