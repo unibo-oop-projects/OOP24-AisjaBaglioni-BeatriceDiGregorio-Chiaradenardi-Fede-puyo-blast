@@ -3,100 +3,72 @@ package it.unibo.view;
 import javax.swing.*;
 
 import it.unibo.model.Scale;
-
 import it.unibo.view.interfaces.CannonViewInterface;
+import it.unibo.model.CannonModel;
 
 import java.awt.*;
 import java.net.URL;
 
 public class CannonView extends JPanel implements CannonViewInterface {
 
-    private Image cannonImage;
-    private int cannonWidth;
-    private int cannonHeight;
-    private int cannonX;
-    private int cannonY;
-    private int Angle;
-    private Scale scale;
+    private Image[] cannonImages;
+    private CannonModel cannonModel;
+    private int imageWidth;
+    private int imageHeight;
+    private Scale scale;  
 
-    // Immagini per i diversi angoli
-    private final String[] angleImages = {
-            "CannonImage.png", // per angoli da 0 a 10
-            "CannonImage1.png", // per angoli da 11 a 20
-            "CannonImage2.png", // per angoli da 21 a 30
-            "CannonImage3.png", // per angoli da 31 a 40
-            "CannonImage4.png" // per angoli da 41 in poi
-    };
-
-    public CannonView(final String imagePath, Scale scale) {
+    public CannonView(Scale scale, CannonModel cannonModel) {
         this.scale = scale;
-        final URL imageUrl = getClass().getClassLoader().getResource("images/" + imagePath);
+        this.cannonModel = cannonModel;
+        this.cannonImages = new Image[5];
+        String[] cannonImagePaths = {"CannonImage.png", "CannonImage1.png", "CannonImage2.png", "CannonImage3.png", "CannonImage4.png"};
 
-        if (imageUrl == null) {
-            System.err.println("Immagine non trovata: " + imagePath);
-            return;
+        for (int i = 0; i < cannonImagePaths.length; i++) {
+            final URL imageUrl = getClass().getClassLoader().getResource("images/" + cannonImagePaths[i]);
+             if (imageUrl == null) {
+                System.err.println("Immagine non trovata: " + cannonImagePaths[i]);
+            } else {
+                this.cannonImages[i] = new ImageIcon(imageUrl).getImage();
+            }
         }
-
-        this.cannonImage = new ImageIcon(imageUrl).getImage();
-        this.cannonHeight = cannonImage.getWidth(null);
-        this.cannonWidth = cannonImage.getHeight(null);
-        this.cannonX = 0;
-        this.cannonY = 0;
-        this.Angle = 0;
-    }
-
-    public final void updateImage() {
-        String imagePath = "";
-
-        if (this.Angle <= 12) {
-            imagePath = angleImages[0];
-        } else if (this.Angle >= 13 && this.Angle <= 24) {
-            imagePath = angleImages[1];
-        } else if (this.Angle >= 25 && this.Angle <= 36) {
-            imagePath = angleImages[2];
-        } else if (this.Angle >= 37 && this.Angle <= 48) {
-            imagePath = angleImages[3];
-        } else if (this.Angle >= 49) {
-            imagePath = angleImages[4];
+        // Inizializza dimensioni e posizione
+        if (this.cannonImages[0] != null) {
+            this.imageWidth = cannonImages[0].getHeight(null);
+            this.imageHeight = cannonImages[0].getWidth(null);
         }
-
-        // Carica l'immagine corrispondente all'angolo
-        final URL imageUrl = getClass().getClassLoader().getResource("images/" + imagePath);
-
-        if (imageUrl == null) {
-            System.err.println("Immagine non trovata: " + imagePath);
-            return;
-        }
-
-        this.cannonImage = new ImageIcon(imageUrl).getImage();
-        this.cannonHeight = cannonImage.getWidth(null); // Ricalcola la larghezza e l'altezza
-        this.cannonWidth = cannonImage.getHeight(null);
     }
 
     @Override
-    final public void draw(final Graphics g) {
-        g.drawImage(cannonImage, cannonX, cannonY, null);
+    public final void draw(final Graphics g) {
+        //La larghezza del cannone occupa tot della larghezza della finestra
+        int newWidth = this.scale.getScale() / 10;
+        //L'altezza è calcolata in proporzione
+        // newWidth : newHeight = imageWidth : imageHeight
+        int newHeight = (newWidth * this.imageHeight)/this.imageWidth;
+        double angle = this.cannonModel.getAngle();
+        int y = (this.scale.getScale() * 9)/10;
+        // xModel : 1 = x : scale - newWidth
+        double xdouble = this.cannonModel.getX() * (this.scale.getScale() - newWidth);
+        int x = (int)xdouble;
+        // Calcola l'indice dell'immagine in base all'angolo
+        int imageIndex = getImageIndexForAngle(angle);
+
+        // Disegna l'immagine corrispondente
+        // targetx1, targety1, targetx2, targety2, sourcex1, sourcey1, sourcex2, sourcey2
+        g.drawImage(cannonImages[imageIndex], x, y, x + newWidth, y + newHeight, 0, imageWidth, 0, imageHeight, null);
     }
 
-    @Override
-    final public void setCannonPosition(final int newX, final int newY) {
-        this.cannonX = newX;
-        this.cannonY = newY;
+    public int getImageIndexForAngle(final double angle) {
+        if (angle <= 12) {
+            return 0;
+        } else if (angle <= 24) {
+            return 1;
+        } else if (angle <= 36) {
+            return 2;
+        } else if (angle <= 48) {
+            return 3;
+        } else {
+            return 4;
+        }
     }
-
-    @Override
-    final public void setCannonAngle(final int newAngle) {
-        this.Angle = newAngle;
-        updateImage();
-    }
-
-    // Metodo per ottenere la larghezza del cannone
-    final public int getCannonWidth() {
-        return this.cannonWidth;
-    }
-
-    final public int getCannonHeight() {
-        return this.cannonHeight;
-    }
-
 }

@@ -1,17 +1,18 @@
 package it.unibo.controller;
 
 import it.unibo.controller.interfaces.CannonControllerInterface;
+import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.CannonModel;
-import it.unibo.view.CannonView;
+import it.unibo.model.KeyboardModel;
+import java.awt.event.KeyEvent;
 
-public class CannonController implements CannonControllerInterface {
+public class CannonController implements TickListenerInterface, CannonControllerInterface {
     private final CannonModel cannonModel;
-    private final CannonView cannonView;
+    private final KeyboardModel keyboardModel;
 
-    public CannonController(final CannonView view) {
+    public CannonController(KeyboardModel keyboardModel) {
         this.cannonModel = new CannonModel();
-        this.cannonView = view;
-        this.cannonView.setCannonPosition(305, 545);
+        this.keyboardModel = keyboardModel;
     }
 
     @Override
@@ -20,24 +21,16 @@ public class CannonController implements CannonControllerInterface {
     }
 
     @Override
-    final public CannonView getView() {
-        return this.cannonView;
+    public void onTick() {
+        if (this.keyboardModel.isKeyPressed(KeyEvent.VK_RIGHT)) {
+            cannonModel.moveRight();
+        } else if (this.keyboardModel.isKeyPressed(KeyEvent.VK_LEFT)) {
+            cannonModel.moveLeft();
+        }
+        if (this.keyboardModel.isKeyPressed(KeyEvent.VK_UP)) {
+            cannonModel.aimUp();
+        } else if (this.keyboardModel.isKeyPressed(KeyEvent.VK_DOWN)) {
+            cannonModel.aimDown();
+        }
     }
-
-    // Metodo per aggiornare la posizione del cannone
-    @Override
-    final public void updateCannonPosition() {
-        final int newX = cannonModel.getX();
-        final int newY = cannonModel.getY();
-        cannonView.setCannonPosition(newX, newY);
-
-    }
-
-    // Metodo per aggiornare l'angolo del cannone
-    @Override
-    final public void updateCannonAngle() {
-        final int newAngle = cannonModel.getAngle();
-        cannonView.setCannonAngle(newAngle);
-    }
-
 }
