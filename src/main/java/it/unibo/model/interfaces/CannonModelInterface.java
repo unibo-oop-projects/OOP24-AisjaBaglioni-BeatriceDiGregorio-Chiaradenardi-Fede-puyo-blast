@@ -5,14 +5,12 @@ public interface CannonModelInterface {
 
     void moveRight();
 
-    int getX();
+    double getX();
 
     void aimUp();
 
     void aimDown();
 
-    int getAngle();
-
-    int getY();
+    double getAngle();
 
 }
