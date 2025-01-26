@@ -70,6 +70,9 @@ public class PuyoRenderer {
 
     public void render(Graphics g, Grid grid, int row, int col) {
         PuyoInterface puyo = grid.getPuyo(col, row);
+        if (puyo == null) {
+            return;
+        }
         int cellsize = this.scale.getScale() / 16;
         // metà dei pezzi avanzati
         int offset_gridx = cellsize * 4;
