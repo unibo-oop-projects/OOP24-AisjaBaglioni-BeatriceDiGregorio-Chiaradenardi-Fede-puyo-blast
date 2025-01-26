@@ -2,14 +2,18 @@
 package it.unibo.controller;
 
 import it.unibo.controller.interfaces.ScreenManagerInterface;
+import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
+import it.unibo.model.KeyboardModel;
 import it.unibo.model.Menu;
+import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
 import java.util.Random;
 
 public class ScreenManager implements ScreenManagerInterface {
@@ -19,7 +23,11 @@ public class ScreenManager implements ScreenManagerInterface {
     private final GameView gameView;
     private final CannonController cannon;
     private final TargetController sightController;
-    private final ProgressBarController progressaBar;
+    private final ProgressBarModel progressBarModel;
+    private final ProgressBarController progressBar;
+    private final GameLoop gameLoop;
+    private final KeyboardModel keyboardModel;
+    private final CannonModel cannonModel;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -27,9 +35,8 @@ public class ScreenManager implements ScreenManagerInterface {
     private String currentLevel = "";
     private Scale scale;
 
-
-    //Ottieni scala
-    public Scale getScale(){
+    // Ottieni scala
+    public Scale getScale() {
         return this.scale;
     }
 
@@ -40,15 +47,19 @@ public class ScreenManager implements ScreenManagerInterface {
         this.frame.setSize(scale.getScale(), scale.getScale());
         this.frame.setResizable(false);
 
-
         grid = new Grid(8, 8);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
-        this.gameView = new GameView(grid, scale);
-        this.cannon = new CannonController(this.gameView.getCannonView());
+        this.cannonModel = new CannonModel();
+        this.progressBarModel = new ProgressBarModel();
+        this.gameView = new GameView(grid, scale, cannonModel, progressBarModel);
+        this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
+        this.keyboardModel = new KeyboardModel();
+        this.cannon = new CannonController(this.cannonModel, this.keyboardModel);
+        this.gameLoop.addTickListener(this.cannon);
         this.sightController = new TargetController(this.gameView.getCannonSightView());
-        this.progressaBar = new ProgressBarController(this.gameView.getProgressBarView());
-        puyoDropper = new PuyoDropper(grid, gameView);
+        this.progressBar = new ProgressBarController(this.progressBarModel);
+        this.gameLoop.addTickListener(this.progressBar);
         this.levelManager = new LevelManager();
         setupMenuListeners();
         setupRulesListeners();
@@ -59,7 +70,6 @@ public class ScreenManager implements ScreenManagerInterface {
     private void initializeGrid() {
         fillBottomRows(grid);
     }
-    
 
     private void fillBottomRows(Grid grid) {
         String[] initialColors = { "red", "blue", "green", "yellow", "purple", "cyan" };
@@ -71,7 +81,6 @@ public class ScreenManager implements ScreenManagerInterface {
             }
         }
     }
-    
 
     private void startGameWithConfig(LevelManager.LevelConfig config) {
         frame.getContentPane().removeAll();
@@ -84,24 +93,30 @@ public class ScreenManager implements ScreenManagerInterface {
         gameView.startGame();
 
         configureInputHandlers();
-        progressaBar.startProgress();
+
+        this.puyoDropper = new PuyoDropper(grid, gameView, config);
+        this.gameLoop.addTickListener(puyoDropper);
 
         // stop qualsiasi Timer precedente
-        if (dropTimer != null) {
-            dropTimer.stop();
-        }
+        /*
+         * if (dropTimer != null) {
+         * dropTimer.stop();
+         * }
+         * 
+         * dropTimer = new Timer(config.getDelay(), event -> {
+         * puyoDropper.fillGridRandomly(config.getPuyoCount());
+         * });
+         * 
+         * dropTimer.setInitialDelay(2000); // ritardo di 2 secondi prima di iniziare
+         * dropTimer.start();
+         */
 
-        dropTimer = new Timer(config.getDelay(), event -> {
-            puyoDropper.fillGridRandomly(config.getPuyoCount());
-        });
-
-        dropTimer.setInitialDelay(2000); // ritardo di 2 secondi prima di iniziare
-        dropTimer.start();
+        this.gameLoop.startGame();
     }
 
     private void configureInputHandlers() {
-        InputHandler inputHandler = new InputHandler(this.cannon, this.cannon.getModel(), this.progressaBar, this.sightController, this.sightController.getModel()) ;
-        gameView.addKeyListener(inputHandler);
+        KeyboardController keyboardController = new KeyboardController(this.keyboardModel);
+        gameView.addKeyListener(keyboardController);
         gameView.setFocusable(true);
     }
 

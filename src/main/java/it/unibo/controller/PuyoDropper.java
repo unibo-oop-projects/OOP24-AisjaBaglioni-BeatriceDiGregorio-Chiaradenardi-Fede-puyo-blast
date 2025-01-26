@@ -2,6 +2,7 @@
 package it.unibo.controller;
 
 import it.unibo.controller.interfaces.PuyoDropperInterface;
+import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Puyo;
 import it.unibo.view.GameView;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PuyoDropper implements PuyoDropperInterface{
+public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface{
     private final Grid grid;
     private final GameView gameView;
     private final Random random;
