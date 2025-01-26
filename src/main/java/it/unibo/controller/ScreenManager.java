@@ -39,6 +39,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final PuyoExplosionController puyoExplosionController;
     private final PauseView pauseView;
     private final PauseModel pauseModel;
+    private final PauseController pauseController;
     private final ExitView exitView;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
@@ -69,7 +70,8 @@ public class ScreenManager implements ScreenManagerInterface {
         this.bulletModel = new BulletModel();
         this.cannonView = new CannonView(this.scale, cannonModel);
         this.pauseModel = new PauseModel();
-        this.pauseView = new PauseView(this.scale, pauseModel);
+        this.pauseController = new PauseController(pauseModel);
+        this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
         this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, exitView);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();

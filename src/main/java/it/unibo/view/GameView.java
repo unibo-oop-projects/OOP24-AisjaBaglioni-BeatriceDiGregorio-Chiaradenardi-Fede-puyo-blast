@@ -48,6 +48,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.exitView = exitView;
         this.clickables = new HashSet<>();
         this.clickables.add(this.exitView);
+        this.clickables.add(this.pauseView);
         this.clickController = new ClickController(clickables);
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale);

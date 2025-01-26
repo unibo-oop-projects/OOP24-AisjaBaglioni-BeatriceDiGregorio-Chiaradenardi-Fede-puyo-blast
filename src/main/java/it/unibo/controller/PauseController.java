@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import it.unibo.model.PauseModel;
 
-public class PauseController implements ActionListener {
+public class PauseController{
     private final PauseModel model;
 
     public PauseController(PauseModel model){
@@ -14,8 +14,7 @@ public class PauseController implements ActionListener {
     }
 
 
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent e) {
+    public void setPause(){
         this.model.changePause();
     }
 }
