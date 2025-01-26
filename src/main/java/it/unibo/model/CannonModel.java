@@ -5,12 +5,12 @@ import it.unibo.model.interfaces.CannonModelInterface;
 public class CannonModel implements CannonModelInterface {
     private double x;
     private double angle;
-    private static final double STEP = 0.005;
-    private static final double ANGLE_STEP = 1;
+    private static final double STEP = 0.02;
+    private static final double ANGLE_STEP = 0.02;
 
     public CannonModel() {
         this.x = 0.5;
-        this.angle = 0;
+        this.angle = 0.5;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CannonModel implements CannonModelInterface {
 
     @Override
     final public void aimUp() {
-        this.angle = Math.min(this.angle + ANGLE_STEP, 90);
+        this.angle = Math.min(this.angle + ANGLE_STEP, 1);
     }
 
     @Override
