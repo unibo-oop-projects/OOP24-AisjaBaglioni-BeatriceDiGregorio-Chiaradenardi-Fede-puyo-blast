@@ -31,16 +31,20 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface{
 
     //metodo per generare un Puyo casuale e farlo cadere
     public void spawnAndDropPuyo() {
-        //genera un nuovo Puyo con un colore casuale
-        String randomColor = colors[random.nextInt(colors.length)];
-        //trova una colonna dove c'è spazio per far cadere un Puyo
-        int startX = random.nextInt(grid.getCols()); //posizione casuale X
-        int startY = -5; //trova la Y disponibile per il Puyo nella colonna
-        Puyo puyo = new Puyo(randomColor, startX, startY);
-        puyosInGame.add(puyo);
-            //avvia il movimento del Puyo che cade in un nuovo thread
-            new Thread(() -> dropPuyo(puyo)).start();
+        if (grid.isRowFull(0)) {
+            return;
         }
+        // genera un nuovo Puyo con un colore casuale
+        String randomColor = colors[random.nextInt(colors.length)];
+        // trova una colonna dove c'è spazio per far cadere un Puyo
+        int startX = random.nextInt(grid.getCols()); // posizione casuale X
+        while (grid.getPuyo(startX, 0) != null) {
+            startX = random.nextInt(grid.getCols());
+        }
+        int startY = 0; // trova la Y disponibile per il Puyo nella colonna
+        Puyo puyo = new Puyo(randomColor, startX, startY);
+        grid.addPuyo(puyo, startX, startY); // aggiunge il Puyo alla griglia
+    }
 
 
     public void fillGridRandomly(int puyoCount) {
