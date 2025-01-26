@@ -4,15 +4,18 @@ import it.unibo.controller.interfaces.CannonControllerInterface;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.CannonModel;
 import it.unibo.model.KeyboardModel;
+
 import java.awt.event.KeyEvent;
 
 public class CannonController implements TickListenerInterface, CannonControllerInterface {
     private final CannonModel cannonModel;
     private final KeyboardModel keyboardModel;
+    private final ProgressBarController progressBar;
 
-    public CannonController(CannonModel cannonModel, KeyboardModel keyboardModel) {
+    public CannonController(CannonModel cannonModel, KeyboardModel keyboardModel, ProgressBarController progressBar) {
         this.cannonModel = cannonModel;
         this.keyboardModel = keyboardModel;
+        this.progressBar = progressBar;
     }
 
     @Override
