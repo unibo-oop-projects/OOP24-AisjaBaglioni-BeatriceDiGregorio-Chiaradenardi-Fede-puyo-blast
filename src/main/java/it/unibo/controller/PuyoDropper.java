@@ -5,6 +5,7 @@ import it.unibo.controller.interfaces.PuyoDropperInterface;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Puyo;
+import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.GameView;
 
 import java.util.ArrayList;
@@ -78,39 +79,17 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface{
     }
 
     //logica di caduta del Puyo
+    // logica di caduta dei Puyo
     @Override
-    public void dropPuyo(Puyo puyo) {
-        int posY = puyo.getY();
-        boolean isFalling = true;
-
-        while (isFalling) {
-            if (posY < grid.getRows() - 1) {
-                // Controlla se la cella sotto è vuota
-                if (grid.getPuyo(puyo.getX(), posY + 1) == null) {
-                    grid.removePuyo(puyo.getX(), posY); // Rimuove dalla posizione corrente
-                    posY++;
-                    puyo.setY(posY); // Aggiorna la posizione Y
-                    grid.addPuyo(puyo, puyo.getX(), posY); // Aggiunge nella nuova posizione
-                    gameView.repaint(); // Aggiorna la vista
-
-                    try {
-                        Thread.sleep(100); // Ritardo per l'animazione
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                } else {
-                    isFalling = false; // Ferma se c'è un ostacolo sotto
+    public void dropPuyo() {
+        for (int y = grid.getRows() - 2; y >= 0; y--) {
+            for (int x = 0; x < grid.getCols(); x++) {
+                PuyoInterface puyo = grid.getPuyo(x, y);
+                if (puyo != null && grid.getPuyo(x, y + 1) == null) {
+                    grid.removePuyo(x, y);
+                    puyo.moveDown();
+                    grid.addPuyo(puyo, x, y + 1);
                 }
-            } else {
-                isFalling = false; // Ferma se raggiunge la fine
             }
         }
-        puyo.setFalling(false); // Segnala che il Puyo si è fermato
-    }
-
-
-    //metodo per ottenere la lista di Puyo memorizzati nella griglia
-    public List<Puyo> getPuyosInGame() {
-        return puyosInGame;
-    }
 }
