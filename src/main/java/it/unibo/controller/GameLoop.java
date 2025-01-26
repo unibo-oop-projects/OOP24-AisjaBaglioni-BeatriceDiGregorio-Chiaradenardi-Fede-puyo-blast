@@ -13,31 +13,29 @@ import java.util.Set;
 import javax.swing.Timer;
 
 public class GameLoop implements ActionListener {
-    private final GameState gameState;
-    private final Grid grid;
+    
     private final GameView gameView;
-
-    private boolean running;
     private boolean paused;
     private Timer gameTimer;
 
     private static final int delay = 33; // 30 FPS 
+    private static final long min_delay = 1000 / 30;
+    private long lastTime;
     private final Set<TickListenerInterface> tickListeners;
 
 
 
-    public GameLoop(GameState gameState, Grid grid, GameView gameView, Set<TickListenerInterface> tickListeners) {
-        this.gameState = gameState;
-        this.grid = grid;
+    public GameLoop(GameView gameView, Set<TickListenerInterface> tickListeners) {
         this.gameView = gameView;
-        this.running = false;
+        
         this.paused = false;
         this.tickListeners = tickListeners;
-        this.gameTimer = new Timer(delay, this);
+        this.gameTimer = new Timer(1, this);
     }
 
     //metodo per avviare il gioco
     public void startGame() {
+        this.lastTime = System.currentTimeMillis();
         this.gameTimer.start();
     }
 
@@ -64,19 +62,9 @@ public class GameLoop implements ActionListener {
 
     // Metodo per aggiornare lo stato del gioco
     private void update() {
-        if (!gameState.isGameOver()) {
-            // Aggiorna la logica della griglia
-            grid.updateGrid();
-
-            //ntifica tutti i listener
-            for (TickListenerInterface tickListener : tickListeners) {
-                tickListener.onTick();
-            }
-
-            // Verifica condizioni di fine partita
-            if (grid.isGridFull()) {
-                gameState.setGameOver(true);
-            }
+        for(TickListenerInterface tickListeners : this.tickListeners){
+            
+            tickListeners.onTick();
         }
     }
 
@@ -89,6 +77,13 @@ public class GameLoop implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         update();
+       long currentTime = System.currentTimeMillis();
+       if(currentTime - lastTime < min_delay){
+           lastTime = currentTime;
+
+           update();
+       }
+       
         render();
     }
 
