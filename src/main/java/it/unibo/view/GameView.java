@@ -25,31 +25,31 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final TargetView cannonSightView;
     private final ProgressBarView progressBarView;
     private Scale scale;
-    private PauseView pauseView;
-    private CannonModel cannonModel = new CannonModel();
-    private ProgressBarModel progressModel = new ProgressBarModel();
+    //private PauseView pauseView;
+    //private CannonModel cannonModel = new CannonModel();
+    //private ProgressBarModel progressModel = new ProgressBarModel();
     //pausa
     private boolean isPaused; //stato di pausa
-    private Timer gameTimer; //timer per aggiornare il gioco
+    //private Timer gameTimer; //timer per aggiornare il gioco
 
 
     //questo metodo fede
-    public GameView(Grid grid, Scale scale) {
+    public GameView(Grid grid, Scale scale, CannonModel cannonModel, ProgressBarModel progressModel) {
         this.scale = scale;
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale); 
-        this.cannonView = new CannonView(this.scale, this.cannonModel);
+        this.cannonView = new CannonView(this.scale, cannonModel);
         this.cannonSightView = new TargetView("CannonSightView.png");
-        this.progressBarView = new ProgressBarView(this.progressModel, this.scale);
+        this.progressBarView = new ProgressBarView(progressModel, this.scale);
         this.grid = grid;
-        this.pauseView = new PauseView(this);
+        //this.pauseView = new PauseView(this);
         this.isPaused = false;
 
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
 
-        gameTimer = new Timer(500, e -> updateGame());
+        //gameTimer = new Timer(500, e -> updateGame());
     }
     
 
@@ -59,7 +59,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         background.draw(g, getWidth(), getHeight());
         cannonView.draw(g);
         progressBarView.paintComponent(g);
-        pauseView.draw();
+        //pauseView.draw();
     
         // Disegna i Puyo dalla griglia
         if(!isPaused){
@@ -126,7 +126,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
 
         //logica per avviare il gioco
         //Timer timer = new Timer(500, e -> updateGame());
-        gameTimer.start();
+       // gameTimer.start();
     }
 
     //fede
@@ -135,10 +135,10 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         System.out.println("Toggling pause: " + isPaused);
     isPaused = !isPaused;
     if (isPaused) {
-        gameTimer.stop();
+        //gameTimer.stop();
         System.out.println("Game Timer stopped");
     } else {
-        gameTimer.start();
+        //gameTimer.start();
         System.out.println("Game Timer started");
     }
     repaint();
