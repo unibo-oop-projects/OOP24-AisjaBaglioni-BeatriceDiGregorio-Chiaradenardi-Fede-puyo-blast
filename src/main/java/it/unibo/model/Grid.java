@@ -74,6 +74,17 @@ public class Grid implements GridInterface {
         return true;
     }
 
+    //controllo se una riga è piena
+    @Override
+    public boolean isRowFull(int y) {
+        for (int x = 0; x < cols; x++) {
+            if (grid[y][x] == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     //controlla se la griglia è piena
     @Override
     public boolean isGridFull() {
