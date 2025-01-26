@@ -23,5 +23,7 @@ public interface PuyoDropperInterface{
      * @param puyo Il Puyo che deve cadere
      */
     void dropPuyo(Puyo puyo);
+
+    void onTick();
 }
 

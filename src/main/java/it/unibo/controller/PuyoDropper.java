@@ -16,12 +16,16 @@ public class PuyoDropper implements PuyoDropperInterface{
     private final Random random;
     private final String[] colors = {"red", "blue", "green", "yellow", "purple", "cyan", "pink"};
     private final List<Puyo> puyosInGame; //per memorizzare i Puyo nella griglia
+    private final LevelManager.LevelConfig levelConfig;
+    private int ticksPassed;
     
-    public PuyoDropper(Grid grid, GameView gameView) {
+    public PuyoDropper(Grid grid, GameView gameView, LevelManager.LevelConfig levelConfig) {
         this.grid = grid;
         this.gameView = gameView;
         this.random = new Random();
         this.puyosInGame = new ArrayList<>();
+        this.levelConfig = levelConfig;
+        this.ticksPassed = 0;
     }
 
     //metodo per generare un Puyo casuale e farlo cadere
@@ -43,7 +47,15 @@ public class PuyoDropper implements PuyoDropperInterface{
             spawnAndDropPuyo(); // Genera e fa cadere un nuovo Puyo
         }
     }
-    
+
+    @Override
+    public void onTick() {
+        ticksPassed++;
+        if (ticksPassed >= levelConfig.getDelay()) {
+            fillGridRandomly(levelConfig.getPuyoCount());
+            ticksPassed = 0;
+        }
+    }
 
     //trova la prima posizione disponibile in una colonna a partire dalla riga più bassa
     @Override
