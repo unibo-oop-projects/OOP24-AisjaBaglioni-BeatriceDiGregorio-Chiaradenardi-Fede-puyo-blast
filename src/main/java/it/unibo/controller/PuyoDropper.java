@@ -56,11 +56,15 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface{
     @Override
     public void onTick() {
         ticksPassed++;
-        if (ticksPassed >= levelConfig.getDelay()) {
+        if (ticksPassed % 5 == 0) {
+            dropPuyo();
+        }
+        if (ticksPassed % levelConfig.getDelay() == 0) {
             fillGridRandomly(levelConfig.getPuyoCount());
             ticksPassed = 0;
         }
-    }
+      }
+    
 
     //trova la prima posizione disponibile in una colonna a partire dalla riga più bassa
     @Override
