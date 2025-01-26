@@ -6,10 +6,12 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import it.unibo.model.Point2DI;
+import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.ClickInterface;
 
-
-public class ExitView {
+public class ExitView implements ClickInterface {
     private Image exit;
     Scale scale;
     private int imageWidth;
@@ -20,24 +22,42 @@ public class ExitView {
         URL exit_path = getClass().getClassLoader().getResource("images/mainmenu_button.png");
         exit = new ImageIcon(exit_path).getImage();
         this.imageWidth = exit.getWidth(null);
-        this.imageHeight = exit.getHeight(null);   
+        this.imageHeight = exit.getHeight(null);
     }
 
     final public void draw(Graphics g) {
+        Rectangle button = getArea();
+        g.drawImage(
+                exit,
+                button.upleft.x(),
+                button.upleft.y(),
+                button.lowright.x(),
+                button.lowright.y(),
+                0,
+                0,
+                imageWidth,
+                imageHeight,
+                null);
+    }
+
+    public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
         int x = this.scale.getScale() / 28;
         int y = 0;
-        g.drawImage(
-            exit,
-            x,
-            y,
-            x + newWidth,
-            y + newHeight,
-            0,
-            0,
-            imageWidth,
-            imageHeight,
-            null);
+        Point2DI upleft = new Point2DI(x, y);
+        Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
+        return new Rectangle(upleft, lowright);
+    }
+
+    @Override
+    public boolean isClicked(Point2DI pos) {
+        Rectangle button = getArea();
+        return button.isInside(pos);
+    }
+
+    @Override
+    public void doAction() {
+        System.out.println("Hai cliccato Main Menu");
     }
 }

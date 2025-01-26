@@ -4,6 +4,7 @@
 //classe con il pannello di gioco avviato
 package it.unibo.view;
 
+import it.unibo.controller.ClickController;
 import it.unibo.model.BulletModel;
 import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
@@ -11,13 +12,16 @@ import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
+import it.unibo.view.interfaces.ClickInterface;
 import java.awt.event.KeyEvent;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameView extends JPanel implements GameViewInterface, KeyListener {
+    private ClickController clickController;
     private BackGround background;
     private final PuyoRenderer renderer;
     private final Grid grid;
@@ -29,6 +33,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final PauseView pauseView;
     private final ExitView exitView;
     private Scale scale;
+    private Set<ClickInterface> clickables; 
     // private final PauseView pauseView;
     // pausa
     private boolean isPaused; // stato di pausa
@@ -41,6 +46,9 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.scale = scale;
         this.pauseView = pauseView;
         this.exitView = exitView;
+        this.clickables = new HashSet<>();
+        this.clickables.add(this.exitView);
+        this.clickController = new ClickController(clickables);
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale);
         this.cannonView = cannonView;
@@ -52,6 +60,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         // this.pauseView = new PauseView(this);
         this.isPaused = false;
 
+        this.addMouseListener(clickController);
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
