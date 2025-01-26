@@ -10,8 +10,8 @@ public class CannonController implements TickListenerInterface, CannonController
     private final CannonModel cannonModel;
     private final KeyboardModel keyboardModel;
 
-    public CannonController(KeyboardModel keyboardModel) {
-        this.cannonModel = new CannonModel();
+    public CannonController(CannonModel cannonModel, KeyboardModel keyboardModel) {
+        this.cannonModel = cannonModel;
         this.keyboardModel = keyboardModel;
     }
 
