@@ -16,14 +16,16 @@ public class BulletView {
     private BulletModel model;
     private Image sprites;
     Scale scale;
-    /* // Sono uguali a quelle del cannone
-    private int spawnX;
-    private int spawnY;
-    // Sono uguali a quelle del mirino
-    private int targetX;
-    private int targetY;*/
+    /*
+     * // Sono uguali a quelle del cannone
+     * private int spawnX;
+     * private int spawnY;
+     * // Sono uguali a quelle del mirino
+     * private int targetX;
+     * private int targetY;
+     */
 
-    public BulletView(BulletModel model, final String imagePath, Scale scale) {
+    public BulletView(BulletModel model, Scale scale) {
         this.scale = scale;
         this.model = model;
         URL image_path = getClass().getClassLoader().getResource("images/puyosprites.png");
@@ -31,10 +33,21 @@ public class BulletView {
     }
 
     public void draw(Graphics g) {
+        if (!this.model.isActive()) {
+            return;
+        }
         int cellsize = this.scale.getScale() / 16;
-        Point2D curPos = Point2D.mul(this.model.getCurrentPosition(), (double)scale.getScale());
-        int x = (int)curPos.x();
-        int y = (int)curPos.y();
-        g.drawImage(sprites, x, y, x + cellsize, y + cellsize, 18*32, 3*32, 19*32, 4*32, null);
+        Point2D curPos = this.model.getCurrentPosition();
+        int x = (int) curPos.x();
+        int y = (int) curPos.y();
+        g.drawImage(
+                sprites,
+                x - cellsize / 2,
+                y - cellsize / 2,
+                x + cellsize / 2,
+                y + cellsize / 2,
+                18 * 32, 3 * 32,
+                19 * 32, 4 * 32,
+                null);
     }
 }

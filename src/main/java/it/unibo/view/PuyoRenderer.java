@@ -108,7 +108,7 @@ public class PuyoRenderer {
         if (mask != 0) {
             offset_animation = SPRITE_MAPPER[mask] * 32;
         } else {
-            if (((System.currentTimeMillis() / 30) ^ puyo.getIdentifier()) % 101 < 2) {
+            if (((System.currentTimeMillis() / 150) ^ puyo.getIdentifier()) % 101 < 2) {
                 offset_animation = 32 * 16;
             }
         }
@@ -130,8 +130,30 @@ public class PuyoRenderer {
          */
         // drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1,
         // int sx2, int sy2, ImageObserver observer)
-        g2d.drawImage(sprites, x + offset_gridx, y + offset_gridy, x + cellsize + offset_gridx,
-                y + cellsize + offset_gridy, offset_animation, 32 * puyoRow, offset_animation + 32, 32 * puyoRow + 32,
-                null);
+        if (puyo.getDeathClock().isPresent()) {
+            g2d.drawImage(
+                    sprites,
+                    x + offset_gridx,
+                    y + offset_gridy,
+                    x + cellsize + offset_gridx,
+                    y + cellsize + offset_gridy,
+                    puyoRow * 48,
+                    32 * 15,
+                    puyoRow * 48 + 32,
+                    32 * 16,
+                    null);
+        } else {
+            g2d.drawImage(
+                    sprites,
+                    x + offset_gridx,
+                    y + offset_gridy,
+                    x + cellsize + offset_gridx,
+                    y + cellsize + offset_gridy,
+                    offset_animation,
+                    32 * puyoRow,
+                    offset_animation + 32,
+                    32 * puyoRow + 32,
+                    null);
+        }
     }
 }

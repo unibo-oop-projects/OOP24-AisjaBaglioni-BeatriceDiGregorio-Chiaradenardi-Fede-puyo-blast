@@ -2,15 +2,21 @@
 package it.unibo.controller;
 
 import it.unibo.controller.interfaces.ScreenManagerInterface;
+import it.unibo.model.BulletModel;
 import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
 import it.unibo.model.KeyboardModel;
 import it.unibo.model.Menu;
+import it.unibo.model.PauseModel;
 import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
+import it.unibo.view.CannonView;
+import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
+import it.unibo.view.PauseView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
@@ -22,12 +28,18 @@ public class ScreenManager implements ScreenManagerInterface {
     private final MenuRules rulesView;
     private final GameView gameView;
     private final CannonController cannon;
-    private final TargetController sightController;
+    private final CannonView cannonView;
     private final ProgressBarModel progressBarModel;
     private final ProgressBarController progressBar;
     private final GameLoop gameLoop;
     private final KeyboardModel keyboardModel;
     private final CannonModel cannonModel;
+    private final BulletModel bulletModel;
+    private final BulletController bulletController;
+    private final PuyoExplosionController puyoExplosionController;
+    private final PauseView pauseView;
+    private final PauseModel pauseModel;
+    private final ExitView exitView;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -48,18 +60,26 @@ public class ScreenManager implements ScreenManagerInterface {
         this.frame.setResizable(false);
 
         grid = new Grid(8, 8);
+        this.exitView = new ExitView(scale);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.cannonModel = new CannonModel();
         this.progressBarModel = new ProgressBarModel();
-        this.gameView = new GameView(grid, scale, cannonModel, progressBarModel);
+        this.progressBar = new ProgressBarController(this.progressBarModel);
+        this.bulletModel = new BulletModel();
+        this.cannonView = new CannonView(this.scale, cannonModel);
+        this.pauseModel = new PauseModel();
+        this.pauseView = new PauseView(this.scale, pauseModel);
+        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, exitView);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
-        this.cannon = new CannonController(this.cannonModel, this.keyboardModel);
+        this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
+        this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView, scale);
+        this.puyoExplosionController = new PuyoExplosionController(grid);
         this.gameLoop.addTickListener(this.cannon);
-        this.sightController = new TargetController(this.gameView.getCannonSightView());
-        this.progressBar = new ProgressBarController(this.progressBarModel);
         this.gameLoop.addTickListener(this.progressBar);
+        this.gameLoop.addTickListener(this.bulletController);
+        this.gameLoop.addTickListener(this.puyoExplosionController);
         this.levelManager = new LevelManager();
         setupMenuListeners();
         setupRulesListeners();
@@ -94,7 +114,7 @@ public class ScreenManager implements ScreenManagerInterface {
 
         configureInputHandlers();
 
-        this.puyoDropper = new PuyoDropper(grid, gameView, config);
+        this.puyoDropper = new PuyoDropper(grid, config);
         this.gameLoop.addTickListener(puyoDropper);
 
         // stop qualsiasi Timer precedente

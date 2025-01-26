@@ -4,6 +4,7 @@
 //classe con il pannello di gioco avviato
 package it.unibo.view;
 
+import it.unibo.model.BulletModel;
 import it.unibo.model.CannonModel;
 import it.unibo.model.Grid;
 import it.unibo.model.ProgressBarModel;
@@ -23,6 +24,10 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final CannonView cannonView;
     private final TargetView cannonSightView;
     private final ProgressBarView progressBarView;
+    private final BulletView bulletView;
+    private final BorderView borderView;
+    private final PauseView pauseView;
+    private final ExitView exitView;
     private Scale scale;
     // private final PauseView pauseView;
     // pausa
@@ -30,13 +35,19 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     // private Timer gameTimer; // timer per aggiornare il gioco
 
     // questo metodo fede
-    public GameView(Grid grid, Scale scale, CannonModel cannonModel, ProgressBarModel progressModel) {
+    public GameView(Grid grid, Scale scale, CannonModel cannonModel, CannonView cannonView,
+            ProgressBarModel progressModel,
+            BulletModel bulletModel, PauseView pauseView, ExitView exitView) {
         this.scale = scale;
+        this.pauseView = pauseView;
+        this.exitView = exitView;
         this.background = new BackGround("background.jpg");
         this.renderer = new PuyoRenderer(this.scale);
-        this.cannonView = new CannonView(this.scale, cannonModel);
-        this.cannonSightView = new TargetView("CannonSightView.png");
+        this.cannonView = cannonView;
+        this.cannonSightView = new TargetView("CannonSightView.png", this.scale, cannonModel);
         this.progressBarView = new ProgressBarView(progressModel, this.scale);
+        this.bulletView = new BulletView(bulletModel, this.scale);
+        this.borderView = new BorderView(this.scale);
         this.grid = grid;
         // this.pauseView = new PauseView(this);
         this.isPaused = false;
@@ -52,9 +63,6 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         background.draw(g, getWidth(), getHeight());
-        cannonView.draw(g);
-        progressBarView.paintComponent(g);
-        // pauseView.draw();
 
         // Disegna i Puyo dalla griglia
         if (!isPaused) {
@@ -63,12 +71,22 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
                     PuyoInterface puyo = grid.getPuyo(x, y);
                     if (puyo != null) {
                         renderer.render(g, grid, y, x);
-                        cannonSightView.draw(g);
                     }
                 }
             }
         }
 
+        borderView.draw(g);
+
+        cannonSightView.draw(g);
+
+        this.bulletView.draw(g);
+
+        cannonView.draw(g);
+        progressBarView.paintComponent(g);
+
+        exitView.draw(g);
+        pauseView.draw(g);
         // Disegna il messaggio di pausa
         if (isPaused) {
             drawPauseMessage(g);

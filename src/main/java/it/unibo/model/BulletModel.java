@@ -7,16 +7,18 @@ public class BulletModel {
     private Point2D target;
     private boolean active;
     private int ticks;
-    private static final int ANIMATIONTIME = 60;
+    private static final int ANIMATIONTIME = 15;
 
-    public BulletModel(Point2D source, Point2D target) {
-        this.source = source;
-        this.target = target;
+    public BulletModel() {
+        this.source = null;
+        this.target = null;
         this.active = false;
         this.ticks = 0;
     }
 
-    public void shootBullet() {
+    public void shootBullet(Point2D source, Point2D target) {
+        this.source = source;
+        this.target = target;
         this.active = true;
         this.ticks = 0;
     }
@@ -29,10 +31,16 @@ public class BulletModel {
         return false;
     }
 
-    public void updatePosition() {
+    public boolean updatePosition() {
         if (isActive()) {
             this.ticks++;
+            if (this.ticks > ANIMATIONTIME) {
+                this.active = false;
+                return false;
+            }
+            return true;
         }
+        return false;
     }
 
     public boolean isActive() {

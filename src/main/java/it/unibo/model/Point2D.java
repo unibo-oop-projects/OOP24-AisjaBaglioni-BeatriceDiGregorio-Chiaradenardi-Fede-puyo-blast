@@ -24,5 +24,4 @@ public record Point2D(double x, double y) {
         return new Point2D(a.x / k, a.y / k);
     }
 
-
 }
