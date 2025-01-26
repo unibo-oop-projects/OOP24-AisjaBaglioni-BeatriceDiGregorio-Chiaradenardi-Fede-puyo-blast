@@ -26,6 +26,9 @@ public interface GridInterface {
     // Controlla se la griglia è piena
     boolean isGridFull();
 
+    // Controlla se una riga è piena
+    boolean isRowFull(int y);
+
     // Metodo per aggiornare la griglia (es. dopo un'esplosione)
     void updateGrid();
 
