@@ -4,7 +4,6 @@ import it.unibo.controller.interfaces.ProgressBarControllerInterface;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.ProgressBarModel;
 
-
 public class ProgressBarController implements TickListenerInterface, ProgressBarControllerInterface {
     private final ProgressBarModel progressBarModel;
 
@@ -18,8 +17,12 @@ public class ProgressBarController implements TickListenerInterface, ProgressBar
     }
 
     @Override
-    public void resetBar() {
-        this.progressBarModel.resetCharge();
+    public boolean resetBar() {
+        if (this.progressBarModel.getChargeLevel() == 1) {
+            this.progressBarModel.resetCharge();
+            return true;
+        }
+        return false;
     }
 
 }
