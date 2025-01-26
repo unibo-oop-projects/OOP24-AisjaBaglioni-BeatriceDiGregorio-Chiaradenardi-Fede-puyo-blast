@@ -4,6 +4,8 @@ package it.unibo.model;
 
 import it.unibo.model.interfaces.GridInterface;
 import it.unibo.model.interfaces.PuyoInterface;
+
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Puyo implements PuyoInterface {
@@ -12,6 +14,8 @@ public class Puyo implements PuyoInterface {
     private int x;
     private int y;
     private boolean isFalling;
+    Optional<Integer> deathClock;
+    Optional<Integer> freezeClock;
 
     // Costruttore
     public Puyo(String color, int x, int y) {
@@ -20,6 +24,24 @@ public class Puyo implements PuyoInterface {
         this.y = y;
         this.identifier = Math.abs(ThreadLocalRandom.current().nextLong());
         this.isFalling = true;
+        deathClock=Optional.empty();
+        freezeClock=Optional.empty();
+    }
+
+    public void setDeathClock(Optional<Integer> deathClock){
+        this.deathClock = deathClock;
+    }
+
+    public void setFreezeClock(Optional<Integer> freezeClock){
+        this.freezeClock = freezeClock;
+    }
+
+    public Optional<Integer> getDeathClock(){
+        return this.deathClock;
+    }
+
+    public Optional<Integer> getFreezeClock(){
+        return this.freezeClock;
     }
 
     public long getIdentifier() {
