@@ -12,13 +12,13 @@ public class LevelManager {
         this.levels = new HashMap<>();
         this.currentLevel = 1; 
 
-        levels.put(1, new LevelConfig(3000, 1)); //livello 1: 1 Puyo ogni 3 secondi
-        levels.put(2, new LevelConfig(2000, 2)); //livello 2: 2 Puyo ogni 2 secondi
-        levels.put(3, new LevelConfig(1000, 3)); //livello 3: 3 Puyo ogni 1 secondo
+        levels.put(1, new LevelConfig(100, 1)); //livello 1: 1 Puyo ogni 3 secondi
+        levels.put(2, new LevelConfig(66, 2)); //livello 2: 2 Puyo ogni 2 secondi
+        levels.put(3, new LevelConfig(33, 3)); //livello 3: 3 Puyo ogni 1 secondo
     }
 
     public LevelConfig getCurrentLevelConfig() {
-        return levels.getOrDefault(currentLevel, new LevelConfig(3000, 1)); 
+        return levels.getOrDefault(currentLevel, new LevelConfig(100, 1)); 
     }
 
     public static class LevelConfig {
@@ -39,7 +39,7 @@ public class LevelManager {
     }
 
     public LevelConfig getLevelConfig(int level) {
-        return levels.getOrDefault(level, new LevelConfig(3000, 1)); //default al livello 1
+        return levels.getOrDefault(level, new LevelConfig(100, 1)); //default al livello 1
     }
     
 }
