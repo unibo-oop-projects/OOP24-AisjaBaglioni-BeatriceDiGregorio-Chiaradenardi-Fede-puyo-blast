@@ -44,7 +44,7 @@ public class ExitView implements ClickInterface {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
         int x = this.scale.getScale() / 28;
-        int y = 0;
+        int y = this.scale.getScale()/16;
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         return new Rectangle(upleft, lowright);
