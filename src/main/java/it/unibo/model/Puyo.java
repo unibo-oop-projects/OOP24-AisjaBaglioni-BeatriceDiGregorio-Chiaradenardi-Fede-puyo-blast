@@ -14,7 +14,7 @@ public class Puyo implements PuyoInterface {
     private int y;
 
     Optional<Integer> deathClock;
-    //Optional<Integer> freezeClock;
+    Optional<Integer> freezeClock;
 
     // Costruttore
     public Puyo(String color, int x, int y) {
@@ -24,7 +24,7 @@ public class Puyo implements PuyoInterface {
         this.identifier = Math.abs(ThreadLocalRandom.current().nextLong());
         
         deathClock=Optional.empty();
-        //freezeClock=Optional.empty();
+        freezeClock=Optional.empty();
     }
 
     public Optional<Integer> getDeathClock(){
@@ -35,16 +35,16 @@ public class Puyo implements PuyoInterface {
         this.deathClock = deathClock;
     }
 
-    /*
+    
     public void setFreezeClock(Optional<Integer> freezeClock){
         this.freezeClock = freezeClock;
-    }*/
+    }
 
     
-    /*
+    
     public Optional<Integer> getFreezeClock(){
         return this.freezeClock;
-    }*/
+    }
 
     public long getIdentifier() {
         return identifier;

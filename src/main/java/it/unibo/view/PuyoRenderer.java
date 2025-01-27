@@ -142,6 +142,18 @@ public class PuyoRenderer {
                     puyoRow * 48 + 32,
                     32 * 16,
                     null);
+        } else if (puyo.getFreezeClock().isPresent()) {
+            g2d.drawImage(
+                    sprites,
+                    x + offset_gridx,
+                    y + offset_gridy,
+                    x + cellsize + offset_gridx,
+                    y + cellsize + offset_gridy,
+                    offset_animation,
+                    32*(puyoRow + 7),
+                    offset_animation + 32,
+                    32 * (puyoRow + 8),
+                    null);
         } else {
             g2d.drawImage(
                     sprites,

@@ -13,4 +13,6 @@ public interface PuyoInterface {
     long getIdentifier();
     Optional<Integer> getDeathClock();
     void setDeathClock(Optional<Integer> deathClock);
+    Optional<Integer> getFreezeClock();
+    void setFreezeClock(Optional<Integer> freezeClock);
 }
