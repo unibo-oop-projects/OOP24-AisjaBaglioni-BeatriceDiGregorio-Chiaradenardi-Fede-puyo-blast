@@ -65,6 +65,9 @@ public class BulletController implements TickListenerInterface {
         if (puyo == null) {
             return;
         }
+        if (puyo.getDeathClock().isPresent()) {
+            return;
+        }
         ArrayDeque<Point2DI> q = new ArrayDeque<>();
         Map<Point2DI, Integer> d = new HashMap<>();
         q.add(target);
