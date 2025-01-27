@@ -48,13 +48,12 @@ public class ScreenManager implements ScreenManagerInterface {
     private String currentLevel = "";
     private Scale scale;
 
-    // Ottieni scala
-    public Scale getScale() {
-        return this.scale;
-    }
-
     public ScreenManager(String[] levels) {
-        this.scale = new Scale();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+        int dim = (int)(Math.min(width, height) * 0.75);
+        this.scale = new Scale(dim);
         this.frame = new JFrame("Puyo Pop");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(scale.getScale(), scale.getScale());
@@ -72,7 +71,8 @@ public class ScreenManager implements ScreenManagerInterface {
         this.pauseModel = new PauseModel();
         this.pauseController = new PauseController(pauseModel);
         this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
-        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, exitView);
+        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView,
+                exitView);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
