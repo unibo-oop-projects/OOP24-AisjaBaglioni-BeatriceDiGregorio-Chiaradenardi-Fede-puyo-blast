@@ -63,7 +63,7 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
         for (int y = grid.getRows() - 2; y >= 0; y--) {
             for (int x = 0; x < grid.getCols(); x++) {
                 PuyoInterface puyo = grid.getPuyo(x, y);
-                if (puyo != null && grid.getPuyo(x, y + 1) == null) {
+                if (puyo != null && grid.getPuyo(x, y + 1) == null && puyo.getDeathClock().isEmpty()) {
                     grid.removePuyo(x, y);
                     puyo.moveDown();
                     grid.addPuyo(puyo, x, y + 1);
