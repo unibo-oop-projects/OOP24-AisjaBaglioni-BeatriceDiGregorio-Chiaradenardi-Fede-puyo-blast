@@ -4,40 +4,50 @@ import it.unibo.model.interfaces.ModelMasterInterface;
 
 public class ModelMaster implements ModelMasterInterface{
 
+    private final Grid grid;
+    private final CannonModel cannonModel;
+    private final ProgressBarModel progressBarModel;
+    private final BulletModel bulletModel;
+    private final KeyboardModel keyboardModel;
+    private final PauseModel pauseModel;
+
+    public ModelMaster() {
+        this.grid = new Grid(8, 8);
+        this.cannonModel = new CannonModel();
+        this.progressBarModel = new ProgressBarModel();
+        this.bulletModel = new BulletModel();
+        this.keyboardModel = new KeyboardModel();
+        this.pauseModel = new PauseModel();
+    }
+
     @Override
     public Grid getGrid() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGrid'");
+        return grid;    
     }
 
     @Override
     public CannonModel getCannonModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCannonModel'");
+        return cannonModel;
     }
 
     @Override
     public ProgressBarModel getProgressBarModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProgressBarModel'");
+        return progressBarModel;
     }
 
     @Override
     public BulletModel getBulletModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBulletModel'");
+        return bulletModel;
     }
 
     @Override
     public KeyboardModel getKeyboardModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getKeyboardModel'");
+        return keyboardModel;
     }
 
     @Override
     public PauseModel getPauseModel() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPauseModel'");
+        return pauseModel;
     }
     
 }
