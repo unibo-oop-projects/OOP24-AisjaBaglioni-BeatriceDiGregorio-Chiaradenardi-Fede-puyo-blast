@@ -181,16 +181,29 @@ public class ScreenManager implements ScreenManagerInterface {
 
     @Override
     public void switchToMenuView() {
+        // Ferma qualsiasi attività in corso nel gioco
+        if (dropTimer != null) {
+            dropTimer.stop();  // Ferma il timer
+        }
+        
+        // Resetta la griglia e la barra di progresso
+        grid.clear();
+        initializeGrid();  // Riempie la griglia con nuovi Puyo
+        progressBar.reset();  // Reset del punteggio e della progress bar
+
+        // Rimuovi i listener esistenti dal gameLoop
+        gameLoop.removeTickListener(puyoDropper);
+
+        // Imposta il menu come vista corrente
         frame.getContentPane().removeAll();
         frame.getContentPane().add(menuView);
         frame.revalidate();
         frame.repaint();
-        currentLevel = ""; // resetta il livello selezionato
 
-        if (dropTimer != null) {
-            dropTimer.stop();
-        }
+        // Reset del livello selezionato
+        currentLevel = ""; // Reset del livello selezionato
     }
+
 
     @Override
     public void switchToRulesView() {

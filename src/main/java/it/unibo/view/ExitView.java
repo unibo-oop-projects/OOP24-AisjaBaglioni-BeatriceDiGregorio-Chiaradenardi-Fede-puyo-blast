@@ -60,6 +60,7 @@ public class ExitView implements ClickInterface {
         return button.isInside(pos);
     }
 
+    //chiara
     @Override
     public void doAction() {
         System.out.println("Hai cliccato Main Menu");
