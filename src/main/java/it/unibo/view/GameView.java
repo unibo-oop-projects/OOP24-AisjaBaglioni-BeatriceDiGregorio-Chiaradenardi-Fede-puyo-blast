@@ -1,21 +1,14 @@
-//include in rendering dello sfondo per avviare il gioco
-
-//Disegna la griglia (classe grid), i Puyo(clase puyo) eto il cannone(classe cannone) 
-//classe con il pannello di gioco avviato
 package it.unibo.view;
 
 import it.unibo.controller.ClickController;
-import it.unibo.model.BulletModel;
-import it.unibo.model.CannonModel;
-import it.unibo.model.Grid;
-import it.unibo.model.ProgressBarModel;
-import it.unibo.model.Scale;
+import it.unibo.controller.ScreenManager;
+import it.unibo.model.*;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.interfaces.GameViewInterface;
 import it.unibo.view.interfaces.ClickInterface;
-import java.awt.event.KeyEvent;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,20 +27,18 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final ExitView exitView;
     private final TryAgainView tryAgain;
     private Scale scale;
-    private Set<ClickInterface> clickables; 
-    // private final PauseView pauseView;
-    // pausa
-    private boolean isPaused; // stato di pausa
-    // private Timer gameTimer; // timer per aggiornare il gioco
+    private Set<ClickInterface> clickables;
+    private boolean isPaused;
 
-    // questo metodo fede
     public GameView(Grid grid, Scale scale, CannonModel cannonModel, CannonView cannonView,
-            ProgressBarModel progressModel,
-            BulletModel bulletModel, PauseView pauseView, ExitView exitView, TryAgainView tryAgain) {
+                    ProgressBarModel progressModel, BulletModel bulletModel, 
+                    PauseView pauseView, TryAgainView tryAgain, 
+                    ExitView exitView, ScreenManager screenManager) {
+
         this.scale = scale;
         this.pauseView = pauseView;
-        this.exitView = exitView;
         this.tryAgain = tryAgain;
+        this.exitView = new ExitView(scale, screenManager); 
         this.clickables = new HashSet<>();
         this.clickables.add(this.exitView);
         this.clickables.add(this.tryAgain);
@@ -61,15 +52,12 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.bulletView = new BulletView(bulletModel, this.scale);
         this.borderView = new BorderView(this.scale);
         this.grid = grid;
-        // this.pauseView = new PauseView(this);
         this.isPaused = false;
 
         this.addMouseListener(clickController);
         this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
-
-        // gameTimer = new Timer(500, e -> updateGame());
     }
 
     @Override
@@ -77,7 +65,6 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         super.paintComponent(g);
         background.draw(g, getWidth(), getHeight());
 
-        // Disegna i Puyo dalla griglia
         if (!isPaused) {
             for (int y = 0; y < grid.getRows(); y++) {
                 for (int x = 0; x < grid.getCols(); x++) {
@@ -90,24 +77,20 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         }
 
         borderView.draw(g);
-
         cannonSightView.draw(g);
-
-        this.bulletView.draw(g);
-
+        bulletView.draw(g);
         cannonView.draw(g);
         progressBarView.paintComponent(g);
 
         exitView.draw(g);
         tryAgain.draw(g);
         pauseView.draw(g);
-        // Disegna il messaggio di pausa
+
         if (isPaused) {
             drawPauseMessage(g);
         }
     }
 
-    // fede
     private void drawPauseMessage(Graphics g) {
         String pauseText = "Game Paused";
         g.setFont(new Font("Arial", Font.BOLD, 36));
@@ -118,13 +101,11 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         g.drawString(pauseText, x, y);
     }
 
-    // chiara
     public void updateGame() {
         if (!isPaused) {
-            grid.updateGrid(); // logica di caduta dei Puyo
-            repaint(); // aggiorna la grafica
+            grid.updateGrid();
+            repaint();
         }
-
     }
 
     public CannonView getCannonView() {
@@ -142,54 +123,34 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     @Override
     public void render(Graphics g, int width, int height) {
         background.draw(g, width, height);
-        // cannonView.draw(g, width, height);
     }
 
     @Override
     public void startGame() {
-        System.out.println("Game started! ciao belli");
-
-        // logica per avviare il gioco
-        // Timer timer = new Timer(500, e -> updateGame());
-        // gameTimer.start();
+        System.out.println("Game started!");
     }
 
-    // fede
-    // Metodi per mettere in pausa e riprendere il gioco
     public void togglePause() {
         System.out.println("Toggling pause: " + isPaused);
         isPaused = !isPaused;
-        if (isPaused) {
-            // gameTimer.stop();
-            System.out.println("Game Timer stopped");
-        } else {
-            // gameTimer.start();
-            System.out.println("Game Timer started");
-        }
         repaint();
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-        // Non utilizzato
-    }
+    public void keyTyped(KeyEvent e) {}
 
-    // fede
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
-            togglePause(); // Alterna lo stato di pausa
+            togglePause();
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        // Non utilizzato
-    }
+    public void keyReleased(KeyEvent e) {}
 
     @Override
     public boolean isPaused() {
-
         return isPaused;
     }
 }

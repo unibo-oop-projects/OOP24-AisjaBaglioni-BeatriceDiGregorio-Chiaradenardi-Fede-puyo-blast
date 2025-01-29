@@ -75,8 +75,8 @@ public class ScreenManager implements ScreenManagerInterface {
         this.pauseModel = new PauseModel();
         this.pauseController = new PauseController(pauseModel);
         this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
-        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView,
-                exitView, tryAgain);
+        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgain,
+            exitView, this);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
