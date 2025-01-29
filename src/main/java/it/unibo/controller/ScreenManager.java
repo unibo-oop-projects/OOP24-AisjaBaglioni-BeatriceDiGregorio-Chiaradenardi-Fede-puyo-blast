@@ -73,7 +73,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.exitController = new ExitController(exitModel, this);
         this.exitView = new ExitView(scale, exitController);
         this.tryAgainModel = new TryAgainModel();
-        this.tryAgainController = new TryAgainController();
+        this.tryAgainController = new TryAgainController(levelManager, this, tryAgainModel);
         this.tryAgainView = new TryAgainView(scale, tryAgainController);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();

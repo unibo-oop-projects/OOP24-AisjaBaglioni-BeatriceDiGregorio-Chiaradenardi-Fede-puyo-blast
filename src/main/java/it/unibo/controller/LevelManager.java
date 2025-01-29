@@ -45,5 +45,10 @@ public class LevelManager {
     public void resetLevel(int level) {
         LevelConfig currentConfig = getLevelConfig(level); // Ottieni la configurazione del livello
         System.out.println("Ripristinato il livello " + level + " con delay: " + currentConfig.getDelay() + " e PuyoCount: " + currentConfig.getPuyoCount());
-    }        
+    }      
+    
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
 }
