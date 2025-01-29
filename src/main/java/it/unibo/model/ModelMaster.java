@@ -1,26 +1,31 @@
 package it.unibo.model;
 
+
 import it.unibo.model.interfaces.ModelMasterInterface;
 
 public class ModelMaster implements ModelMasterInterface{
 
-    private final Grid grid;
-    private final CannonModel cannonModel;
-    private final ProgressBarModel progressBarModel;
     private final BulletModel bulletModel;
+    private final CannonModel cannonModel;
+    private final ExitModel exitModel;
+    private final Grid grid;
     private final KeyboardModel keyboardModel;
     private final PauseModel pauseModel;
+    private final ProgressBarModel progressBarModel;
     private final ScoreModel scoreModel;
+    private final TryAgainModel tryAgainModel;
 
     public ModelMaster() {
-        this.grid = new Grid(8, 8);
-        this.cannonModel = new CannonModel();
-        this.progressBarModel = new ProgressBarModel();
         this.bulletModel = new BulletModel();
+        this.cannonModel = new CannonModel();
+        this.exitModel = new ExitModel();
+        this.grid = new Grid(8, 8);
         this.keyboardModel = new KeyboardModel();
         this.pauseModel = new PauseModel();
+        this.progressBarModel = new ProgressBarModel();
         this.scoreModel = new ScoreModel();
-    }
+        this.tryAgainModel = new TryAgainModel();
+        };
 
     @Override
     public Grid getGrid() {
@@ -55,6 +60,16 @@ public class ModelMaster implements ModelMasterInterface{
     @Override
     public PauseModel getPauseModel() {
         return pauseModel;
+    }
+
+    @Override
+    public ExitModel getExitModel() {
+        return this.exitModel;
+    }
+
+    @Override
+    public TryAgainModel getTryAgainModel() {
+        return this.tryAgainModel;
     }
     
 }
