@@ -98,6 +98,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         progressBarView.paintComponent(g);
 
         exitView.draw(g);
+        tryAgain.draw(g);
         pauseView.draw(g);
         // Disegna il messaggio di pausa
         if (isPaused) {

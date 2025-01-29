@@ -62,11 +62,7 @@ public class TryAgain implements ClickInterface {
         
         // Posizionamento in basso a sinistra
         int x = 10;  // Distanza dal bordo sinistro
-        int y = this.scale.getScale() - newHeight - 10;  // Distanza dal bordo inferiore
-        
-        // Stampa delle coordinate per il debug
-        System.out.println("x: " + x + ", y: " + y + ", width: " + newWidth + ", height: " + newHeight);
-        
+        int y = this.scale.getScale() - newHeight - 50;  // Distanza dal bordo inferiore        
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         
