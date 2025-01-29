@@ -1,4 +1,3 @@
-//chiara
 package it.unibo.view;
 
 import javax.swing.*;
@@ -7,10 +6,18 @@ import java.awt.event.ActionListener;
 
 public class MenuRules extends JPanel {
     private final JButton backButton = new JButton("Indietro");
+    private Image backgroundImage; // Immagine di sfondo
 
     public MenuRules() {
         this.setLayout(new BorderLayout());
-        this.setBackground(new Color(28, 28, 28));  
+
+        // Caricamento dell'immagine di sfondo
+        try {
+            backgroundImage = new ImageIcon(getClass().getResource("/images/background.jpg")).getImage();
+        } catch (Exception e) {
+            System.out.println("Errore nel caricamento dell'immagine");
+            e.printStackTrace();
+        }
 
         JTextArea rulesText = new JTextArea(
             "Regole del Gioco:\n" +
@@ -28,7 +35,7 @@ public class MenuRules extends JPanel {
         rulesText.setFont(new Font("Segoe UI", Font.PLAIN, 18));  
         rulesText.setLineWrap(true);
         rulesText.setWrapStyleWord(true);
-        rulesText.setBackground(new Color(28, 28, 28));  
+        rulesText.setOpaque(false);
         rulesText.setForeground(new Color(200, 200, 200));  
         rulesText.setCaretColor(new Color(255, 255, 255));  
         rulesText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));  
@@ -36,10 +43,12 @@ public class MenuRules extends JPanel {
         JScrollPane scrollPane = new JScrollPane(rulesText);
         scrollPane.setPreferredSize(new Dimension(650, 300));  
         scrollPane.setBorder(BorderFactory.createEmptyBorder());  
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
 
-        //pannello inferiore con il pulsante "Indietro"
+        // Pannello inferiore con il pulsante "Indietro"
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(new Color(28, 28, 28));  
+        bottomPanel.setOpaque(false);
         styleButton(backButton, new Color(50, 130, 255));  
 
         bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));  
@@ -77,5 +86,14 @@ public class MenuRules extends JPanel {
 
     public void addBackButtonListener(ActionListener listener) {
         backButton.addActionListener(listener);
+    }
+
+    // Override di paintComponent per disegnare lo sfondo
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }
