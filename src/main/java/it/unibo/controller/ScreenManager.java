@@ -64,7 +64,7 @@ public class ScreenManager implements ScreenManagerInterface {
         grid = new Grid(8, 8);
         this.levelManager = new LevelManager();
         this.exitView = new ExitView(scale);
-        this.tryAgain = new TryAgain(scale, levelManager);
+        this.tryAgain = new TryAgain(scale, levelManager, this);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.cannonModel = new CannonModel();
@@ -215,30 +215,41 @@ public class ScreenManager implements ScreenManagerInterface {
 
     public void resetGame() {
         // Logica per ripristinare la griglia
-        grid.clear();  
+        grid.clear();
         initializeGrid();  // Riempie la griglia con nuovi Puyo
-    
+        
         // Ripristinare il punteggio e altre variabili di stato
-        progressBar.reset();  
-    
-        // Se il timer è attivo, fermalo e rinizializzalo
+        progressBar.reset();
+        
+        // Fermare il dropTimer se è attivo
         if (dropTimer != null) {
-            dropTimer.stop();  // Ferma il timer
+            dropTimer.stop();
+            dropTimer = null;  // Azzeriamo il timer
         }
         
+        // Rimuovi i listener esistenti dal gameLoop
+        gameLoop.removeTickListener(puyoDropper); 
+        
+        // Recupera la configurazione del livello corrente
         LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(currentLevel));
+        
+        // Rinnova il puyoDropper con le configurazioni del livello
+        puyoDropper = new PuyoDropper(grid, config);  // Assicurati che il PuyoDropper venga ricreato con la nuova configurazione
+        this.gameLoop.addTickListener(puyoDropper);
+        
+        // Avvia il nuovo dropTimer con il ritardo e il numero di Puyo corretti
         dropTimer = new Timer(config.getDelay(), event -> {
-            puyoDropper.fillGridRandomly(config.getPuyoCount());
+            puyoDropper.fillGridRandomly(config.getPuyoCount()); // Genera nuovi Puyo in base alla configurazione
         });
+        
         dropTimer.setInitialDelay(2000);  // Ritardo prima di iniziare
         dropTimer.start();  // Avvia il timer
-    
+        
         // Avvia nuovamente il ciclo di gioco
         gameLoop.startGame();
     }
     
     
-
     @Override
     public void showLevelPopup(String level) {
         JDialog levelDialog = new JDialog(frame, "Livello Selezionato", true);

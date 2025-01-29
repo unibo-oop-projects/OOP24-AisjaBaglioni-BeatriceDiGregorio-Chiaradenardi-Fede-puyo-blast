@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import it.unibo.controller.LevelManager;
 import it.unibo.model.Point2DI;
+import it.unibo.controller.ScreenManager;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ClickInterface;
@@ -18,11 +19,13 @@ public class TryAgain implements ClickInterface {
     private int imageWidth;
     private int imageHeight;
     private LevelManager levelManager;
+    private ScreenManager screenManager;  // Aggiungi un riferimento a ScreenManager
     private int currentLevel;
 
-    public TryAgain(Scale scale, LevelManager levelManager) {
+    public TryAgain(Scale scale, LevelManager levelManager, ScreenManager screenManager) {
         this.scale = scale;
         this.levelManager = levelManager; // Salva il riferimento al LevelManager
+        this.screenManager = screenManager; // Salva il riferimento a ScreenManager
     
         // Carica l'immagine
         URL exit_path = getClass().getClassLoader().getResource("images/try_again_button.png");
@@ -34,7 +37,6 @@ public class TryAgain implements ClickInterface {
             this.imageHeight = tryAgain.getHeight(null);
         }
     }
-    
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
@@ -85,10 +87,16 @@ public class TryAgain implements ClickInterface {
         } else {
             System.out.println("Errore: levelManager non inizializzato.");
         }
+
+        // Chiamata per ripristinare il gioco completamente
+        if (screenManager != null) {
+            screenManager.resetGame(); // Chiamata per resettare completamente il gioco
+        } else {
+            System.out.println("Errore: screenManager non inizializzato.");
+        }
     }
-    
-    
+
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
     }
-}    
+}
