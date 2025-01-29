@@ -26,6 +26,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final PauseView pauseView;
     private final ExitView exitView;
     private final TryAgainView tryAgainView;
+    private final ScoreView scoreView;
     private Scale scale;
     private Set<ClickInterface> clickables;
     private boolean isPaused;
@@ -33,7 +34,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     public GameView(Grid grid, Scale scale, CannonModel cannonModel, CannonView cannonView,
                     ProgressBarModel progressModel, BulletModel bulletModel, 
                     PauseView pauseView, TryAgainView tryAgainView, 
-                    ExitView exitView, ScreenManager screenManager) {
+                    ExitView exitView,ScoreView scoreView, ScreenManager screenManager) {
 
         this.scale = scale;
         this.pauseView = pauseView;
@@ -51,6 +52,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.progressBarView = new ProgressBarView(progressModel, this.scale);
         this.bulletView = new BulletView(bulletModel, this.scale);
         this.borderView = new BorderView(this.scale);
+        this.scoreView = scoreView;
         this.grid = grid;
         this.isPaused = false;
 
@@ -84,6 +86,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
 
         exitView.draw(g);
         tryAgainView.draw(g);
+        scoreView.draw(g);
         pauseView.draw(g);
 
         if (isPaused) {

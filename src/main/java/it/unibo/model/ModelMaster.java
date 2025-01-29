@@ -10,6 +10,7 @@ public class ModelMaster implements ModelMasterInterface{
     private final BulletModel bulletModel;
     private final KeyboardModel keyboardModel;
     private final PauseModel pauseModel;
+    private final ScoreModel scoreModel;
 
     public ModelMaster() {
         this.grid = new Grid(8, 8);
@@ -18,6 +19,7 @@ public class ModelMaster implements ModelMasterInterface{
         this.bulletModel = new BulletModel();
         this.keyboardModel = new KeyboardModel();
         this.pauseModel = new PauseModel();
+        this.scoreModel = new ScoreModel();
     }
 
     @Override
@@ -28,6 +30,11 @@ public class ModelMaster implements ModelMasterInterface{
     @Override
     public CannonModel getCannonModel() {
         return cannonModel;
+    }
+
+    @Override
+    public ScoreModel getScoreModel() {
+        return scoreModel;
     }
 
     @Override

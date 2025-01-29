@@ -12,12 +12,14 @@ import it.unibo.model.PauseModel;
 import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
+import it.unibo.model.ScoreModel;
 import it.unibo.model.TryAgainModel;
 import it.unibo.view.CannonView;
 import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import it.unibo.view.PauseView;
+import it.unibo.view.ScoreView;
 import it.unibo.view.TryAgainView;
 
 import javax.swing.*;
@@ -49,6 +51,9 @@ public class ScreenManager implements ScreenManagerInterface {
     private final TryAgainView tryAgainView;
     private final TryAgainModel tryAgainModel;
     private final TryAgainController tryAgainController;
+    private final ScoreModel scoreModel;
+    private final ScoreController scoreController;
+    private final ScoreView scoreView;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -85,12 +90,15 @@ public class ScreenManager implements ScreenManagerInterface {
         this.pauseModel = new PauseModel();
         this.pauseController = new PauseController(pauseModel);
         this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
+        this.scoreModel = new ScoreModel();
+        this.scoreController = new ScoreController(scoreModel);
+        this.scoreView = new ScoreView(scoreModel, scale);
         this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
-            exitView, this);
+            exitView, scoreView, this);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
-        this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView, scale);
+        this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView, scoreController, scale);
         this.puyoExplosionController = new PuyoExplosionController(grid);
         this.gameLoop.addTickListener(this.cannon);
         this.gameLoop.addTickListener(this.progressBar);

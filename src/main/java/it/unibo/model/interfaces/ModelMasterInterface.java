@@ -6,6 +6,7 @@ import it.unibo.model.Grid;
 import it.unibo.model.KeyboardModel;
 import it.unibo.model.PauseModel;
 import it.unibo.model.ProgressBarModel;
+import it.unibo.model.ScoreModel;
 
 public interface ModelMasterInterface {
     Grid getGrid();
@@ -14,4 +15,5 @@ public interface ModelMasterInterface {
     BulletModel getBulletModel();
     KeyboardModel getKeyboardModel();
     PauseModel getPauseModel();
+    ScoreModel getScoreModel();
 }

@@ -25,15 +25,17 @@ public class BulletController implements TickListenerInterface {
     private final ProgressBarController progressBar;
     private final CannonView cannonView;
     private final Scale scale;
+    private final ScoreController scoreController;
     private Point2DI target;
 
     public BulletController(BulletModel bulletModel, Grid grid, KeyboardModel k, ProgressBarController progressBar,
-            CannonView cannonView, Scale scale) {
+            CannonView cannonView, ScoreController scoreController,  Scale scale) {
         this.bulletModel = bulletModel;
         this.grid = grid;
         this.k = k;
         this.progressBar = progressBar;
         this.cannonView = cannonView;
+        this.scoreController = scoreController;
         this.scale = scale;
     }
 
@@ -98,6 +100,7 @@ public class BulletController implements TickListenerInterface {
             int deathClock = 10 + dist * 2;
             puyoToExplode.setDeathClock(Optional.of(deathClock));
         }
+        scoreController.addPoints(d.size());
     }
 
 }
