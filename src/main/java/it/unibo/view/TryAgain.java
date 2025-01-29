@@ -28,7 +28,7 @@ public class TryAgain implements ClickInterface {
         this.screenManager = screenManager; // Salva il riferimento a ScreenManager
     
         // Carica l'immagine
-        URL exit_path = getClass().getClassLoader().getResource("images/tryagain2_button.png");
+        URL exit_path = getClass().getClassLoader().getResource("images/tryagain_button.png");
         if (exit_path == null) {
             System.out.println("Immagine non trovata.");
         } else {
@@ -40,23 +40,17 @@ public class TryAgain implements ClickInterface {
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
-        
-        // Verifica se l'immagine è stata caricata correttamente
-        if (tryAgain != null) {
-            g.drawImage(
-                    tryAgain,
-                    button.upleft.x(),
-                    button.upleft.y(),
-                    button.lowright.x(),
-                    button.lowright.y(),
-                    0,
-                    0,
-                    imageWidth,
-                    imageHeight,
-                    null);
-        } else {
-            System.out.println("Immagine non disponibile per il disegno.");
-        }
+        g.drawImage(
+            tryAgain,
+            button.upleft.x(),
+            button.upleft.y(),
+            button.lowright.x(),
+            button.lowright.y(),
+            0,
+            0,
+            imageWidth,
+            imageHeight,
+            null);
     }
 
     public Rectangle getArea() {
