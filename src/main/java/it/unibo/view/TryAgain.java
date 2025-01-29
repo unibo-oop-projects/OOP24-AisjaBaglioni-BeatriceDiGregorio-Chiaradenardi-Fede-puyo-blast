@@ -19,34 +19,53 @@ public class TryAgain implements ClickInterface {
 
     public TryAgain(Scale scale) {
         this.scale = scale;
+        
+        // Carica l'immagine
         URL exit_path = getClass().getClassLoader().getResource("images/try_again_button.png");
-        tryAgain = new ImageIcon(exit_path).getImage();
-        this.imageWidth = tryAgain.getWidth(null);
-        this.imageHeight = tryAgain.getHeight(null);
+        if (exit_path == null) {
+            System.out.println("Immagine non trovata.");
+        } else {
+            tryAgain = new ImageIcon(exit_path).getImage();
+            this.imageWidth = tryAgain.getWidth(null);
+            this.imageHeight = tryAgain.getHeight(null);
+        }
     }
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
-        g.drawImage(
-                tryAgain,
-                button.upleft.x(),
-                button.upleft.y(),
-                button.lowright.x(),
-                button.lowright.y(),
-                0,
-                0,
-                imageWidth,
-                imageHeight,
-                null);
+        
+        // Verifica se l'immagine è stata caricata correttamente
+        if (tryAgain != null) {
+            g.drawImage(
+                    tryAgain,
+                    button.upleft.x(),
+                    button.upleft.y(),
+                    button.lowright.x(),
+                    button.lowright.y(),
+                    0,
+                    0,
+                    imageWidth,
+                    imageHeight,
+                    null);
+        } else {
+            System.out.println("Immagine non disponibile per il disegno.");
+        }
     }
 
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
-        int x = this.scale.getScale() / 28;
-        int y = this.scale.getScale()/16;
+        
+        // Posizionamento in basso a sinistra
+        int x = 10;  // Distanza dal bordo sinistro
+        int y = this.scale.getScale() - newHeight - 10;  // Distanza dal bordo inferiore
+        
+        // Stampa delle coordinate per il debug
+        System.out.println("x: " + x + ", y: " + y + ", width: " + newWidth + ", height: " + newHeight);
+        
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
+        
         return new Rectangle(upleft, lowright);
     }
 
