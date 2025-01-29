@@ -6,6 +6,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import it.unibo.controller.LevelManager;
 import it.unibo.model.Point2DI;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
@@ -16,10 +17,12 @@ public class TryAgain implements ClickInterface {
     Scale scale;
     private int imageWidth;
     private int imageHeight;
+    private LevelManager levelManager;
 
-    public TryAgain(Scale scale) {
+    public TryAgain(Scale scale, LevelManager levelManager) {
         this.scale = scale;
-        
+        this.levelManager = levelManager; // Salva il riferimento al LevelManager
+    
         // Carica l'immagine
         URL exit_path = getClass().getClassLoader().getResource("images/try_again_button.png");
         if (exit_path == null) {
@@ -30,6 +33,7 @@ public class TryAgain implements ClickInterface {
             this.imageHeight = tryAgain.getHeight(null);
         }
     }
+    
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
@@ -78,5 +82,8 @@ public class TryAgain implements ClickInterface {
     @Override
     public void doAction() {
         System.out.println("Hai cliccato try again");
+        
+        // Chiamata al metodo di reset del livello
+        levelManager.resetLevel();  // Questo metodo dovrebbe gestire il reset del livello
     }
 }
