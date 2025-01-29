@@ -18,6 +18,7 @@ public class TryAgain implements ClickInterface {
     private int imageWidth;
     private int imageHeight;
     private LevelManager levelManager;
+    private int currentLevel;
 
     public TryAgain(Scale scale, LevelManager levelManager) {
         this.scale = scale;
@@ -75,11 +76,19 @@ public class TryAgain implements ClickInterface {
         return button.isInside(pos);
     }
 
-    @Override
+    @Override    
     public void doAction() {
         System.out.println("Hai cliccato try again");
-        
-        // Chiamata al metodo di reset del livello
-        levelManager.resetLevel();  // Questo metodo dovrebbe gestire il reset del livello
+    
+        if (levelManager != null) {
+            levelManager.resetLevel(currentLevel); // Passa il livello corrente a resetLevel
+        } else {
+            System.out.println("Errore: levelManager non inizializzato.");
+        }
     }
-}
+    
+    
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+}    

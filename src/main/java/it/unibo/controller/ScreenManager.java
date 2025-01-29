@@ -62,6 +62,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.frame.setResizable(false);
 
         grid = new Grid(8, 8);
+        this.levelManager = new LevelManager();
         this.exitView = new ExitView(scale);
         this.tryAgain = new TryAgain(scale, levelManager);
         this.menuView = new Menu(levels);
@@ -85,7 +86,6 @@ public class ScreenManager implements ScreenManagerInterface {
         this.gameLoop.addTickListener(this.progressBar);
         this.gameLoop.addTickListener(this.bulletController);
         this.gameLoop.addTickListener(this.puyoExplosionController);
-        this.levelManager = new LevelManager();
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
@@ -146,20 +146,22 @@ public class ScreenManager implements ScreenManagerInterface {
     }
 
     private void setupMenuListeners() {
+        // Quando avvii un livello dal menu
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
             if (!selectedLevel.equals(currentLevel)) {
                 currentLevel = selectedLevel; // aggiorna il livello corrente
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
+                tryAgain.setCurrentLevel(Integer.parseInt(selectedLevel)); // Aggiorna anche il livello in TryAgain
                 showLevelPopup(selectedLevel); // mostra il popup
                 startGameWithConfig(config); // avvia il gioco
             } else {
-                // se il livello è già stato selezionato, avvia direttamente il gioco
+                // Se il livello è già stato selezionato, avvia direttamente il gioco
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
                 startGameWithConfig(config);
             }
         });
-
+    
         menuView.getControlsButton().addActionListener(e -> {
             switchToRulesView();
         });
@@ -210,6 +212,12 @@ public class ScreenManager implements ScreenManagerInterface {
         frame.repaint();
         gameView.startGame();
     }
+
+    public void resetGame() {
+        // Logica per ripristinare la griglia, il punteggio e altre variabili di stato
+        initializeGrid();  
+    }
+    
 
     @Override
     public void showLevelPopup(String level) {
