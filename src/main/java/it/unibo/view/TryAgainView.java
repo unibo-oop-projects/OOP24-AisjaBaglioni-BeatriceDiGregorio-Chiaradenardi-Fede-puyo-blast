@@ -50,8 +50,9 @@ public class TryAgainView implements ClickInterface {
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
-        int x = 10;
-        int y = this.scale.getScale() - newHeight - 50;
+        int puyoHeight = this.scale.getScale() / 8;
+        int x = this.scale.getScale() / 28;
+        int y = this.scale.getScale() - newHeight - puyoHeight;  
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         return new Rectangle(upleft, lowright);
