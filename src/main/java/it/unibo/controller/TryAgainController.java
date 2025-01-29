@@ -15,13 +15,11 @@ public class TryAgainController {
 
     public void handleClick() {
         System.out.println("Riavvio del gioco...");
-
-        // Ottieni il livello corrente dal LevelManager
-        int currentLevel = levelManager.getCurrentLevel();  // Aggiungi questo per ottenere il livello corrente
+        int currentLevel = levelManager.getCurrentLevel();  
 
         // Reset del livello e del gioco
         if (levelManager != null) {
-            levelManager.resetLevel(currentLevel);  // Passa il livello corrente al resetLevel
+            levelManager.resetLevel(currentLevel);  
         }
         
         if (screenManager != null) {
@@ -29,7 +27,7 @@ public class TryAgainController {
         }
 
         // Modifica lo stato del modello per indicare che l'azione è stata eseguita
-        model.setEnabled(false);  // Supponiamo che il pulsante venga disabilitato dopo un click
+        model.setEnabled(false);  
         System.out.println("Pulsante disabilitato: " + model.isEnabled());
     }
 }

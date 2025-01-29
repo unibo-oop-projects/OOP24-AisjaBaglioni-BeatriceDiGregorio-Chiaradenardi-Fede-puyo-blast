@@ -119,33 +119,15 @@ public class ScreenManager implements ScreenManagerInterface {
 
     private void startGameWithConfig(LevelManager.LevelConfig config) {
         frame.getContentPane().removeAll();
-
         frame.getContentPane().add(gameView, BorderLayout.CENTER);
-
         frame.getContentPane().revalidate();
         frame.getContentPane().repaint();
-
         gameView.startGame();
 
         configureInputHandlers();
 
         this.puyoDropper = new PuyoDropper(grid, config);
         this.gameLoop.addTickListener(puyoDropper);
-
-        // stop qualsiasi Timer precedente
-        /*
-         * if (dropTimer != null) {
-         * dropTimer.stop();
-         * }
-         * 
-         * dropTimer = new Timer(config.getDelay(), event -> {
-         * puyoDropper.fillGridRandomly(config.getPuyoCount());
-         * });
-         * 
-         * dropTimer.setInitialDelay(2000); // ritardo di 2 secondi prima di iniziare
-         * dropTimer.start();
-         */
-
         this.gameLoop.startGame();
     }
 
@@ -162,7 +144,6 @@ public class ScreenManager implements ScreenManagerInterface {
             if (!selectedLevel.equals(currentLevel)) {
                 currentLevel = selectedLevel; // aggiorna il livello corrente
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
-                //tryAgainView.setCurrentLevel(Integer.parseInt(selectedLevel)); // Aggiorna anche il livello in TryAgain
                 showLevelPopup(selectedLevel); // mostra il popup
                 startGameWithConfig(config); // avvia il gioco
             } else {
@@ -262,7 +243,7 @@ public class ScreenManager implements ScreenManagerInterface {
         
         // Avvia il nuovo dropTimer con il ritardo e il numero di Puyo corretti
         dropTimer = new Timer(config.getDelay(), event -> {
-            puyoDropper.fillGridRandomly(config.getPuyoCount()); // Genera nuovi Puyo in base alla configurazione
+            puyoDropper.dropPuyo(); // Genera nuovi Puyo in base alla configurazione
         });
         
         dropTimer.setInitialDelay(2000);  // Ritardo prima di iniziare
@@ -271,6 +252,7 @@ public class ScreenManager implements ScreenManagerInterface {
         // Avvia nuovamente il ciclo di gioco
         gameLoop.startGame();
     }
+    
     
     
     @Override
