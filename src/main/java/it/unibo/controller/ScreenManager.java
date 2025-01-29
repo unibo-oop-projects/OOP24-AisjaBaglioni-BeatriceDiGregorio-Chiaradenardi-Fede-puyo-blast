@@ -16,6 +16,7 @@ import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import it.unibo.view.PauseView;
+import it.unibo.view.TryAgain;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final PauseModel pauseModel;
     private final PauseController pauseController;
     private final ExitView exitView;
+    private final TryAgain tryAgain;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -61,6 +63,7 @@ public class ScreenManager implements ScreenManagerInterface {
 
         grid = new Grid(8, 8);
         this.exitView = new ExitView(scale);
+        this.tryAgain = new TryAgain(scale);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.cannonModel = new CannonModel();
@@ -72,7 +75,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.pauseController = new PauseController(pauseModel);
         this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
         this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView,
-                exitView);
+                exitView, tryAgain);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
