@@ -28,7 +28,7 @@ public class TryAgain implements ClickInterface {
         this.screenManager = screenManager; // Salva il riferimento a ScreenManager
     
         // Carica l'immagine
-        URL exit_path = getClass().getClassLoader().getResource("images/try_again_button.png");
+        URL exit_path = getClass().getClassLoader().getResource("images/tryagain2_button.png");
         if (exit_path == null) {
             System.out.println("Immagine non trovata.");
         } else {
