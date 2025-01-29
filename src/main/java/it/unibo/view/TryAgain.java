@@ -12,7 +12,7 @@ import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ClickInterface;
 
 public class TryAgain implements ClickInterface {
-    private Image exit;
+    private Image tryAgain;
     Scale scale;
     private int imageWidth;
     private int imageHeight;
@@ -20,15 +20,15 @@ public class TryAgain implements ClickInterface {
     public TryAgain(Scale scale) {
         this.scale = scale;
         URL exit_path = getClass().getClassLoader().getResource("images/try_again_button.png");
-        exit = new ImageIcon(exit_path).getImage();
-        this.imageWidth = exit.getWidth(null);
-        this.imageHeight = exit.getHeight(null);
+        tryAgain = new ImageIcon(exit_path).getImage();
+        this.imageWidth = tryAgain.getWidth(null);
+        this.imageHeight = tryAgain.getHeight(null);
     }
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
         g.drawImage(
-                exit,
+                tryAgain,
                 button.upleft.x(),
                 button.upleft.y(),
                 button.lowright.x(),
