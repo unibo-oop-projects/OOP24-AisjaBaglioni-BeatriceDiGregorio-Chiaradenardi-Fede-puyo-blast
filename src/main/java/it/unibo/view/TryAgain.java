@@ -19,7 +19,7 @@ public class TryAgain implements ClickInterface {
 
     public TryAgain(Scale scale) {
         this.scale = scale;
-        URL exit_path = getClass().getClassLoader().getResource("images/mainmenu_button.png");
+        URL exit_path = getClass().getClassLoader().getResource("images/try_again_button.png");
         exit = new ImageIcon(exit_path).getImage();
         this.imageWidth = exit.getWidth(null);
         this.imageHeight = exit.getHeight(null);
