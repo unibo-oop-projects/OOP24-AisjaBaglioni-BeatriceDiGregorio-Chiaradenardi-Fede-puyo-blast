@@ -1,17 +1,19 @@
 package it.unibo.model;
 
-import it.unibo.model.interfaces.ScoreModelInterface;
+//import it.unibo.model.interfaces.ScoreModelInterface;
 
-public class ScoreModel implements ScoreModelInterface {
-    private int score = 0;
+public class ScoreModel {
+    private int score;
 
-    @Override
-    final public int getScore() {
+    public ScoreModel() {
+        this.score = 0;
+    }
+
+    public int getScore() {
         return this.score;
     }
 
-    @Override
-    final public void addPoints(final int points) {
-        score += points;
+    public void setScore(int score) {
+        this.score = score;
     }
 }
