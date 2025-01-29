@@ -4,6 +4,7 @@ package it.unibo.controller;
 import it.unibo.controller.interfaces.ScreenManagerInterface;
 import it.unibo.model.BulletModel;
 import it.unibo.model.CannonModel;
+import it.unibo.model.ExitModel;
 import it.unibo.model.Grid;
 import it.unibo.model.KeyboardModel;
 import it.unibo.model.Menu;
@@ -42,6 +43,8 @@ public class ScreenManager implements ScreenManagerInterface {
     private final PauseModel pauseModel;
     private final PauseController pauseController;
     private final ExitView exitView;
+    private final ExitModel exitModel;
+    private final ExitController exitController;
     private final TryAgainView tryAgain;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
@@ -63,7 +66,9 @@ public class ScreenManager implements ScreenManagerInterface {
 
         grid = new Grid(8, 8);
         this.levelManager = new LevelManager();
-        this.exitView = new ExitView(scale, this);
+        this.exitModel = new ExitModel();
+        this.exitController = new ExitController(exitModel, this);
+        this.exitView = new ExitView(scale, exitController);
         this.tryAgain = new TryAgainView(scale, levelManager, this);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();

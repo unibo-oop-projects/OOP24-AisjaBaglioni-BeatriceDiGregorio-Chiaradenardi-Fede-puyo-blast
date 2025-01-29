@@ -37,8 +37,8 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
 
         this.scale = scale;
         this.pauseView = pauseView;
+        this.exitView = exitView;
         this.tryAgain = tryAgain;
-        this.exitView = new ExitView(scale, screenManager); 
         this.clickables = new HashSet<>();
         this.clickables.add(this.exitView);
         this.clickables.add(this.tryAgain);
