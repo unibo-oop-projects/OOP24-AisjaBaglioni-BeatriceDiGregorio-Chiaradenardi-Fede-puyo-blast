@@ -56,16 +56,14 @@ public class TryAgainView implements ClickInterface {
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
-        
-        // Posizionamento in basso a sinistra
-        int x = 10;  // Distanza dal bordo sinistro
-        int y = this.scale.getScale() - newHeight - 50;  // Distanza dal bordo inferiore        
+        int puyoHeight = this.scale.getScale() / 8;
+        int x = this.scale.getScale() / 28;
+        int y = this.scale.getScale() - newHeight - puyoHeight;  
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
-        
         return new Rectangle(upleft, lowright);
     }
-
+    
     @Override
     public boolean isClicked(Point2DI pos) {
         Rectangle button = getArea();
