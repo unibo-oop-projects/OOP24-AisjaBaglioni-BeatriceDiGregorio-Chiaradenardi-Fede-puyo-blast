@@ -41,5 +41,9 @@ public class LevelManager {
     public LevelConfig getLevelConfig(int level) {
         return levels.getOrDefault(level, new LevelConfig(33, 1)); //default al livello 1
     }
-    
+
+    public void resetLevel(int level) {
+        LevelConfig currentConfig = getLevelConfig(level); // Ottieni la configurazione del livello
+        System.out.println("Ripristinato il livello " + level + " con delay: " + currentConfig.getDelay() + " e PuyoCount: " + currentConfig.getPuyoCount());
+    }        
 }

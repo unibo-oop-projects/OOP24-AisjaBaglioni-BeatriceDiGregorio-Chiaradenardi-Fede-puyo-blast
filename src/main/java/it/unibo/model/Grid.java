@@ -115,4 +115,13 @@ public class Grid implements GridInterface {
             System.out.println();
         }
     }
+
+    public void clear() {
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                grid[x][y] = null;  // Imposta ogni cella a null
+            }
+        }
+    }
+    
 }

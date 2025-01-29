@@ -16,6 +16,7 @@ import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import it.unibo.view.PauseView;
+import it.unibo.view.TryAgainView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final PauseModel pauseModel;
     private final PauseController pauseController;
     private final ExitView exitView;
+    private final TryAgainView tryAgain;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -60,7 +62,9 @@ public class ScreenManager implements ScreenManagerInterface {
         this.frame.setResizable(false);
 
         grid = new Grid(8, 8);
-        this.exitView = new ExitView(scale);
+        this.levelManager = new LevelManager();
+        this.exitView = new ExitView(scale, this);
+        this.tryAgain = new TryAgainView(scale, levelManager, this);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.cannonModel = new CannonModel();
@@ -72,7 +76,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.pauseController = new PauseController(pauseModel);
         this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
         this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView,
-                exitView);
+                exitView, tryAgain);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
@@ -82,7 +86,6 @@ public class ScreenManager implements ScreenManagerInterface {
         this.gameLoop.addTickListener(this.progressBar);
         this.gameLoop.addTickListener(this.bulletController);
         this.gameLoop.addTickListener(this.puyoExplosionController);
-        this.levelManager = new LevelManager();
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
@@ -143,20 +146,22 @@ public class ScreenManager implements ScreenManagerInterface {
     }
 
     private void setupMenuListeners() {
+        // Quando avvii un livello dal menu
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
             if (!selectedLevel.equals(currentLevel)) {
                 currentLevel = selectedLevel; // aggiorna il livello corrente
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
+                tryAgain.setCurrentLevel(Integer.parseInt(selectedLevel)); // Aggiorna anche il livello in TryAgain
                 showLevelPopup(selectedLevel); // mostra il popup
                 startGameWithConfig(config); // avvia il gioco
             } else {
-                // se il livello è già stato selezionato, avvia direttamente il gioco
+                // Se il livello è già stato selezionato, avvia direttamente il gioco
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
                 startGameWithConfig(config);
             }
         });
-
+    
         menuView.getControlsButton().addActionListener(e -> {
             switchToRulesView();
         });
@@ -176,16 +181,29 @@ public class ScreenManager implements ScreenManagerInterface {
 
     @Override
     public void switchToMenuView() {
+        // Ferma qualsiasi attività in corso nel gioco
+        if (dropTimer != null) {
+            dropTimer.stop();  // Ferma il timer
+        }
+        
+        // Resetta la griglia e la barra di progresso
+        grid.clear();
+        initializeGrid();  // Riempie la griglia con nuovi Puyo
+        progressBar.reset();  // Reset del punteggio e della progress bar
+
+        // Rimuovi i listener esistenti dal gameLoop
+        gameLoop.removeTickListener(puyoDropper);
+
+        // Imposta il menu come vista corrente
         frame.getContentPane().removeAll();
         frame.getContentPane().add(menuView);
         frame.revalidate();
         frame.repaint();
-        currentLevel = ""; // resetta il livello selezionato
 
-        if (dropTimer != null) {
-            dropTimer.stop();
-        }
+        // Reset del livello selezionato
+        currentLevel = ""; // Reset del livello selezionato
     }
+
 
     @Override
     public void switchToRulesView() {
@@ -208,6 +226,43 @@ public class ScreenManager implements ScreenManagerInterface {
         gameView.startGame();
     }
 
+    public void resetGame() {
+        // Logica per ripristinare la griglia
+        grid.clear();
+        initializeGrid();  // Riempie la griglia con nuovi Puyo
+        
+        // Ripristinare il punteggio e altre variabili di stato
+        progressBar.reset();
+        
+        // Fermare il dropTimer se è attivo
+        if (dropTimer != null) {
+            dropTimer.stop();
+            dropTimer = null;  // Azzeriamo il timer
+        }
+        
+        // Rimuovi i listener esistenti dal gameLoop
+        gameLoop.removeTickListener(puyoDropper); 
+        
+        // Recupera la configurazione del livello corrente
+        LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(currentLevel));
+        
+        // Rinnova il puyoDropper con le configurazioni del livello
+        puyoDropper = new PuyoDropper(grid, config);  // Assicurati che il PuyoDropper venga ricreato con la nuova configurazione
+        this.gameLoop.addTickListener(puyoDropper);
+        
+        // Avvia il nuovo dropTimer con il ritardo e il numero di Puyo corretti
+        dropTimer = new Timer(config.getDelay(), event -> {
+            puyoDropper.fillGridRandomly(config.getPuyoCount()); // Genera nuovi Puyo in base alla configurazione
+        });
+        
+        dropTimer.setInitialDelay(2000);  // Ritardo prima di iniziare
+        dropTimer.start();  // Avvia il timer
+        
+        // Avvia nuovamente il ciclo di gioco
+        gameLoop.startGame();
+    }
+    
+    
     @Override
     public void showLevelPopup(String level) {
         JDialog levelDialog = new JDialog(frame, "Livello Selezionato", true);
