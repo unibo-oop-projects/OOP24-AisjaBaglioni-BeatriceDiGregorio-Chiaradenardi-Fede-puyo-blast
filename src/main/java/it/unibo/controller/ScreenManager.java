@@ -63,7 +63,7 @@ public class ScreenManager implements ScreenManagerInterface {
 
         grid = new Grid(8, 8);
         this.levelManager = new LevelManager();
-        this.exitView = new ExitView(scale);
+        this.exitView = new ExitView(scale, this);
         this.tryAgain = new TryAgain(scale, levelManager, this);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();

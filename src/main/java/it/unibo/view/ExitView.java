@@ -6,6 +6,7 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+import it.unibo.controller.ScreenManager;
 import it.unibo.model.Point2DI;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
@@ -16,14 +17,17 @@ public class ExitView implements ClickInterface {
     Scale scale;
     private int imageWidth;
     private int imageHeight;
+    private ScreenManager screenManager;
 
-    public ExitView(Scale scale) {
+    public ExitView(Scale scale, ScreenManager screenManager) {
         this.scale = scale;
+        this.screenManager = screenManager;
         URL exit_path = getClass().getClassLoader().getResource("images/mainmenu_button.png");
         exit = new ImageIcon(exit_path).getImage();
         this.imageWidth = exit.getWidth(null);
         this.imageHeight = exit.getHeight(null);
     }
+
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
@@ -59,5 +63,6 @@ public class ExitView implements ClickInterface {
     @Override
     public void doAction() {
         System.out.println("Hai cliccato Main Menu");
+        screenManager.switchToMenuView();
     }
 }
