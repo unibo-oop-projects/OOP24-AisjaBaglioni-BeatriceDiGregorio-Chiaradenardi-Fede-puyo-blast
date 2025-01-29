@@ -12,6 +12,7 @@ import it.unibo.model.PauseModel;
 import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
+import it.unibo.model.TryAgainModel;
 import it.unibo.view.CannonView;
 import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
@@ -45,7 +46,9 @@ public class ScreenManager implements ScreenManagerInterface {
     private final ExitView exitView;
     private final ExitModel exitModel;
     private final ExitController exitController;
-    private final TryAgainView tryAgain;
+    private final TryAgainView tryAgainView;
+    private final TryAgainModel tryAgainModel;
+    private final TryAgainController tryAgainController;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -69,7 +72,9 @@ public class ScreenManager implements ScreenManagerInterface {
         this.exitModel = new ExitModel();
         this.exitController = new ExitController(exitModel, this);
         this.exitView = new ExitView(scale, exitController);
-        this.tryAgain = new TryAgainView(scale, levelManager, this);
+        this.tryAgainModel = new TryAgainModel();
+        this.tryAgainController = new TryAgainController();
+        this.tryAgainView = new TryAgainView(scale, tryAgainController);
         this.menuView = new Menu(levels);
         this.rulesView = new MenuRules();
         this.cannonModel = new CannonModel();
@@ -80,7 +85,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.pauseModel = new PauseModel();
         this.pauseController = new PauseController(pauseModel);
         this.pauseView = new PauseView(this.scale, pauseModel, pauseController);
-        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgain,
+        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
             exitView, this);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
@@ -157,7 +162,7 @@ public class ScreenManager implements ScreenManagerInterface {
             if (!selectedLevel.equals(currentLevel)) {
                 currentLevel = selectedLevel; // aggiorna il livello corrente
                 LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
-                tryAgain.setCurrentLevel(Integer.parseInt(selectedLevel)); // Aggiorna anche il livello in TryAgain
+                //tryAgainView.setCurrentLevel(Integer.parseInt(selectedLevel)); // Aggiorna anche il livello in TryAgain
                 showLevelPopup(selectedLevel); // mostra il popup
                 startGameWithConfig(config); // avvia il gioco
             } else {

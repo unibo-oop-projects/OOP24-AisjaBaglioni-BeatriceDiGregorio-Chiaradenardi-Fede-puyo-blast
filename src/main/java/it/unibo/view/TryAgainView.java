@@ -3,49 +3,43 @@ package it.unibo.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
-
-import it.unibo.controller.LevelManager;
+import it.unibo.controller.TryAgainController;
 import it.unibo.model.Point2DI;
-import it.unibo.controller.ScreenManager;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ClickInterface;
 
 public class TryAgainView implements ClickInterface {
-    private Image tryAgain;
-    Scale scale;
+    private Image tryAgainImage;
+    private Scale scale;
     private int imageWidth;
     private int imageHeight;
-    private LevelManager levelManager;
-    private ScreenManager screenManager;  // Aggiungi un riferimento a ScreenManager
-    private int currentLevel;
+    private TryAgainController controller; // Riferimento al controller
 
-    public TryAgainView(Scale scale, LevelManager levelManager, ScreenManager screenManager) {
+    public TryAgainView(Scale scale, TryAgainController controller) {
         this.scale = scale;
-        this.levelManager = levelManager; // Salva il riferimento al LevelManager
-        this.screenManager = screenManager; // Salva il riferimento a ScreenManager
-    
-        // Carica l'immagine
-        URL exit_path = getClass().getClassLoader().getResource("images/tryagain_button.png");
-        if (exit_path == null) {
-            System.out.println("Immagine non trovata.");
+        this.controller = controller;  // Assegna il controller
+
+        // Carica l'immagine del pulsante
+        URL imagePath = getClass().getClassLoader().getResource("images/tryagain_button.png");
+        if (imagePath == null) {
+            System.out.println("Errore: Immagine 'tryagain_button.png' non trovata.");
         } else {
-            tryAgain = new ImageIcon(exit_path).getImage();
-            this.imageWidth = tryAgain.getWidth(null);
-            this.imageHeight = tryAgain.getHeight(null);
+            tryAgainImage = new ImageIcon(imagePath).getImage();
+            this.imageWidth = tryAgainImage.getWidth(null);
+            this.imageHeight = tryAgainImage.getHeight(null);
         }
     }
 
-    final public void draw(Graphics g) {
-        Rectangle button = getArea();
+    public void draw(Graphics g) {
+        Rectangle buttonArea = getArea();
         g.drawImage(
-            tryAgain,
-            button.upleft.x(),
-            button.upleft.y(),
-            button.lowright.x(),
-            button.lowright.y(),
+            tryAgainImage,
+            buttonArea.upleft.x(),
+            buttonArea.upleft.y(),
+            buttonArea.lowright.x(),
+            buttonArea.lowright.y(),
             0,
             0,
             imageWidth,
@@ -56,39 +50,24 @@ public class TryAgainView implements ClickInterface {
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
-        int puyoHeight = this.scale.getScale() / 8;
-        int x = this.scale.getScale() / 28;
-        int y = this.scale.getScale() - newHeight - puyoHeight;  
+        int x = 10;
+        int y = this.scale.getScale() - newHeight - 50;
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         return new Rectangle(upleft, lowright);
     }
-    
+
     @Override
     public boolean isClicked(Point2DI pos) {
-        Rectangle button = getArea();
-        return button.isInside(pos);
+        return getArea().isInside(pos);
     }
 
-    @Override    
+    @Override
     public void doAction() {
-        System.out.println("Hai cliccato try again");
-    
-        if (levelManager != null) {
-            levelManager.resetLevel(currentLevel); // Passa il livello corrente a resetLevel
+        if (controller != null) {
+            //controller.handleClick();  // Chiama il metodo del controller per gestire l'azione
         } else {
-            System.out.println("Errore: levelManager non inizializzato.");
+            System.out.println("Errore: controller non inizializzato.");
         }
-
-        // Chiamata per ripristinare il gioco completamente
-        if (screenManager != null) {
-            screenManager.resetGame(); // Chiamata per resettare completamente il gioco
-        } else {
-            System.out.println("Errore: screenManager non inizializzato.");
-        }
-    }
-
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
     }
 }
