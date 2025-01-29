@@ -50,6 +50,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.tryAgain = tryAgain;
         this.clickables = new HashSet<>();
         this.clickables.add(this.exitView);
+        this.clickables.add(this.tryAgain);
         this.clickables.add(this.pauseView);
         this.clickController = new ClickController(clickables);
         this.background = new BackGround("background.jpg");
