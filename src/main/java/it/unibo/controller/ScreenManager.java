@@ -245,10 +245,7 @@ public class ScreenManager implements ScreenManagerInterface {
         dropTimer = new Timer(config.getDelay(), event -> {
             puyoDropper.dropPuyo(); // Genera nuovi Puyo in base alla configurazione
         });
-        
-        dropTimer.setInitialDelay(2000);  // Ritardo prima di iniziare
-        dropTimer.start();  // Avvia il timer
-        
+                
         // Avvia nuovamente il ciclo di gioco
         gameLoop.startGame();
     }
