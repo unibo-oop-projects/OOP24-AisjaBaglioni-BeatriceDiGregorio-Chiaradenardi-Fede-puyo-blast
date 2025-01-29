@@ -214,9 +214,29 @@ public class ScreenManager implements ScreenManagerInterface {
     }
 
     public void resetGame() {
-        // Logica per ripristinare la griglia, il punteggio e altre variabili di stato
-        initializeGrid();  
+        // Logica per ripristinare la griglia
+        grid.clear();  
+        initializeGrid();  // Riempie la griglia con nuovi Puyo
+    
+        // Ripristinare il punteggio e altre variabili di stato
+        progressBar.reset();  
+    
+        // Se il timer è attivo, fermalo e rinizializzalo
+        if (dropTimer != null) {
+            dropTimer.stop();  // Ferma il timer
+        }
+        
+        LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(currentLevel));
+        dropTimer = new Timer(config.getDelay(), event -> {
+            puyoDropper.fillGridRandomly(config.getPuyoCount());
+        });
+        dropTimer.setInitialDelay(2000);  // Ritardo prima di iniziare
+        dropTimer.start();  // Avvia il timer
+    
+        // Avvia nuovamente il ciclo di gioco
+        gameLoop.startGame();
     }
+    
     
 
     @Override
