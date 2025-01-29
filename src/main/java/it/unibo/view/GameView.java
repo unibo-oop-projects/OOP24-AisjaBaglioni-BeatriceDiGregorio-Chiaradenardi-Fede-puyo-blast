@@ -32,6 +32,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final BorderView borderView;
     private final PauseView pauseView;
     private final ExitView exitView;
+    private final TryAgain tryAgain;
     private Scale scale;
     private Set<ClickInterface> clickables; 
     // private final PauseView pauseView;
@@ -42,10 +43,11 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     // questo metodo fede
     public GameView(Grid grid, Scale scale, CannonModel cannonModel, CannonView cannonView,
             ProgressBarModel progressModel,
-            BulletModel bulletModel, PauseView pauseView, ExitView exitView) {
+            BulletModel bulletModel, PauseView pauseView, ExitView exitView, TryAgain tryAgain) {
         this.scale = scale;
         this.pauseView = pauseView;
         this.exitView = exitView;
+        this.tryAgain = tryAgain;
         this.clickables = new HashSet<>();
         this.clickables.add(this.exitView);
         this.clickables.add(this.pauseView);
