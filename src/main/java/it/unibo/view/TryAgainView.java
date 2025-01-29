@@ -13,7 +13,7 @@ import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ClickInterface;
 
-public class TryAgain implements ClickInterface {
+public class TryAgainView implements ClickInterface {
     private Image tryAgain;
     Scale scale;
     private int imageWidth;
@@ -22,7 +22,7 @@ public class TryAgain implements ClickInterface {
     private ScreenManager screenManager;  // Aggiungi un riferimento a ScreenManager
     private int currentLevel;
 
-    public TryAgain(Scale scale, LevelManager levelManager, ScreenManager screenManager) {
+    public TryAgainView(Scale scale, LevelManager levelManager, ScreenManager screenManager) {
         this.scale = scale;
         this.levelManager = levelManager; // Salva il riferimento al LevelManager
         this.screenManager = screenManager; // Salva il riferimento a ScreenManager
