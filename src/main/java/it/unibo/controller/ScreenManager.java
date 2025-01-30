@@ -82,7 +82,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.tryAgainModel = new TryAgainModel();
         this.tryAgainController = new TryAgainController(levelManager, this, tryAgainModel);
         this.tryAgainView = new TryAgainView(scale, tryAgainController);
-        this.menuView = new Menu(levels);
+        this.menuView = new Menu(levels, scale);
         this.rulesView = new MenuRules();
         this.cannonModel = new CannonModel();
         this.progressBarModel = new ProgressBarModel();
