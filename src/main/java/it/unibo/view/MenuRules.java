@@ -13,7 +13,7 @@ public class MenuRules extends JPanel {
 
         // Caricamento dell'immagine di sfondo
         try {
-            backgroundImage = new ImageIcon(getClass().getResource("/images/puyomenu.jpg")).getImage();
+            backgroundImage = new ImageIcon(getClass().getResource("/images/menurules.jpg")).getImage();
         } catch (Exception e) {
             System.out.println("Errore nel caricamento dell'immagine");
             e.printStackTrace();
