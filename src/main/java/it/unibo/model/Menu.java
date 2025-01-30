@@ -1,9 +1,10 @@
-//chiara
 package it.unibo.model;
 
 import javax.swing.*;
 import it.unibo.model.interfaces.MenuInterface;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Menu extends JPanel implements MenuInterface {
     private final JButton startButton = new JButton("Inizia Gioco");
@@ -28,71 +29,72 @@ public class Menu extends JPanel implements MenuInterface {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setOpaque(false);
 
-        // Titolo
+        // Titolo (posizionato in basso a sinistra in blu scuro)
         JLabel titleLabel = new JLabel("PUYO POP");
-        titleLabel.setFont(new Font("Roboto", Font.BOLD, 80));
-        titleLabel.setForeground(new Color(255, 60, 0));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 80));
+        titleLabel.setForeground(new Color(51,73,112));  // Blu scuro
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        // Pannello per il titolo in basso
+        JPanel titlePanel = new JPanel();
+        titlePanel.setOpaque(false);
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.add(titleLabel, BorderLayout.SOUTH); // Posiziona in basso
 
-        // Dropdown dei livelli
+        // Dropdown dei livelli (centrato a sinistra)
         levelsDropdown = new JComboBox<>(levels);
-        levelsDropdown.setFont(new Font("Roboto", Font.PLAIN, 20));
+        levelsDropdown.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
         levelsDropdown.setMaximumSize(new Dimension(250, 40));
-        levelsDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
-        levelsDropdown.setBackground(new Color(255, 255, 255));
-        levelsDropdown.setForeground(new Color(50, 50, 50));
+        levelsDropdown.setAlignmentX(Component.LEFT_ALIGNMENT);
+        levelsDropdown.setBackground(new Color(57,143,192));
+        levelsDropdown.setForeground(Color.BLACK);
 
         JLabel levelLabel = new JLabel("Seleziona Livello:");
-        levelLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
-        levelLabel.setForeground(Color.WHITE);
-        levelLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        levelLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));  
+        levelLabel.setForeground(Color.BLACK);
+        levelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        styleButton(startButton, new Color(60, 180, 100));
-        styleButton(controlsButton, new Color(50, 130, 255));
+        styleButton(startButton, new Color(57, 143, 191)); // Pulsante "Inizia Gioco"
+        styleButton(controlsButton, new Color(57, 143, 191)); // Pulsante "Comandi"
 
         // Componenti nel pannello centrale
-        centerPanel.add(titleLabel);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        centerPanel.add(Box.createRigidArea(new Dimension(10, 100))); // Spazio per posizionare in basso
         centerPanel.add(levelLabel);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        centerPanel.add(Box.createRigidArea(new Dimension(10, 10)));
         centerPanel.add(levelsDropdown);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        centerPanel.add(Box.createRigidArea(new Dimension(10, 30)));
         centerPanel.add(startButton);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        centerPanel.add(Box.createRigidArea(new Dimension(10, 10)));
         centerPanel.add(controlsButton);
 
         this.add(centerPanel, BorderLayout.CENTER);
+        this.add(titlePanel, BorderLayout.SOUTH); // Aggiungi il titolo in basso
     }
 
     private void styleButton(JButton button, Color backgroundColor) {
-        button.setFont(new Font("Roboto", Font.BOLD, 24));
+        button.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 24)); 
         button.setBackground(backgroundColor);
-        button.setForeground(Color.WHITE);
+        button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
-        button.setBorder(null);
         button.setPreferredSize(new Dimension(300, 60));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        button.setMargin(new Insets(20, 40, 20, 40));
-
-        // Effetto hover per i pulsanti
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(backgroundColor.brighter());
+        // Effetto hover per i pulsanti (scurisce il colore quando il mouse entra)
+        button.addMouseListener(new MouseAdapter() {
+            private Color hoverColor = backgroundColor.darker();  // Colore più scuro per l'effetto hover
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(hoverColor);  // Colore più scuro
             }
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(backgroundColor.darker());
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(backgroundColor);  // Torna al colore originale
             }
         });
 
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
-        button.setBorder(BorderFactory.createCompoundBorder(
-                button.getBorder(),
-                BorderFactory.createEmptyBorder(10, 30, 10, 30)
-        ));
-        button.setContentAreaFilled(false); // Rendi trasparente
+        button.setContentAreaFilled(true); // Rendi il pulsante visibile (non trasparente)
     }
 
     // Override del metodo paintComponent per disegnare l'immagine di sfondo
