@@ -4,17 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
+import it.unibo.model.Scale;
 
 public class MenuRules extends JPanel {
-    private final JButton backButton = new JButton("Indietro");
+    private final JButton backButton;
     private Image backgroundImage; // Immagine di sfondo
     private Image decoration1;
     private Image decoration2;
+    private final int scale; // Variabile per la scala
 
-    public MenuRules() {
+    public MenuRules(Scale scaleObj) {
+        this.scale = scaleObj.getScale(); // Ottieni la scala dall'oggetto Scale
         this.setLayout(new BorderLayout());
 
-        // Caricamento dell'immagine di sfondo
+        // Caricamento delle immagini
         try {
             backgroundImage = new ImageIcon(getClass().getResource("/images/rulesimg.jpg")).getImage();
             decoration1 = new ImageIcon(getClass().getResource("/images/pers1.png")).getImage();
@@ -24,6 +27,7 @@ public class MenuRules extends JPanel {
             e.printStackTrace();
         }
 
+        // Testo delle regole con dimensioni scalate
         JTextArea rulesText = new JTextArea(
             "Regole del Gioco:\n" +
             "- Usa il cannone per sparare ai puyo nella griglia.\n" +
@@ -37,16 +41,16 @@ public class MenuRules extends JPanel {
             "Devi raggiungere almeno una stella per passare il livello."
         );
         rulesText.setEditable(false);
-        rulesText.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));  // Testo in grassetto
+        rulesText.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, scale / 40));  
         rulesText.setLineWrap(true);
         rulesText.setWrapStyleWord(true);
         rulesText.setOpaque(false);
-        rulesText.setForeground(Color.BLACK);  // Testo in nero
+        rulesText.setForeground(Color.BLACK);
         rulesText.setCaretColor(Color.BLACK);
-        rulesText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        rulesText.setBorder(BorderFactory.createEmptyBorder(scale / 35, scale / 35, scale / 35, scale / 35));
 
         JScrollPane scrollPane = new JScrollPane(rulesText);
-        scrollPane.setPreferredSize(new Dimension(650, 300));
+        scrollPane.setPreferredSize(new Dimension(scale, scale / 2));
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
@@ -54,9 +58,11 @@ public class MenuRules extends JPanel {
         // Pannello inferiore con il pulsante "Indietro"
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
-        styleButton(backButton, new Color(50, 130, 255));
 
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        backButton = new JButton("Indietro");
+        styleButton(backButton, new Color(50, 130, 255), scale);
+
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, scale / 35, scale / 35));
         bottomPanel.add(backButton);
 
         this.add(scrollPane, BorderLayout.CENTER);
@@ -64,24 +70,22 @@ public class MenuRules extends JPanel {
     }
 
     /**
-     * Stile personalizzato per i pulsanti.
+     * Stile personalizzato per i pulsanti con supporto a `Scale`.
      */
-    private void styleButton(JButton button, Color backgroundColor) {
-        button.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 24));
+    private void styleButton(JButton button, Color backgroundColor, int scale) {
+        button.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, scale / 30));
         button.setBackground(backgroundColor);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setBorder(null);
-        button.setPreferredSize(new Dimension(300, 60));
+        button.setPreferredSize(new Dimension(scale / 2, scale / 10));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        button.setMargin(new Insets(15, 40, 15, 40));
+        button.setMargin(new Insets(scale / 35, scale / 18, scale / 35, scale / 18));
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(backgroundColor.darker());
             }
-
         });
 
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -91,39 +95,38 @@ public class MenuRules extends JPanel {
         backButton.addActionListener(listener);
     }
 
-    // Override di paintComponent per disegnare lo sfondo
+    // Override di paintComponent per disegnare lo sfondo e le immagini decorative
     @Override
-protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-    Graphics2D g2d = (Graphics2D) g;
-    
-    // Disegna lo sfondo
-    if (backgroundImage != null) {
-        g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Disegna lo sfondo
+        if (backgroundImage != null) {
+            g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+
+        // Disegna le immagini decorative scalate
+        if (decoration1 != null && decoration2 != null) {
+            double scaleX = 0.3; // 30% della larghezza del pannello
+            double scaleY = 0.4; // 40% dell'altezza del pannello
+
+            int scaledWidth = scale / 3;
+            int scaledHeight = scale / 2;
+
+            // Creazione trasformazioni di scala
+            AffineTransform transform1 = new AffineTransform();
+            transform1.translate(scale / 30, getHeight() - scaledHeight + (scale / 25)); 
+            transform1.scale(scaleX, scaleY);
+
+            AffineTransform transform2 = new AffineTransform();
+            transform2.translate(getWidth() - scaledWidth + (scale / 10), getHeight() - scaledHeight + (scale / 20));
+            transform2.scale(scaleX, scaleY);
+
+            // Disegno delle immagini scalate
+            g2d.drawImage(decoration1, transform2, this);
+            g2d.drawImage(decoration2, transform1, this);
+        }
     }
-
-    // Disegna le immagini decorative in posizioni opposte
-    if (decoration1 != null && decoration2 != null) {
-        double scaleX = 0.3; // 30% della larghezza del pannello
-        double scaleY = 0.4; // 40% dell'altezza del pannello
-
-        int scaledWidth = (int) (getWidth() * scaleX);
-        int scaledHeight = (int) (getHeight() * scaleY);
-
-        // Creazione trasformazioni di scala
-        AffineTransform transform1 = new AffineTransform();
-        transform1.translate(10, getHeight() - scaledHeight - (getHeight() / 16)); 
-        transform1.scale(scaleX, scaleY);
-
-        AffineTransform transform2 = new AffineTransform();
-        transform2.translate(getWidth() - scaledWidth + 50, getHeight() - scaledHeight - (getHeight() / 11));
-        transform2.scale(scaleX, scaleY);
-
-        // Disegno delle immagini scalate
-        g2d.drawImage(decoration1, transform2, this);
-        g2d.drawImage(decoration2, transform1, this);
-    }
-}
-
 }
