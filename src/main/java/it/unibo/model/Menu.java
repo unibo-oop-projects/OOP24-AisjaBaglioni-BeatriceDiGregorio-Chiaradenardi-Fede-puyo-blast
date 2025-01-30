@@ -33,14 +33,15 @@ public class Menu extends JPanel implements MenuInterface {
         JLabel titleLabel = new JLabel("PUYO POP");
         titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 80));
         titleLabel.setForeground(new Color(51,73,112));  // Blu scuro
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
-        // Pannello per il titolo in basso
-        JPanel titlePanel = new JPanel();
-        titlePanel.setOpaque(false);
-        titlePanel.setLayout(new BorderLayout());
-        titlePanel.add(titleLabel, BorderLayout.SOUTH); // Posiziona in basso
+        JPanel titleWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0)); // Sposta a destra di 100px
+        titleWrapper.setOpaque(false);
+        titleWrapper.add(titleLabel);
 
+        // Pannello per posizionare il titolo in basso
+        JPanel titlePanel = new JPanel(new BorderLayout());
+        titlePanel.setOpaque(false);
+        titlePanel.add(titleWrapper, BorderLayout.SOUTH); // Titolo in basso
+        
         // Dropdown dei livelli (centrato a sinistra)
         levelsDropdown = new JComboBox<>(levels);
         levelsDropdown.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -68,7 +69,7 @@ public class Menu extends JPanel implements MenuInterface {
         centerPanel.add(controlsButton);
 
         this.add(centerPanel, BorderLayout.CENTER);
-        this.add(titlePanel, BorderLayout.SOUTH); // Aggiungi il titolo in basso
+        this.add(titlePanel, BorderLayout.SOUTH);
     }
 
     private void styleButton(JButton button, Color backgroundColor) {

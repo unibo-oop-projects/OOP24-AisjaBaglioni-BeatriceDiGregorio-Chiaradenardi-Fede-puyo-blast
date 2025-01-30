@@ -26,18 +26,18 @@ public class MenuRules extends JPanel {
 
         JTextArea rulesText = new JTextArea(
             "Regole del Gioco:\n" +
-            "- Combina almeno 2 Puyo dello stesso colore per eliminarli.\n" +
-            "- Usa il cannone per lanciare i Puyo nella griglia.\n\n" +
+            "- Usa il cannone per sparare ai puyo nella griglia.\n" +
+            "- Combina almeno 2 Puyo dello stesso colore per aumentare il moltiplicatore punteggio.\n\n" +
             "Difficoltà dei livelli: \n" +
-            "- Livello 1: 1 pallina ogni 3 secondi \n" +
-            "- Livello 2: 2 palline ogni 2 secondi \n" +
-            "- Livello 3: 3 palline ogni secondo \n\n" +
+            "- Ci sono 3 livelli dove la difficoltà aumenta avendo più palline che cadono insieme più velocemente\n\n"+
             "Comandi:\n" +
-            "- Frecce direzionali dx e sx per spostare il cannone.\n" +
-            "- Barra spaziatrice per sparare."
+            "- Frecce direzionali per spostare il mirino.\n" +
+            "- Barra spaziatrice per sparare.\n"+
+            "Sii veloce! Il gioco finisce se la griglia si riempie.\n"+
+            "Devi raggiungere almeno una stella per passare il livello."
         );
         rulesText.setEditable(false);
-        rulesText.setFont(new Font("Segoe UI", Font.BOLD, 18));  // Testo in grassetto
+        rulesText.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 18));  // Testo in grassetto
         rulesText.setLineWrap(true);
         rulesText.setWrapStyleWord(true);
         rulesText.setOpaque(false);
@@ -67,7 +67,7 @@ public class MenuRules extends JPanel {
      * Stile personalizzato per i pulsanti.
      */
     private void styleButton(JButton button, Color backgroundColor) {
-        button.setFont(new Font("Roboto", Font.BOLD, 24));
+        button.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 24));
         button.setBackground(backgroundColor);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
@@ -79,11 +79,9 @@ public class MenuRules extends JPanel {
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(backgroundColor.brighter());
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
                 button.setBackground(backgroundColor.darker());
             }
+
         });
 
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -119,7 +117,7 @@ protected void paintComponent(Graphics g) {
         transform1.scale(scaleX, scaleY);
 
         AffineTransform transform2 = new AffineTransform();
-        transform2.translate(getWidth() - scaledWidth - 5, getHeight() - scaledHeight - (getHeight() / 8));
+        transform2.translate(getWidth() - scaledWidth + 50, getHeight() - scaledHeight - (getHeight() / 11));
         transform2.scale(scaleX, scaleY);
 
         // Disegno delle immagini scalate
