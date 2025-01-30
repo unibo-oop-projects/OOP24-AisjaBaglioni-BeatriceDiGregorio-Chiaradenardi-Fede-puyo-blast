@@ -30,10 +30,10 @@ public class Menu extends JPanel implements MenuInterface {
         centerPanel.setOpaque(false);
 
         // Titolo (posizionato in basso a sinistra in blu scuro)
-        JLabel titleLabel = new JLabel("PUYO POP");
-        titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 80));
+        JLabel titleLabel = new JLabel("PUYO POP: BLAST!");
+        titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 40));
         titleLabel.setForeground(new Color(51,73,112));  // Blu scuro
-        JPanel titleWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0)); // Sposta a destra di 100px
+        JPanel titleWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 35)); 
         titleWrapper.setOpaque(false);
         titleWrapper.add(titleLabel);
 
