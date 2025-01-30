@@ -2,7 +2,6 @@
 
 package it.unibo.controller;
 
-import it.unibo.model.GameState;
 import it.unibo.view.GameView;
 import it.unibo.controller.interfaces.TickListenerInterface;
 

@@ -19,6 +19,7 @@ import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
 import it.unibo.view.PauseView;
+import it.unibo.view.PuyoRenderer;
 import it.unibo.view.ScoreView;
 import it.unibo.view.TryAgainView;
 
@@ -54,6 +55,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final ScoreModel scoreModel;
     private final ScoreController scoreController;
     private final ScoreView scoreView;
+    private final PuyoRenderer puyoRenderer;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -93,7 +95,8 @@ public class ScreenManager implements ScreenManagerInterface {
         this.scoreModel = new ScoreModel();
         this.scoreController = new ScoreController(scoreModel);
         this.scoreView = new ScoreView(scoreModel, scale);
-        this.gameView = new GameView(grid, scale, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
+        this.puyoRenderer = new PuyoRenderer(scale);
+        this.gameView = new GameView(grid, scale, puyoRenderer, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
             exitView, scoreView, this);
         this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
@@ -104,6 +107,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.gameLoop.addTickListener(this.progressBar);
         this.gameLoop.addTickListener(this.bulletController);
         this.gameLoop.addTickListener(this.puyoExplosionController);
+        this.gameLoop.addTickListener(this.puyoRenderer);
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
