@@ -3,19 +3,22 @@ package it.unibo.view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 
 public class MenuRules extends JPanel {
     private final JButton backButton = new JButton("Indietro");
     private Image backgroundImage; // Immagine di sfondo
-    //private Image decoration;
+    private Image decoration1;
+    private Image decoration2;
 
     public MenuRules() {
         this.setLayout(new BorderLayout());
 
         // Caricamento dell'immagine di sfondo
         try {
-            backgroundImage = new ImageIcon(getClass().getResource("/images/menurules.jpg")).getImage();
-           // decoration = new ImageIcon(getClass().getResource("/images/puyopers.png")).getImage();
+            backgroundImage = new ImageIcon(getClass().getResource("/images/rulesimg.jpg")).getImage();
+            decoration1 = new ImageIcon(getClass().getResource("/images/pers1.png")).getImage();
+            decoration2 = new ImageIcon(getClass().getResource("/images/pers2.png")).getImage();
         } catch (Exception e) {
             System.out.println("Errore nel caricamento dell'immagine");
             e.printStackTrace();
@@ -92,28 +95,37 @@ public class MenuRules extends JPanel {
 
     // Override di paintComponent per disegnare lo sfondo
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
-        // Disegna l'immagine di sfondo
-        if (backgroundImage != null) {
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        }
-        
-        // Disegna l'immagine decorativa sopra il bottone, scalata dinamicamente
-        /*
-        if (decoration != null) {
-            // Definisci la scala dell'immagine rispetto alle dimensioni del pannello
-            int scaledWidth = (int) (getWidth() * 0.5);  // 50% della larghezza del pannello
-            int scaledHeight = (int) (getHeight() * 0.2); // 20% dell'altezza del pannello
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
 
-            // Calcola la posizione per centrare l'immagine
-            int x = (getWidth() - scaledWidth) / 2;
-            int y = getHeight() - scaledHeight - (getHeight() / 10); // Sopra il bottone
-
-            // Disegna l'immagine con la nuova scala
-            g.drawImage(decoration, x, y, scaledWidth, scaledHeight, this);
-        }
-        */
+    Graphics2D g2d = (Graphics2D) g;
+    
+    // Disegna lo sfondo
+    if (backgroundImage != null) {
+        g2d.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
     }
+
+    // Disegna le immagini decorative in posizioni opposte
+    if (decoration1 != null && decoration2 != null) {
+        double scaleX = 0.3; // 30% della larghezza del pannello
+        double scaleY = 0.4; // 40% dell'altezza del pannello
+
+        int scaledWidth = (int) (getWidth() * scaleX);
+        int scaledHeight = (int) (getHeight() * scaleY);
+
+        // Creazione trasformazioni di scala
+        AffineTransform transform1 = new AffineTransform();
+        transform1.translate(10, getHeight() - scaledHeight - (getHeight() / 16)); 
+        transform1.scale(scaleX, scaleY);
+
+        AffineTransform transform2 = new AffineTransform();
+        transform2.translate(getWidth() - scaledWidth - 5, getHeight() - scaledHeight - (getHeight() / 8));
+        transform2.scale(scaleX, scaleY);
+
+        // Disegno delle immagini scalate
+        g2d.drawImage(decoration1, transform2, this);
+        g2d.drawImage(decoration2, transform1, this);
+    }
+}
+
 }
