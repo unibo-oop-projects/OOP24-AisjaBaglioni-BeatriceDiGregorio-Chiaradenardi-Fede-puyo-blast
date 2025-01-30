@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 public class MenuRules extends JPanel {
     private final JButton backButton = new JButton("Indietro");
     private Image backgroundImage; // Immagine di sfondo
+    //private Image decoration;
 
     public MenuRules() {
         this.setLayout(new BorderLayout());
@@ -14,6 +15,7 @@ public class MenuRules extends JPanel {
         // Caricamento dell'immagine di sfondo
         try {
             backgroundImage = new ImageIcon(getClass().getResource("/images/menurules.jpg")).getImage();
+           // decoration = new ImageIcon(getClass().getResource("/images/puyopers.png")).getImage();
         } catch (Exception e) {
             System.out.println("Errore nel caricamento dell'immagine");
             e.printStackTrace();
@@ -92,8 +94,26 @@ public class MenuRules extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
+        // Disegna l'immagine di sfondo
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
+        
+        // Disegna l'immagine decorativa sopra il bottone, scalata dinamicamente
+        /*
+        if (decoration != null) {
+            // Definisci la scala dell'immagine rispetto alle dimensioni del pannello
+            int scaledWidth = (int) (getWidth() * 0.5);  // 50% della larghezza del pannello
+            int scaledHeight = (int) (getHeight() * 0.2); // 20% dell'altezza del pannello
+
+            // Calcola la posizione per centrare l'immagine
+            int x = (getWidth() - scaledWidth) / 2;
+            int y = getHeight() - scaledHeight - (getHeight() / 10); // Sopra il bottone
+
+            // Disegna l'immagine con la nuova scala
+            g.drawImage(decoration, x, y, scaledWidth, scaledHeight, this);
+        }
+        */
     }
 }

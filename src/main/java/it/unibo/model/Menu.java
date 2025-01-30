@@ -100,13 +100,8 @@ public class Menu extends JPanel implements MenuInterface {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (backgroundImage != null) {
-            drawBackground(g, getWidth(), getHeight());
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
-    }
-
-    // Metodo per disegnare lo sfondo
-    private void drawBackground(Graphics g, int width, int height) {
-        g.drawImage(backgroundImage, 0, 0, width, height, this);
     }
 
     @Override
