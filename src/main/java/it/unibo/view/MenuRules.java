@@ -32,26 +32,26 @@ public class MenuRules extends JPanel {
             "- Barra spaziatrice per sparare."
         );
         rulesText.setEditable(false);
-        rulesText.setFont(new Font("Segoe UI", Font.PLAIN, 18));  
+        rulesText.setFont(new Font("Segoe UI", Font.BOLD, 18));  // Testo in grassetto
         rulesText.setLineWrap(true);
         rulesText.setWrapStyleWord(true);
         rulesText.setOpaque(false);
-        rulesText.setForeground(new Color(200, 200, 200));  
-        rulesText.setCaretColor(new Color(255, 255, 255));  
-        rulesText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));  
+        rulesText.setForeground(Color.BLACK);  // Testo in nero
+        rulesText.setCaretColor(Color.BLACK);
+        rulesText.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JScrollPane scrollPane = new JScrollPane(rulesText);
-        scrollPane.setPreferredSize(new Dimension(650, 300));  
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());  
+        scrollPane.setPreferredSize(new Dimension(650, 300));
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
 
         // Pannello inferiore con il pulsante "Indietro"
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
-        styleButton(backButton, new Color(50, 130, 255));  
+        styleButton(backButton, new Color(50, 130, 255));
 
-        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));  
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         bottomPanel.add(backButton);
 
         this.add(scrollPane, BorderLayout.CENTER);
@@ -62,26 +62,26 @@ public class MenuRules extends JPanel {
      * Stile personalizzato per i pulsanti.
      */
     private void styleButton(JButton button, Color backgroundColor) {
-        button.setFont(new Font("Roboto", Font.BOLD, 24));  
+        button.setFont(new Font("Roboto", Font.BOLD, 24));
         button.setBackground(backgroundColor);
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
-        button.setBorder(null);  
-        button.setPreferredSize(new Dimension(300, 60)); 
+        button.setBorder(null);
+        button.setPreferredSize(new Dimension(300, 60));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        button.setMargin(new Insets(15, 40, 15, 40));  
+        button.setMargin(new Insets(15, 40, 15, 40));
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(backgroundColor.brighter());  
+                button.setBackground(backgroundColor.brighter());
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(backgroundColor.darker());  
+                button.setBackground(backgroundColor.darker());
             }
         });
 
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));  
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     public void addBackButtonListener(ActionListener listener) {
