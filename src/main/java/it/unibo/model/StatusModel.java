@@ -25,11 +25,11 @@ public class StatusModel {
         this.endStars = Optional.of(stars);
     }
 
-    public boolean getGameEnded(){
+    public boolean isGameEnded(){
         return this.gameEnded;
     }
 
-    public boolean getGamePaused(){
+    public boolean isGamePaused(){
         return this.gamePaused;
     }
 
