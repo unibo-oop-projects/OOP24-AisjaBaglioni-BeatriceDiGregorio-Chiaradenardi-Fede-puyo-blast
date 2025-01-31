@@ -31,7 +31,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private Set<ClickInterface> clickables;
     private boolean isPaused;
 
-    public GameView(Grid grid, Scale scale, CannonModel cannonModel, CannonView cannonView,
+    public GameView(Grid grid, Scale scale, PuyoRenderer puyoRenderer, CannonModel cannonModel, CannonView cannonView,
                     ProgressBarModel progressModel, BulletModel bulletModel, 
                     PauseView pauseView, TryAgainView tryAgainView, 
                     ExitView exitView,ScoreView scoreView, ScreenManager screenManager) {
@@ -46,7 +46,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.clickables.add(this.pauseView);
         this.clickController = new ClickController(clickables);
         this.background = new BackGround("background.jpg");
-        this.renderer = new PuyoRenderer(this.scale);
+        this.renderer = puyoRenderer;
         this.cannonView = cannonView;
         this.cannonSightView = new TargetView("CannonSightView.png", this.scale, cannonModel);
         this.progressBarView = new ProgressBarView(progressModel, this.scale);

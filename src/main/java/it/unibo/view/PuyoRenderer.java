@@ -1,6 +1,7 @@
 //chiara & aisja
 package it.unibo.view;
 
+import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
@@ -12,12 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.net.URL;
 
-public class PuyoRenderer {
+public class PuyoRenderer implements TickListenerInterface {
     // private static final int CELL_SIZE = 40; //dimensione della cella della
     // griglia
     private final Map<String, Integer> colorMap; // mappa per associare i colori
     private final Image sprites;
     private Scale scale;
+    private int ticks;
     // sinistra, su, destra, giù
     private static final int[] SPRITE_MAPPER = {
             0, // 0000
@@ -39,6 +41,7 @@ public class PuyoRenderer {
     };
 
     public PuyoRenderer(Scale scale) {
+        this.ticks = 0;
         this.scale = scale;
         colorMap = new HashMap<>();
         colorMap.put("red", 0);
@@ -108,7 +111,7 @@ public class PuyoRenderer {
         if (mask != 0) {
             offset_animation = SPRITE_MAPPER[mask] * 32;
         } else {
-            if (((System.currentTimeMillis() / 150) ^ puyo.getIdentifier()) % 101 < 2) {
+            if (((this.ticks / 5) ^ puyo.getIdentifier()) % 101 < 2) {
                 offset_animation = 32 * 16;
             }
         }
@@ -150,7 +153,7 @@ public class PuyoRenderer {
                     x + cellsize + offset_gridx,
                     y + cellsize + offset_gridy,
                     offset_animation,
-                    32*(puyoRow + 7),
+                    32 * (puyoRow + 7),
                     offset_animation + 32,
                     32 * (puyoRow + 8),
                     null);
@@ -167,5 +170,10 @@ public class PuyoRenderer {
                     32 * puyoRow + 32,
                     null);
         }
+    }
+
+    @Override
+    public void onTick() {
+        this.ticks++;
     }
 }
