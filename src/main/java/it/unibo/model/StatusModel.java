@@ -22,6 +22,18 @@ public class StatusModel {
     }
 
     public void setStars(int stars){
-        this.endStars = Optional.of(stars);        
+        this.endStars = Optional.of(stars);
+    }
+
+    public boolean getGameEnded(){
+        return this.gameEnded;
+    }
+
+    public boolean getGamePaused(){
+        return this.gamePaused;
+    }
+
+    public Optional<Integer> getEndStars(){
+        return this.endStars;
     }
 }
