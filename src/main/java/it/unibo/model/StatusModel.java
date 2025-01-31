@@ -9,7 +9,7 @@ public class StatusModel {
 
     public StatusModel() {
         this.gameEnded = false;
-        this.gamePaused = true;
+        this.gamePaused = false;
         this.endStars = Optional.empty(); 
     }
 
@@ -18,7 +18,7 @@ public class StatusModel {
     }
 
     public void togglePaused() {
-        this.gamePaused = false;
+        this.gamePaused = !this.gamePaused;
     }
 
     public void setStars(int stars){
