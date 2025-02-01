@@ -13,6 +13,10 @@ public class PauseModel {
         this.isPaused = pause;
     }
 
+    public void togglePause(){
+        this.isPaused = !this.isPaused;
+    }
+
     public boolean getPause(){
         return this.isPaused;
     }
