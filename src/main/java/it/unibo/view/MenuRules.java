@@ -40,7 +40,7 @@ public class MenuRules extends JPanel {
             "- Ci sono 3 livelli dove la difficoltà aumenta avendo più palline che cadono insieme più velocemente\n\n"+
             "Comandi:\n" +
             "- Frecce direzionali per spostare il mirino.\n" +
-            "- Barra spaziatrice per sparare."
+            "- Barra spaziatrice per sparare e P per la pausa."
         );
         rulesText.setEditable(false);
         rulesText.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, scale / 40));  
