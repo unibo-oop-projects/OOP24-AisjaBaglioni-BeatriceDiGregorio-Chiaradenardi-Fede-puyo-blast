@@ -32,15 +32,15 @@ public class MenuRules extends JPanel {
             "Regole del Gioco:\n" +
             "- Usa il cannone per sparare ai puyo nella griglia.\n" +
             "- Combina almeno 2 Puyo dello stesso colore per aumentare il moltiplicatore punteggio.\n" +
+             "Sii veloce! Il gioco finisce se la griglia si riempie.\n"+
+            "Devi raggiungere almeno una stella per passare il livello.\n"+
             "- I puyo potrebbero auto-congelarsi. Durante il congelamento, non è possibile distruggerli. Se la barra di \n"+
             "caricamento del cannone è piena, sarà possibile sparare un “colpo termico” speciale per scongelarli.\n\n"+
             "Difficoltà dei livelli: \n" +
             "- Ci sono 3 livelli dove la difficoltà aumenta avendo più palline che cadono insieme più velocemente\n\n"+
             "Comandi:\n" +
             "- Frecce direzionali per spostare il mirino.\n" +
-            "- Barra spaziatrice per sparare.\n"+
-            "Sii veloce! Il gioco finisce se la griglia si riempie.\n"+
-            "Devi raggiungere almeno una stella per passare il livello."
+            "- Barra spaziatrice per sparare."
         );
         rulesText.setEditable(false);
         rulesText.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, scale / 40));  
