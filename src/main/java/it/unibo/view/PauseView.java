@@ -73,7 +73,7 @@ public class PauseView implements ClickInterface {
 
     @Override
     public void doAction() {
-        this.controller.setPause();
+        this.controller.togglePause();
         System.out.println("Hai cliccato Pause/Resume");
     }
 
