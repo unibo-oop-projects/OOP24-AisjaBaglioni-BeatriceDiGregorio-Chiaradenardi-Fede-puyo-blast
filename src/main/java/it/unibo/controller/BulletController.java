@@ -27,6 +27,7 @@ public class BulletController implements TickListenerInterface {
     private final Scale scale;
     private final ScoreController scoreController;
     private Point2DI target;
+    private boolean special;
 
     public BulletController(BulletModel bulletModel, Grid grid, KeyboardModel k, ProgressBarController progressBar,
             CannonView cannonView, ScoreController scoreController,  Scale scale) {
@@ -54,20 +55,27 @@ public class BulletController implements TickListenerInterface {
                     puyoGridOffsetX + (int) (cannonModel.getX() * grid.getCols() * puyoCellSize),
                     puyoGridOffsetY + (int) ((1.0 - cannonModel.getAngle()) * grid.getRows() * puyoCellSize));
             bulletModel.shootBullet(Point2DI.toPoint2D(source), Point2DI.toPoint2D(target));
+            this.special= progressBar.resetBar();
         }
         if (bulletModel.isActive()) {
             if (!bulletModel.updatePosition()) {
-                explodePuyos(target);
+                explodePuyos(target, special);
             }
         }
     }
 
-    private void explodePuyos(Point2DI target) {
+    private void explodePuyos(Point2DI target, boolean special) {
         PuyoInterface puyo = grid.getPuyo(target.x(), target.y());
         if (puyo == null) {
             return;
         }
         if (puyo.getDeathClock().isPresent()) {
+            return;
+        }
+        if(puyo.getFreezeClock().isPresent()){
+            if(special){
+                puyo.setFreezeClock(Optional.empty());
+            }
             return;
         }
         ArrayDeque<Point2DI> q = new ArrayDeque<>();
@@ -85,6 +93,7 @@ public class BulletController implements TickListenerInterface {
                     if (d.containsKey(v) ||
                             !grid.isValidPosition(v.x(), v.y()) ||
                             grid.getPuyo(v.x(), v.y()) == null ||
+                            grid.getPuyo(v.x(), v.y()).getDeathClock().isPresent() ||
                             !grid.getPuyo(v.x(), v.y()).getColor().equals(puyo.getColor())) {
                         continue;
                     }
