@@ -16,4 +16,26 @@ public class FreezeController implements TickListenerInterface{
     public FreezeController(Grid grid){
         this.grid = grid;
     }
+
+    @Override
+    public void onTick() {
+        for (int row = 0; row < grid.getRows(); row++) {
+            for (int col = 0; col < grid.getCols(); col++) {
+                PuyoInterface puyo = grid.getPuyo(col, row);
+                if (puyo == null || puyo.getDeathClock().isPresent()) {
+                    continue;
+                }
+                if (puyo.getFreezeClock().isPresent()) {
+                    int newFreezeClock = puyo.getFreezeClock().get() - 1;
+                    if (newFreezeClock <= 0) {
+                        puyo.setFreezeClock(Optional.empty());
+                    } else {
+                        puyo.setFreezeClock(Optional.of(newFreezeClock));
+                    }
+                } else if (Math.random() < FREEZE_PROBABILITY) {
+                    puyo.setFreezeClock(Optional.of(FREEZE_DURATION));
+                }
+            }
+        }
+    }
 }
