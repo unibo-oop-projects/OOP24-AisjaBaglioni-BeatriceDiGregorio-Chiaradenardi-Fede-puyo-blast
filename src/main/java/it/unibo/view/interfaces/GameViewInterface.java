@@ -17,8 +17,7 @@ public interface GameViewInterface {
     
     void startGame();
 
-    void togglePause();
+    
 
-    boolean isPaused();
 
 }

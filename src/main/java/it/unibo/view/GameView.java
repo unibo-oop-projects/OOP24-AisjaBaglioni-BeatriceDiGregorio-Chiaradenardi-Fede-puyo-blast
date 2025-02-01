@@ -89,12 +89,10 @@ public class GameView extends JPanel implements GameViewInterface {
         scoreView.draw(g);
         pauseView.draw(g);
 
-        if (isPaused) {
-            drawPauseMessage(g);
-        }
+       
     }
 
-    private void drawPauseMessage(Graphics g) {
+   /* private void drawPauseMessage(Graphics g) {
         String pauseText = "Game Paused";
         g.setFont(new Font("Arial", Font.BOLD, 36));
         g.setColor(Color.RED);
@@ -102,14 +100,9 @@ public class GameView extends JPanel implements GameViewInterface {
         int x = (getWidth() - metrics.stringWidth(pauseText)) / 2;
         int y = getHeight() / 2;
         g.drawString(pauseText, x, y);
-    }
+    }*/
 
-    public void updateGame() {
-        if (!isPaused) {
-            grid.updateGrid();
-            repaint();
-        }
-    }
+   
 
     public CannonView getCannonView() {
         return this.cannonView;
@@ -133,27 +126,7 @@ public class GameView extends JPanel implements GameViewInterface {
         System.out.println("Game started!");
     }
 
-    public void togglePause() {
-        System.out.println("Toggling pause: " + isPaused);
-        isPaused = !isPaused;
-        repaint();
-    }
+    
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_P) {
-            togglePause();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
-
-    @Override
-    public boolean isPaused() {
-        return isPaused;
-    }
+ 
 }
