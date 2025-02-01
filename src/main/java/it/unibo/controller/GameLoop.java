@@ -51,6 +51,10 @@ public class GameLoop implements ActionListener {
         if(pauseModel.getPause()){
             return;
         }
+        for (TickListenerInterface tickListener : tickListeners) {
+            tickListener.onTick();
+        }
+
     }
 
     // Metodo per ridisegnare la grafica
