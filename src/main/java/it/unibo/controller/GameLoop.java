@@ -44,20 +44,12 @@ public class GameLoop implements ActionListener {
         this.tickListeners.remove(tickListener);
     }
 
-    public void setPaused(boolean paused) {
-        this.paused = paused;
-    }
-
-    // alterna lo stato di pausa
-    public void togglePaused() {
-        this.paused = !this.paused;
-    }
+    
 
     // Metodo per aggiornare lo stato del gioco
     private void update() {
-        // notifica tutti i listener
-        for (TickListenerInterface tickListener : tickListeners) {
-            tickListener.onTick();
+        if(pauseModel.getPause()){
+            return;
         }
     }
 
