@@ -31,7 +31,9 @@ public class MenuRules extends JPanel {
         JTextArea rulesText = new JTextArea(
             "Regole del Gioco:\n" +
             "- Usa il cannone per sparare ai puyo nella griglia.\n" +
-            "- Combina almeno 2 Puyo dello stesso colore per aumentare il moltiplicatore punteggio.\n\n" +
+            "- Combina almeno 2 Puyo dello stesso colore per aumentare il moltiplicatore punteggio.\n" +
+            "- I puyo potrebbero auto-congelarsi. Durante il congelamento, non è possibile distruggerli. Se la barra di \n"+
+            "caricamento del cannone è piena, sarà possibile sparare un “colpo termico” speciale per scongelarli.\n\n"+
             "Difficoltà dei livelli: \n" +
             "- Ci sono 3 livelli dove la difficoltà aumenta avendo più palline che cadono insieme più velocemente\n\n"+
             "Comandi:\n" +
@@ -78,9 +80,9 @@ public class MenuRules extends JPanel {
         button.setForeground(Color.WHITE);
         button.setFocusPainted(false);
         button.setBorder(null);
-        button.setPreferredSize(new Dimension(scale / 2, scale / 10));
+        button.setPreferredSize(new Dimension(scale / 2, scale /15 ));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMargin(new Insets(scale / 35, scale / 18, scale / 35, scale / 18));
+        button.setMargin(new Insets(scale / 35, scale / 18, scale / 35, scale / 25));
 
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -117,8 +119,8 @@ public class MenuRules extends JPanel {
 
             // Creazione trasformazioni di scala
             AffineTransform transform1 = new AffineTransform();
-            transform1.translate(scale / 30, getHeight() - scaledHeight + (scale / 25)); 
-            transform1.scale(scaleX, scaleY);
+            transform1.translate(scale / 30, getHeight() - scaledHeight + (scale/7)); 
+            transform1.scale(0.2, 0.3);
 
             AffineTransform transform2 = new AffineTransform();
             transform2.translate(getWidth() - scaledWidth + (scale / 10), getHeight() - scaledHeight + (scale / 20));
