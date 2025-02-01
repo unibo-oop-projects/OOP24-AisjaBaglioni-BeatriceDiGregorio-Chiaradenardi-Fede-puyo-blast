@@ -93,7 +93,7 @@ public class BulletController implements TickListenerInterface {
                     if (d.containsKey(v) ||
                             !grid.isValidPosition(v.x(), v.y()) ||
                             grid.getPuyo(v.x(), v.y()) == null ||
-                            grid.getPuyo(v.x(), v.y()).getDeathClock().isPresent() ||
+                            grid.getPuyo(v.x(), v.y()).getFreezeClock().isPresent() ||
                             !grid.getPuyo(v.x(), v.y()).getColor().equals(puyo.getColor())) {
                         continue;
                     }
