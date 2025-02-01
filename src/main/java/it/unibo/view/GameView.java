@@ -1,3 +1,4 @@
+//fede
 package it.unibo.view;
 
 import it.unibo.controller.ClickController;
@@ -13,7 +14,7 @@ import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GameView extends JPanel implements GameViewInterface, KeyListener {
+public class GameView extends JPanel implements GameViewInterface {
     private ClickController clickController;
     private BackGround background;
     private final PuyoRenderer renderer;
@@ -29,12 +30,12 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
     private final ScoreView scoreView;
     private Scale scale;
     private Set<ClickInterface> clickables;
-    private boolean isPaused;
+    
 
     public GameView(Grid grid, Scale scale, PuyoRenderer puyoRenderer, CannonModel cannonModel, CannonView cannonView,
-                    ProgressBarModel progressModel, BulletModel bulletModel, 
-                    PauseView pauseView, TryAgainView tryAgainView, 
-                    ExitView exitView,ScoreView scoreView, ScreenManager screenManager) {
+    ProgressBarModel progressModel, BulletModel bulletModel,
+    PauseView pauseView, TryAgainView tryAgainView,
+    ExitView exitView, ScoreView scoreView, ScreenManager screenManager) {
 
         this.scale = scale;
         this.pauseView = pauseView;
@@ -54,10 +55,9 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         this.borderView = new BorderView(this.scale);
         this.scoreView = scoreView;
         this.grid = grid;
-        this.isPaused = false;
+        
 
         this.addMouseListener(clickController);
-        this.addKeyListener(this);
         this.setFocusable(true);
         this.requestFocusInWindow();
     }
@@ -67,7 +67,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
         super.paintComponent(g);
         background.draw(g, getWidth(), getHeight());
 
-        if (!isPaused) {
+        
             for (int y = 0; y < grid.getRows(); y++) {
                 for (int x = 0; x < grid.getCols(); x++) {
                     PuyoInterface puyo = grid.getPuyo(x, y);
@@ -76,7 +76,7 @@ public class GameView extends JPanel implements GameViewInterface, KeyListener {
                     }
                 }
             }
-        }
+        
 
         borderView.draw(g);
         cannonSightView.draw(g);
