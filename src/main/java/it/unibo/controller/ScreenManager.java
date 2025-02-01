@@ -56,6 +56,7 @@ public class ScreenManager implements ScreenManagerInterface {
     private final ScoreController scoreController;
     private final ScoreView scoreView;
     private final PuyoRenderer puyoRenderer;
+    private final FreezeController freezeController;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -74,8 +75,9 @@ public class ScreenManager implements ScreenManagerInterface {
         this.frame.setSize(scale.getScale(), scale.getScale());
         this.frame.setResizable(false);
 
-        grid = new Grid(8, 8);
+        this.grid = new Grid(8, 8);
         this.levelManager = new LevelManager();
+        this.freezeController = new FreezeController(grid);
         this.exitModel = new ExitModel();
         this.exitController = new ExitController(exitModel, this);
         this.exitView = new ExitView(scale, exitController);
@@ -98,7 +100,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.puyoRenderer = new PuyoRenderer(scale);
         this.gameView = new GameView(grid, scale, puyoRenderer, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
             exitView, scoreView, this);
-        this.gameLoop = new GameLoop(this.gameView, new HashSet<>());
+        this.gameLoop = new GameLoop(this.gameView,this.pauseModel, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
         this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView, scoreController, scale);
@@ -108,6 +110,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.gameLoop.addTickListener(this.bulletController);
         this.gameLoop.addTickListener(this.puyoExplosionController);
         this.gameLoop.addTickListener(this.puyoRenderer);
+        this.gameLoop.addTickListener(this.freezeController);
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
@@ -147,6 +150,7 @@ public class ScreenManager implements ScreenManagerInterface {
         KeyboardController keyboardController = new KeyboardController(this.keyboardModel);
         gameView.addKeyListener(keyboardController);
         gameView.setFocusable(true);
+        gameView.addKeyListener(this.pauseController);
     }
 
     private void setupMenuListeners() {
