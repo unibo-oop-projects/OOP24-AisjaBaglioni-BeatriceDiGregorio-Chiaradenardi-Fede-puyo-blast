@@ -4,6 +4,7 @@ package it.unibo.controller;
 
 import it.unibo.view.GameView;
 import it.unibo.controller.interfaces.TickListenerInterface;
+import it.unibo.model.PauseModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,16 +14,16 @@ import javax.swing.Timer;
 public class GameLoop implements ActionListener {
     private final GameView gameView;
 
-    private boolean paused;
+    private final PauseModel pauseModel;
     private Timer gameTimer;
 
     private static final long min_delay = 1000 / 30; // 30 FPS
     private long lastTime;
     private final Set<TickListenerInterface> tickListeners;
 
-    public GameLoop(GameView gameView, Set<TickListenerInterface> tickListeners) {
+    public GameLoop(GameView gameView, PauseModel pauseModel, Set<TickListenerInterface> tickListeners) {
         this.gameView = gameView;
-        this.paused = false;
+        this.pauseModel = pauseModel;
         this.tickListeners = tickListeners;
         this.gameTimer = new Timer(1, this);
     }
