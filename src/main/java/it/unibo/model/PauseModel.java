@@ -1,4 +1,4 @@
-//AISJA
+//FEDE 
 
 package it.unibo.model;
 
@@ -9,12 +9,8 @@ public class PauseModel {
         this.isPaused = false;
     }
 
-    public void changePause(){
-        if (this.isPaused == false) {
-            this.isPaused = true;
-        } else {
-            this.isPaused = false;
-        }
+    public void setPause(boolean pause){
+        this.isPaused = pause;
     }
 
     public boolean getPause(){
