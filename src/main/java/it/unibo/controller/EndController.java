@@ -9,7 +9,7 @@ public class EndController implements TickListenerInterface {
     private final Grid grid;
     private final ScoreModel score;
     private final StatusModel gameStatus;
-    private static final int[] THRESHOLDS = { 100, 200, 300 };
+    private static final int[] THRESHOLDS = { 10, 20, 30 };
 
     public EndController(Grid grid, ScoreModel score, StatusModel gameStatus) {
         this.grid = grid;
