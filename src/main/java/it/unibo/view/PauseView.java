@@ -14,6 +14,7 @@ import it.unibo.model.Point2DI;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ClickInterface;
+import java.awt.Color;
 
 public class PauseView implements ClickInterface {
     private Image[] pause;
@@ -51,6 +52,8 @@ public class PauseView implements ClickInterface {
                     imageHeight,
                     null);
         } else {
+            g.setColor(new Color(0, 0, 0, 100));
+            g.fillRect(0, 0, this.scale.getScale(), this.scale.getScale());
             g.drawImage(
                     this.pause[1],
                     button.upleft.x(),
@@ -77,14 +80,14 @@ public class PauseView implements ClickInterface {
         System.out.println("Hai cliccato Pause/Resume");
     }
 
-    public Rectangle getArea(){
+    public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
         int x = this.scale.getScale() - newWidth - this.scale.getScale() / 28;
-        int y = this.scale.getScale()/16;
+        int y = this.scale.getScale() / 16;
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         return new Rectangle(upleft, lowright);
     }
-    
+
 }
