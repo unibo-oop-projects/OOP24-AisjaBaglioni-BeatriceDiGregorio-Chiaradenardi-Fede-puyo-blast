@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 public class CannonController implements TickListenerInterface, CannonControllerInterface {
     private final CannonModel cannonModel;
     private final KeyboardModel keyboardModel;
-    private final ProgressBarController progressBar;
 
     public CannonController(CannonModel cannonModel, KeyboardModel keyboardModel, ProgressBarController progressBar) {
         this.cannonModel = cannonModel;
