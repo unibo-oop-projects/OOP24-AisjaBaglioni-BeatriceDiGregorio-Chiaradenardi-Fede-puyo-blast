@@ -5,6 +5,7 @@ package it.unibo.controller;
 import it.unibo.view.GameView;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.PauseModel;
+import it.unibo.model.StatusModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,15 +16,19 @@ public class GameLoop implements ActionListener {
     private final GameView gameView;
 
     private final PauseModel pauseModel;
+
+    private final StatusModel statusModel;
+
     private Timer gameTimer;
 
     private static final long min_delay = 1000 / 30; // 30 FPS
     private long lastTime;
     private final Set<TickListenerInterface> tickListeners;
 
-    public GameLoop(GameView gameView, PauseModel pauseModel, Set<TickListenerInterface> tickListeners) {
+    public GameLoop(GameView gameView, PauseModel pauseModel, StatusModel statusModel, Set<TickListenerInterface> tickListeners) {
         this.gameView = gameView;
         this.pauseModel = pauseModel;
+        this.statusModel = statusModel;
         this.tickListeners = tickListeners;
         this.gameTimer = new Timer(1, this);
     }
@@ -49,6 +54,9 @@ public class GameLoop implements ActionListener {
     // Metodo per aggiornare lo stato del gioco
     private void update() {
         if(pauseModel.getPause()){
+            return;
+        }
+        if (statusModel.isGameEnded()) {
             return;
         }
         for (TickListenerInterface tickListener : tickListeners) {

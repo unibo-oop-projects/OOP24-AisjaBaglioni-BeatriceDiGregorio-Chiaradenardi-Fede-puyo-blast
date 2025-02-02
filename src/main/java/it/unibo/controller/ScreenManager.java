@@ -108,7 +108,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.endView = new EndView(statusModel, scale, scoreModel);
         this.gameView = new GameView(grid, scale, puyoRenderer, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
             exitView, scoreView, endView, this);
-        this.gameLoop = new GameLoop(this.gameView,this.pauseModel, new HashSet<>());
+        this.gameLoop = new GameLoop(this.gameView, this.pauseModel, this.statusModel, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
         this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView, scoreController, scale);
