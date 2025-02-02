@@ -1,19 +1,30 @@
 package it.unibo.model;
 
-//import it.unibo.model.interfaces.ScoreModelInterface;
+import java.util.Optional;
 
-public class ScoreModel {
-    private int score;
+public class StatusModel {
+    private boolean gameEnded;
 
-    public ScoreModel() {
-        this.score = 0;
+    private Optional<Integer> endStars;
+
+    public StatusModel() {
+        this.gameEnded = false;
+        this.endStars = Optional.empty();
     }
 
-    public int getScore() {
-        return this.score;
+    public void setGameEnded() {
+        this.gameEnded = true;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setStars(int stars) {
+        this.endStars = Optional.of(stars);
+    }
+
+    public boolean isGameEnded() {
+        return this.gameEnded;
+    }
+
+    public Optional<Integer> getEndStars() {
+        return this.endStars;
     }
 }

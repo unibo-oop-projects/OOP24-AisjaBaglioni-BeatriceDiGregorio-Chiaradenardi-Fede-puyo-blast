@@ -9,7 +9,6 @@ import it.unibo.view.interfaces.GameViewInterface;
 import it.unibo.view.interfaces.ClickInterface;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +26,7 @@ public class GameView extends JPanel implements GameViewInterface {
     private final ExitView exitView;
     private final TryAgainView tryAgainView;
     private final ScoreView scoreView;
+    private final EndView endView;
     private Scale scale;
     private Set<ClickInterface> clickables;
     
@@ -34,7 +34,7 @@ public class GameView extends JPanel implements GameViewInterface {
     public GameView(Grid grid, Scale scale, PuyoRenderer puyoRenderer, CannonModel cannonModel, CannonView cannonView,
     ProgressBarModel progressModel, BulletModel bulletModel,
     PauseView pauseView, TryAgainView tryAgainView,
-    ExitView exitView, ScoreView scoreView, ScreenManager screenManager) {
+    ExitView exitView, ScoreView scoreView, EndView endView, ScreenManager screenManager) {
 
         this.scale = scale;
         this.pauseView = pauseView;
@@ -53,6 +53,7 @@ public class GameView extends JPanel implements GameViewInterface {
         this.bulletView = new BulletView(bulletModel, this.scale);
         this.borderView = new BorderView(this.scale);
         this.scoreView = scoreView;
+        this.endView = endView;
         this.grid = grid;
         
 
@@ -87,7 +88,7 @@ public class GameView extends JPanel implements GameViewInterface {
         tryAgainView.draw(g);
         scoreView.draw(g);
         pauseView.draw(g);
-
+        endView.draw(g);
        
     }
 

@@ -21,6 +21,7 @@ public class EndController implements TickListenerInterface {
     public void onTick() {
         if (this.score.getScore() >= THRESHOLDS[2]) {
             this.gameStatus.setStars(3);
+            this.gameStatus.setGameEnded();
         } else if (this.score.getScore() >= THRESHOLDS[1]) {
             this.gameStatus.setStars(2);
         } else if (this.score.getScore() >= THRESHOLDS[0]) {
@@ -32,3 +33,4 @@ public class EndController implements TickListenerInterface {
         }
     }
 }
+

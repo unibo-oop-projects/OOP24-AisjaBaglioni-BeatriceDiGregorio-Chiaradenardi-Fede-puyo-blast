@@ -13,8 +13,10 @@ import it.unibo.model.ProgressBarModel;
 import it.unibo.model.Puyo;
 import it.unibo.model.Scale;
 import it.unibo.model.ScoreModel;
+import it.unibo.model.StatusModel;
 import it.unibo.model.TryAgainModel;
 import it.unibo.view.CannonView;
+import it.unibo.view.EndView;
 import it.unibo.view.ExitView;
 import it.unibo.view.GameView;
 import it.unibo.view.MenuRules;
@@ -57,6 +59,9 @@ public class ScreenManager implements ScreenManagerInterface {
     private final ScoreView scoreView;
     private final PuyoRenderer puyoRenderer;
     private final FreezeController freezeController;
+    private final StatusModel statusModel;
+    private final EndController endController;
+    private final EndView endView;
     private LevelManager levelManager;
     private Timer dropTimer; // timer per far cadere i Puyo
     private Grid grid;
@@ -98,8 +103,11 @@ public class ScreenManager implements ScreenManagerInterface {
         this.scoreController = new ScoreController(scoreModel);
         this.scoreView = new ScoreView(scoreModel, scale);
         this.puyoRenderer = new PuyoRenderer(scale);
+        this.statusModel = new StatusModel();
+        this.endController = new EndController(grid, scoreModel, statusModel);
+        this.endView = new EndView(statusModel, scale, scoreModel);
         this.gameView = new GameView(grid, scale, puyoRenderer, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
-            exitView, scoreView, this);
+            exitView, scoreView, endView, this);
         this.gameLoop = new GameLoop(this.gameView,this.pauseModel, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
@@ -111,6 +119,7 @@ public class ScreenManager implements ScreenManagerInterface {
         this.gameLoop.addTickListener(this.puyoExplosionController);
         this.gameLoop.addTickListener(this.puyoRenderer);
         this.gameLoop.addTickListener(this.freezeController);
+        this.gameLoop.addTickListener(this.endController);
         setupMenuListeners();
         setupRulesListeners();
         initializeGrid();
