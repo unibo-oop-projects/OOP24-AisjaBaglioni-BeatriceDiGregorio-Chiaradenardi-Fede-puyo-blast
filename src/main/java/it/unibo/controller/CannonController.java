@@ -14,7 +14,6 @@ public class CannonController implements TickListenerInterface, CannonController
     public CannonController(CannonModel cannonModel, KeyboardModel keyboardModel, ProgressBarController progressBar) {
         this.cannonModel = cannonModel;
         this.keyboardModel = keyboardModel;
-        this.progressBar = progressBar;
     }
 
     @Override
