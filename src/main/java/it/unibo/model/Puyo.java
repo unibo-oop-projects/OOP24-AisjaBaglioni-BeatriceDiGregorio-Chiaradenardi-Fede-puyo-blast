@@ -22,27 +22,24 @@ public class Puyo implements PuyoInterface {
         this.x = x;
         this.y = y;
         this.identifier = Math.abs(ThreadLocalRandom.current().nextLong());
-        
-        deathClock=Optional.empty();
-        freezeClock=Optional.empty();
+
+        deathClock = Optional.empty();
+        freezeClock = Optional.empty();
     }
 
-    public Optional<Integer> getDeathClock(){
+    public Optional<Integer> getDeathClock() {
         return deathClock;
     }
 
-    public void setDeathClock(Optional<Integer> deathClock){
+    public void setDeathClock(Optional<Integer> deathClock) {
         this.deathClock = deathClock;
     }
 
-    
-    public void setFreezeClock(Optional<Integer> freezeClock){
+    public void setFreezeClock(Optional<Integer> freezeClock) {
         this.freezeClock = freezeClock;
     }
 
-    
-    
-    public Optional<Integer> getFreezeClock(){
+    public Optional<Integer> getFreezeClock() {
         return this.freezeClock;
     }
 
@@ -80,9 +77,8 @@ public class Puyo implements PuyoInterface {
         this.y = y;
     }
 
-
     @Override
     public void moveDown() {
-        y +=1;    
+        y += 1;
     }
 }

@@ -5,28 +5,26 @@ import java.util.Optional;
 public class StatusModel {
     private boolean gameEnded;
 
-    private Optional<Integer> endStars; 
+    private Optional<Integer> endStars;
 
     public StatusModel() {
         this.gameEnded = false;
-        this.endStars = Optional.empty(); 
+        this.endStars = Optional.empty();
     }
 
     public void setGameEnded() {
         this.gameEnded = true;
     }
 
-    
-
-    public void setStars(int stars){
+    public void setStars(int stars) {
         this.endStars = Optional.of(stars);
     }
 
-    public boolean isGameEnded(){
+    public boolean isGameEnded() {
         return this.gameEnded;
     }
 
-    public Optional<Integer> getEndStars(){
+    public Optional<Integer> getEndStars() {
         return this.endStars;
     }
 }

@@ -12,12 +12,20 @@ import it.unibo.model.TryAgainModel;
 
 public interface ModelMasterInterface {
     Grid getGrid();
+
     CannonModel getCannonModel();
+
     ProgressBarModel getProgressBarModel();
+
     BulletModel getBulletModel();
+
     KeyboardModel getKeyboardModel();
+
     PauseModel getPauseModel();
+
     ScoreModel getScoreModel();
+
     ExitModel getExitModel();
+
     TryAgainModel getTryAgainModel();
 }

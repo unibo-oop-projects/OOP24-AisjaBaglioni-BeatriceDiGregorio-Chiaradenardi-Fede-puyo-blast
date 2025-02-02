@@ -30,4 +30,3 @@ public interface ScreenManagerInterface {
      */
     void showLevelPopup(String level);
 }
-

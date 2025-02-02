@@ -7,5 +7,3 @@ import java.awt.*;
 public interface BackGroundInterface {
     void draw(Graphics g, int width, int height);
 }
-
-

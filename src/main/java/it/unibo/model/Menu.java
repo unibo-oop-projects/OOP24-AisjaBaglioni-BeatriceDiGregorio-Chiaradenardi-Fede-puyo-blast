@@ -34,9 +34,9 @@ public class Menu extends JPanel implements MenuInterface {
         // Titolo (posizionato in basso a sinistra in blu scuro)
         JLabel titleLabel = new JLabel("PUYO POP: BLAST!");
         titleLabel.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, scale / 17)); // Font scalato
-        titleLabel.setForeground(new Color(51, 73, 112));  
+        titleLabel.setForeground(new Color(51, 73, 112));
 
-        JPanel titleWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, scale / 45, scale / 15)); 
+        JPanel titleWrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, scale / 45, scale / 15));
         titleWrapper.setOpaque(false);
         titleWrapper.add(titleLabel);
 
@@ -54,7 +54,7 @@ public class Menu extends JPanel implements MenuInterface {
         levelsDropdown.setForeground(Color.BLACK);
 
         JLabel levelLabel = new JLabel("Seleziona Livello:");
-        levelLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, scale / 35));  
+        levelLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, scale / 35));
         levelLabel.setForeground(Color.BLACK);
         levelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -65,7 +65,7 @@ public class Menu extends JPanel implements MenuInterface {
         styleButton(controlsButton, new Color(57, 143, 191), scale);
 
         // Componenti nel pannello centrale
-        centerPanel.add(Box.createRigidArea(new Dimension(10, scale / 7))); 
+        centerPanel.add(Box.createRigidArea(new Dimension(10, scale / 7)));
         centerPanel.add(levelLabel);
         centerPanel.add(Box.createRigidArea(new Dimension(10, scale / 35)));
         centerPanel.add(levelsDropdown);
@@ -79,7 +79,7 @@ public class Menu extends JPanel implements MenuInterface {
     }
 
     private void styleButton(JButton button, Color backgroundColor, int scale) {
-        button.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, scale / 30)); 
+        button.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, scale / 30));
         button.setBackground(backgroundColor);
         button.setForeground(Color.BLACK);
         button.setFocusPainted(false);
@@ -88,7 +88,8 @@ public class Menu extends JPanel implements MenuInterface {
 
         // Effetto hover per i pulsanti (scurisce il colore quando il mouse entra)
         button.addMouseListener(new MouseAdapter() {
-            private Color hoverColor = backgroundColor.darker();  
+            private Color hoverColor = backgroundColor.darker();
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 button.setBackground(hoverColor);

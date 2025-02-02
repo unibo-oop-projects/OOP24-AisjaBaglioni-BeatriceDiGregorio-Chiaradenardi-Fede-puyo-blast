@@ -1,6 +1,5 @@
 //AISJA
 
-
 package it.unibo.model;
 
 import java.util.HashSet;

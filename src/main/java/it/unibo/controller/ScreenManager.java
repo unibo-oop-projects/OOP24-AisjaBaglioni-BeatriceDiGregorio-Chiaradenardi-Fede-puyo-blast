@@ -73,7 +73,7 @@ public class ScreenManager implements ScreenManagerInterface {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
-        int dim = (int)(Math.min(width, height) * 0.75);
+        int dim = (int) (Math.min(width, height) * 0.75);
         this.scale = new Scale(dim);
         this.frame = new JFrame("Puyo Pop");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,12 +106,14 @@ public class ScreenManager implements ScreenManagerInterface {
         this.statusModel = new StatusModel();
         this.endController = new EndController(grid, scoreModel, statusModel);
         this.endView = new EndView(statusModel, scale, scoreModel);
-        this.gameView = new GameView(grid, scale, puyoRenderer, cannonModel, cannonView, progressBarModel, bulletModel, pauseView, tryAgainView,
-            exitView, scoreView, endView, this);
+        this.gameView = new GameView(grid, scale, puyoRenderer, cannonModel, cannonView, progressBarModel, bulletModel,
+                pauseView, tryAgainView,
+                exitView, scoreView, endView, this);
         this.gameLoop = new GameLoop(this.gameView, this.pauseModel, this.statusModel, new HashSet<>());
         this.keyboardModel = new KeyboardModel();
         this.cannon = new CannonController(this.cannonModel, this.keyboardModel, this.progressBar);
-        this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView, scoreController, scale);
+        this.bulletController = new BulletController(bulletModel, grid, keyboardModel, progressBar, cannonView,
+                scoreController, scale);
         this.puyoExplosionController = new PuyoExplosionController(grid);
         this.gameLoop.addTickListener(this.cannon);
         this.gameLoop.addTickListener(this.progressBar);
@@ -177,7 +179,7 @@ public class ScreenManager implements ScreenManagerInterface {
                 startGameWithConfig(config);
             }
         });
-    
+
         menuView.getControlsButton().addActionListener(e -> {
             switchToRulesView();
         });
@@ -199,13 +201,13 @@ public class ScreenManager implements ScreenManagerInterface {
     public void switchToMenuView() {
         // Ferma qualsiasi attività in corso nel gioco
         if (dropTimer != null) {
-            dropTimer.stop();  // Ferma il timer
+            dropTimer.stop(); // Ferma il timer
         }
-        
+
         // Resetta la griglia e la barra di progresso
         grid.clear();
-        initializeGrid();  // Riempie la griglia con nuovi Puyo
-        progressBar.reset();  // Reset del punteggio e della progress bar
+        initializeGrid(); // Riempie la griglia con nuovi Puyo
+        progressBar.reset(); // Reset del punteggio e della progress bar
 
         // Rimuovi i listener esistenti dal gameLoop
         gameLoop.removeTickListener(puyoDropper);
@@ -219,7 +221,6 @@ public class ScreenManager implements ScreenManagerInterface {
         // Reset del livello selezionato
         currentLevel = ""; // Reset del livello selezionato
     }
-
 
     @Override
     public void switchToRulesView() {
@@ -245,38 +246,37 @@ public class ScreenManager implements ScreenManagerInterface {
     public void resetGame() {
         // Logica per ripristinare la griglia
         grid.clear();
-        initializeGrid();  // Riempie la griglia con nuovi Puyo
-        
+        initializeGrid(); // Riempie la griglia con nuovi Puyo
+
         // Ripristinare il punteggio e altre variabili di stato
         progressBar.reset();
-        
+
         // Fermare il dropTimer se è attivo
         if (dropTimer != null) {
             dropTimer.stop();
-            dropTimer = null;  // Azzeriamo il timer
+            dropTimer = null; // Azzeriamo il timer
         }
-        
+
         // Rimuovi i listener esistenti dal gameLoop
-        gameLoop.removeTickListener(puyoDropper); 
-        
+        gameLoop.removeTickListener(puyoDropper);
+
         // Recupera la configurazione del livello corrente
         LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(currentLevel));
-        
+
         // Rinnova il puyoDropper con le configurazioni del livello
-        puyoDropper = new PuyoDropper(grid, config);  // Assicurati che il PuyoDropper venga ricreato con la nuova configurazione
+        puyoDropper = new PuyoDropper(grid, config); // Assicurati che il PuyoDropper venga ricreato con la nuova
+                                                     // configurazione
         this.gameLoop.addTickListener(puyoDropper);
-        
+
         // Avvia il nuovo dropTimer con il ritardo e il numero di Puyo corretti
         dropTimer = new Timer(config.getDelay(), event -> {
             puyoDropper.dropPuyo(); // Genera nuovi Puyo in base alla configurazione
         });
-        
+
         // Avvia nuovamente il ciclo di gioco
         gameLoop.startGame();
     }
-    
-    
-    
+
     @Override
     public void showLevelPopup(String level) {
         JDialog levelDialog = new JDialog(frame, "Livello Selezionato", true);
@@ -291,7 +291,7 @@ public class ScreenManager implements ScreenManagerInterface {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(new Color(51,73,112));
+                g2d.setColor(new Color(51, 73, 112));
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 30, 30);
             }
         };
@@ -299,8 +299,9 @@ public class ScreenManager implements ScreenManagerInterface {
         panel.setLayout(new BorderLayout());
 
         JLabel levelMessage = new JLabel(
-            "<html><div style='text-align: center;'>Hai selezionato il livello:<br><span style='color: #FFFFFF; font-size: 24px; font-weight: bold;'>"
-            + level + "</span></div></html>", JLabel.CENTER);
+                "<html><div style='text-align: center;'>Hai selezionato il livello:<br><span style='color: #FFFFFF; font-size: 24px; font-weight: bold;'>"
+                        + level + "</span></div></html>",
+                JLabel.CENTER);
         levelMessage.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
         levelMessage.setForeground(Color.WHITE);
 
@@ -309,7 +310,7 @@ public class ScreenManager implements ScreenManagerInterface {
 
         JButton okButton = new JButton("OK");
         okButton.setFont(new Font("Arial Rounded MT Bold", Font.BOLD, 20));
-        okButton.setBackground(new Color(25,25,112));
+        okButton.setBackground(new Color(25, 25, 112));
         okButton.setForeground(Color.BLACK);
         okButton.setPreferredSize(new Dimension(200, 60));
         okButton.setFocusPainted(false);
@@ -317,7 +318,7 @@ public class ScreenManager implements ScreenManagerInterface {
         okButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         okButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            private final Color normalColor = new Color(25,25,112);
+            private final Color normalColor = new Color(25, 25, 112);
             private final Color hoverColor = normalColor.darker();
 
             @Override

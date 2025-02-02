@@ -17,19 +17,17 @@ public class ExitView implements ClickInterface {
     Scale scale;
     private int imageWidth;
     private int imageHeight;
-    private ExitController controller; 
-    
+    private ExitController controller;
+
     public ExitView(Scale scale, ExitController controller) {
         this.scale = scale;
         this.controller = controller;
-        System.out.println("ExitView controller inizializzato: " + (controller != null));  // Log
+        System.out.println("ExitView controller inizializzato: " + (controller != null)); // Log
         URL exit_path = getClass().getClassLoader().getResource("images/mainmenu_button.png");
         exit = new ImageIcon(exit_path).getImage();
         this.imageWidth = exit.getWidth(null);
         this.imageHeight = exit.getHeight(null);
     }
-    
-    
 
     final public void draw(Graphics g) {
         Rectangle button = getArea();
@@ -50,7 +48,7 @@ public class ExitView implements ClickInterface {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
         int x = this.scale.getScale() / 28;
-        int y = this.scale.getScale()/16;
+        int y = this.scale.getScale() / 16;
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         return new Rectangle(upleft, lowright);
@@ -65,7 +63,7 @@ public class ExitView implements ClickInterface {
     @Override
     public void doAction() {
         if (controller != null) {
-            controller.onExitClicked();  // Delegare l'azione al controller
+            controller.onExitClicked(); // Delegare l'azione al controller
         } else {
             System.out.println("Errore: controller non inizializzato.");
         }

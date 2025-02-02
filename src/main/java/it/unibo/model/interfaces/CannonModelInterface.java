@@ -1,6 +1,6 @@
 package it.unibo.model.interfaces;
 
-public interface CannonModelInterface {    
+public interface CannonModelInterface {
     void moveLeft();
 
     void moveRight();

@@ -26,6 +26,6 @@ public class ProgressBarController implements TickListenerInterface, ProgressBar
     }
 
     public void reset() {
-        this.progressBarModel.resetCharge();  // Reimposta la barra al valore iniziale
+        this.progressBarModel.resetCharge(); // Reimposta la barra al valore iniziale
     }
 }

@@ -1,10 +1,9 @@
 //fede
 package it.unibo.model;
 
-
 import it.unibo.model.interfaces.ModelMasterInterface;
 
-public class ModelMaster implements ModelMasterInterface{
+public class ModelMaster implements ModelMasterInterface {
 
     private final BulletModel bulletModel;
     private final CannonModel cannonModel;
@@ -26,11 +25,11 @@ public class ModelMaster implements ModelMasterInterface{
         this.progressBarModel = new ProgressBarModel();
         this.scoreModel = new ScoreModel();
         this.tryAgainModel = new TryAgainModel();
-        };
+    };
 
     @Override
     public Grid getGrid() {
-        return grid;    
+        return grid;
     }
 
     @Override
@@ -72,5 +71,5 @@ public class ModelMaster implements ModelMasterInterface{
     public TryAgainModel getTryAgainModel() {
         return this.tryAgainModel;
     }
-    
+
 }

@@ -13,7 +13,7 @@ public class BorderView {
     private int imageWidth;
     private int imageHeight;
 
-    BorderView(Scale scale){
+    BorderView(Scale scale) {
         this.scale = scale;
         final URL imageURL = getClass().getClassLoader().getResource("images/" + "gridborder.png");
         this.borderImage = new ImageIcon(imageURL).getImage();
@@ -22,11 +22,13 @@ public class BorderView {
     }
 
     public void draw(final Graphics g) {
-        int cellsize = this.scale.getScale()/16; 
-        int shrink = cellsize/2;
-        /*int newWidth = this.scale.getScale() / 10;
-        int x = cellsize * 8;
-        int y = cellsize * 5;*/
+        int cellsize = this.scale.getScale() / 16;
+        int shrink = cellsize / 2;
+        /*
+         * int newWidth = this.scale.getScale() / 10;
+         * int x = cellsize * 8;
+         * int y = cellsize * 5;
+         */
         g.drawImage(
                 borderImage,
                 cellsize * 3 + shrink,

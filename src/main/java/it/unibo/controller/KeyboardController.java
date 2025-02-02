@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 
 import it.unibo.model.KeyboardModel;
 
-public class KeyboardController implements KeyListener{
+public class KeyboardController implements KeyListener {
     private final KeyboardModel keyboardModel;
 
     public KeyboardController(KeyboardModel keyboardModel) {
@@ -17,7 +17,7 @@ public class KeyboardController implements KeyListener{
     @Override
     final public void keyPressed(KeyEvent e) {
         this.keyboardModel.keyDown(e.getKeyCode());
-        
+
     }
 
     @Override

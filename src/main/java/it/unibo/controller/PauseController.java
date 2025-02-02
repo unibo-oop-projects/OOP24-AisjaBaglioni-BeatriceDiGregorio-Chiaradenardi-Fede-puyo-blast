@@ -10,12 +10,11 @@ import it.unibo.model.PauseModel;
 public class PauseController implements KeyListener {
     private final PauseModel model;
 
-    public PauseController(PauseModel model){
+    public PauseController(PauseModel model) {
         this.model = model;
     }
 
-
-    public void togglePause(){
+    public void togglePause() {
         this.model.togglePause();
     }
 
@@ -26,7 +25,7 @@ public class PauseController implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_P){
+        if (e.getKeyCode() == KeyEvent.VK_P) {
             togglePause();
         }
     }

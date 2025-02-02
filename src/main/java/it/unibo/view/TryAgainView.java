@@ -19,7 +19,7 @@ public class TryAgainView implements ClickInterface {
 
     public TryAgainView(Scale scale, TryAgainController controller) {
         this.scale = scale;
-        this.controller = controller;  // Assegna il controller
+        this.controller = controller; // Assegna il controller
 
         // Carica l'immagine del pulsante
         URL imagePath = getClass().getClassLoader().getResource("images/tryagain_button.png");
@@ -35,16 +35,16 @@ public class TryAgainView implements ClickInterface {
     public void draw(Graphics g) {
         Rectangle buttonArea = getArea();
         g.drawImage(
-            tryAgainImage,
-            buttonArea.upleft.x(),
-            buttonArea.upleft.y(),
-            buttonArea.lowright.x(),
-            buttonArea.lowright.y(),
-            0,
-            0,
-            imageWidth,
-            imageHeight,
-            null);
+                tryAgainImage,
+                buttonArea.upleft.x(),
+                buttonArea.upleft.y(),
+                buttonArea.lowright.x(),
+                buttonArea.lowright.y(),
+                0,
+                0,
+                imageWidth,
+                imageHeight,
+                null);
     }
 
     public Rectangle getArea() {
@@ -52,7 +52,7 @@ public class TryAgainView implements ClickInterface {
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
         int puyoHeight = this.scale.getScale() / 8;
         int x = this.scale.getScale() / 28;
-        int y = this.scale.getScale() - newHeight - puyoHeight;  
+        int y = this.scale.getScale() - newHeight - puyoHeight;
         Point2DI upleft = new Point2DI(x, y);
         Point2DI lowright = new Point2DI(x + newWidth, y + newHeight);
         return new Rectangle(upleft, lowright);
@@ -66,7 +66,7 @@ public class TryAgainView implements ClickInterface {
     @Override
     public void doAction() {
         if (controller != null) {
-            controller.handleClick();  // Chiama il metodo del controller per gestire l'azione
+            controller.handleClick(); // Chiama il metodo del controller per gestire l'azione
         } else {
             System.out.println("Errore: controller non inizializzato.");
         }

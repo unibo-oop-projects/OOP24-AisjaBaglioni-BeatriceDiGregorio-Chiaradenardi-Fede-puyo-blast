@@ -25,7 +25,8 @@ public class GameLoop implements ActionListener {
     private long lastTime;
     private final Set<TickListenerInterface> tickListeners;
 
-    public GameLoop(GameView gameView, PauseModel pauseModel, StatusModel statusModel, Set<TickListenerInterface> tickListeners) {
+    public GameLoop(GameView gameView, PauseModel pauseModel, StatusModel statusModel,
+            Set<TickListenerInterface> tickListeners) {
         this.gameView = gameView;
         this.pauseModel = pauseModel;
         this.statusModel = statusModel;
@@ -49,11 +50,9 @@ public class GameLoop implements ActionListener {
         this.tickListeners.remove(tickListener);
     }
 
-    
-
     // Metodo per aggiornare lo stato del gioco
     private void update() {
-        if(pauseModel.getPause()){
+        if (pauseModel.getPause()) {
             return;
         }
         if (statusModel.isGameEnded()) {

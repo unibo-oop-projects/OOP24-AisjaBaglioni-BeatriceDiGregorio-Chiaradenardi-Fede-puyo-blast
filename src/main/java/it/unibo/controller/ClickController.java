@@ -7,13 +7,13 @@ import java.util.Set;
 import it.unibo.model.Point2DI;
 import it.unibo.view.interfaces.ClickInterface;
 
-
 public class ClickController implements MouseListener {
     private Set<ClickInterface> clickables;
 
-    public ClickController(Set<ClickInterface> clickables){
+    public ClickController(Set<ClickInterface> clickables) {
         this.clickables = clickables;
     }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
@@ -41,5 +41,5 @@ public class ClickController implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
-    
+
 }

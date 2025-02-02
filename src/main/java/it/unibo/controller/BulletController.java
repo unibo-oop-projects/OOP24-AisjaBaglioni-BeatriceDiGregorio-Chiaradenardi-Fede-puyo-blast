@@ -30,7 +30,7 @@ public class BulletController implements TickListenerInterface {
     private boolean special;
 
     public BulletController(BulletModel bulletModel, Grid grid, KeyboardModel k, ProgressBarController progressBar,
-            CannonView cannonView, ScoreController scoreController,  Scale scale) {
+            CannonView cannonView, ScoreController scoreController, Scale scale) {
         this.bulletModel = bulletModel;
         this.grid = grid;
         this.k = k;
@@ -55,7 +55,7 @@ public class BulletController implements TickListenerInterface {
                     puyoGridOffsetX + (int) (cannonModel.getX() * grid.getCols() * puyoCellSize),
                     puyoGridOffsetY + (int) ((1.0 - cannonModel.getAngle()) * grid.getRows() * puyoCellSize));
             bulletModel.shootBullet(Point2DI.toPoint2D(source), Point2DI.toPoint2D(target));
-            this.special= progressBar.resetBar();
+            this.special = progressBar.resetBar();
         }
         if (bulletModel.isActive()) {
             if (!bulletModel.updatePosition()) {
@@ -72,8 +72,8 @@ public class BulletController implements TickListenerInterface {
         if (puyo.getDeathClock().isPresent()) {
             return;
         }
-        if(puyo.getFreezeClock().isPresent()){
-            if(special){
+        if (puyo.getFreezeClock().isPresent()) {
+            if (special) {
                 puyo.setFreezeClock(Optional.empty());
             }
             return;

@@ -29,12 +29,11 @@ public class GameView extends JPanel implements GameViewInterface {
     private final EndView endView;
     private Scale scale;
     private Set<ClickInterface> clickables;
-    
 
     public GameView(Grid grid, Scale scale, PuyoRenderer puyoRenderer, CannonModel cannonModel, CannonView cannonView,
-    ProgressBarModel progressModel, BulletModel bulletModel,
-    PauseView pauseView, TryAgainView tryAgainView,
-    ExitView exitView, ScoreView scoreView, EndView endView, ScreenManager screenManager) {
+            ProgressBarModel progressModel, BulletModel bulletModel,
+            PauseView pauseView, TryAgainView tryAgainView,
+            ExitView exitView, ScoreView scoreView, EndView endView, ScreenManager screenManager) {
 
         this.scale = scale;
         this.pauseView = pauseView;
@@ -55,7 +54,6 @@ public class GameView extends JPanel implements GameViewInterface {
         this.scoreView = scoreView;
         this.endView = endView;
         this.grid = grid;
-        
 
         this.addMouseListener(clickController);
         this.setFocusable(true);
@@ -67,16 +65,14 @@ public class GameView extends JPanel implements GameViewInterface {
         super.paintComponent(g);
         background.draw(g, getWidth(), getHeight());
 
-        
-            for (int y = 0; y < grid.getRows(); y++) {
-                for (int x = 0; x < grid.getCols(); x++) {
-                    PuyoInterface puyo = grid.getPuyo(x, y);
-                    if (puyo != null) {
-                        renderer.render(g, grid, y, x);
-                    }
+        for (int y = 0; y < grid.getRows(); y++) {
+            for (int x = 0; x < grid.getCols(); x++) {
+                PuyoInterface puyo = grid.getPuyo(x, y);
+                if (puyo != null) {
+                    renderer.render(g, grid, y, x);
                 }
             }
-        
+        }
 
         borderView.draw(g);
         cannonSightView.draw(g);
@@ -89,20 +85,20 @@ public class GameView extends JPanel implements GameViewInterface {
         scoreView.draw(g);
         pauseView.draw(g);
         endView.draw(g);
-       
+
     }
 
-   /* private void drawPauseMessage(Graphics g) {
-        String pauseText = "Game Paused";
-        g.setFont(new Font("Arial", Font.BOLD, 36));
-        g.setColor(Color.RED);
-        FontMetrics metrics = g.getFontMetrics();
-        int x = (getWidth() - metrics.stringWidth(pauseText)) / 2;
-        int y = getHeight() / 2;
-        g.drawString(pauseText, x, y);
-    }*/
-
-   
+    /*
+     * private void drawPauseMessage(Graphics g) {
+     * String pauseText = "Game Paused";
+     * g.setFont(new Font("Arial", Font.BOLD, 36));
+     * g.setColor(Color.RED);
+     * FontMetrics metrics = g.getFontMetrics();
+     * int x = (getWidth() - metrics.stringWidth(pauseText)) / 2;
+     * int y = getHeight() / 2;
+     * g.drawString(pauseText, x, y);
+     * }
+     */
 
     public CannonView getCannonView() {
         return this.cannonView;
@@ -126,7 +122,4 @@ public class GameView extends JPanel implements GameViewInterface {
         System.out.println("Game started!");
     }
 
-    
-
- 
 }

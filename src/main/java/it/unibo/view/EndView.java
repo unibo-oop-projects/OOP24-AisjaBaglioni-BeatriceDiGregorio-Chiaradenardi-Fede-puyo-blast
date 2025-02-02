@@ -54,7 +54,7 @@ public class EndView {
                         xstring,
                         ystring - cellsize * 5,
                         xstring + newWidth,
-                        ystring - cellsize*5 + newHeight,
+                        ystring - cellsize * 5 + newHeight,
                         0, 0,
                         imageWidth, imageHeight, null);
 
@@ -67,7 +67,7 @@ public class EndView {
                         xstring,
                         ystring - cellsize * 5,
                         xstring + newWidth,
-                        ystring - cellsize*5 + newHeight,
+                        ystring - cellsize * 5 + newHeight,
                         0, 0,
                         imageWidth, imageHeight, null);
                 g.setColor(Color.GREEN);
@@ -80,7 +80,7 @@ public class EndView {
                             xstring,
                             ystring - cellsize * 5,
                             xstring + newWidth,
-                            ystring - cellsize*5 + newHeight,
+                            ystring - cellsize * 5 + newHeight,
                             0, 0,
                             imageWidth, imageHeight, null);
                 } else if (this.statusModel.getEndStars().equals(Optional.of(2))) {
@@ -89,7 +89,7 @@ public class EndView {
                             xstring,
                             ystring - cellsize * 5,
                             xstring + newWidth,
-                            ystring - cellsize*5 + newHeight,
+                            ystring - cellsize * 5 + newHeight,
                             0, 0,
                             imageWidth, imageHeight, null);
                 }

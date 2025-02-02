@@ -10,6 +10,7 @@ public class Rectangle {
     }
 
     public boolean isInside(Point2DI pos) {
-        return (pos.x() >= upleft.x() && pos.x() <= this.lowright.x() && pos.y() <= this.lowright.y() && pos.y() >= this.upleft.y());
+        return (pos.x() >= upleft.x() && pos.x() <= this.lowright.x() && pos.y() <= this.lowright.y()
+                && pos.y() >= this.upleft.y());
     }
 }

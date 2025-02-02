@@ -15,4 +15,3 @@ public class TryAgainModel {
         this.isEnabled = enabled;
     }
 }
-

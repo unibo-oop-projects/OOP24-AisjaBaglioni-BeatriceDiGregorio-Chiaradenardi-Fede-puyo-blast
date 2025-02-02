@@ -52,7 +52,8 @@ public interface GameStateInterface {
     /**
      * Imposta lo stato di fine gioco.
      *
-     * @param isGameOver true per indicare che il gioco è terminato, false altrimenti
+     * @param isGameOver true per indicare che il gioco è terminato, false
+     *                   altrimenti
      */
     void setGameOver(boolean isGameOver);
 
@@ -61,4 +62,3 @@ public interface GameStateInterface {
      */
     void resetGame();
 }
-
