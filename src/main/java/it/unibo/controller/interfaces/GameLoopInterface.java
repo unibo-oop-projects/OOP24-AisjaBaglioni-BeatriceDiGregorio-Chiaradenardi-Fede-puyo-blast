@@ -9,7 +9,11 @@ public interface GameLoopInterface {
     public void stopGame();
     
     public void addTickListener(TickListenerInterface tickListener);
+
+    public void removeTickListener(TickListenerInterface tickListener);
     
     public void setGameView(GameView gameView);
+
+
 }
 
