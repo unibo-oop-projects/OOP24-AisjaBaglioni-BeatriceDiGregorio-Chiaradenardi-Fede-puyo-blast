@@ -2,7 +2,9 @@
 
 package it.unibo.model;
 
-public class BulletModel {
+import it.unibo.model.interfaces.BulletModelInterface;
+
+public class BulletModel implements BulletModelInterface {
     private Point2D source;
     private Point2D target;
     private boolean active;
@@ -16,6 +18,7 @@ public class BulletModel {
         this.ticks = 0;
     }
 
+    @Override
     public void shootBullet(Point2D source, Point2D target) {
         this.source = source;
         this.target = target;
@@ -23,6 +26,7 @@ public class BulletModel {
         this.ticks = 0;
     }
 
+    @Override
     public boolean targetReached() {
         if (this.ticks >= ANIMATIONTIME) {
             this.active = false;
@@ -31,6 +35,7 @@ public class BulletModel {
         return false;
     }
 
+    @Override
     public boolean updatePosition() {
         if (isActive()) {
             this.ticks++;
@@ -43,10 +48,12 @@ public class BulletModel {
         return false;
     }
 
+    @Override
     public boolean isActive() {
         return this.active;
     }
 
+    @Override
     public Point2D getCurrentPosition() {
         double alpha = ((double) this.ticks) / ((double) ANIMATIONTIME);
         Point2D left = Point2D.mul(source, 1.0 - alpha);
