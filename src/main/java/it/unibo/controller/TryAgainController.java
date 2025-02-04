@@ -1,33 +1,23 @@
 package it.unibo.controller;
 
-import it.unibo.model.TryAgainModel;
+import it.unibo.GameEvent;
+import it.unibo.GameListener;
 
 public class TryAgainController {
-    private LevelManager levelManager;
-    private ScreenManager screenManager;
-    private TryAgainModel model; // Riferimento al modello
+    private final LevelManager.LevelConfig levelconfig;
+    private final GameListener listener;
+    private final GameLoop gameLoop;
 
-    public TryAgainController(LevelManager levelManager, ScreenManager screenManager, TryAgainModel model) {
-        this.levelManager = levelManager;
-        this.screenManager = screenManager;
-        this.model = model; // Assegna il modello
+    public TryAgainController(LevelManager.LevelConfig levelconfig, GameListener listener, GameLoop gameLoop) {
+        this.levelconfig = levelconfig;
+        this.listener = listener;
+        this.gameLoop = gameLoop;
     }
 
     public void handleClick() {
         System.out.println("Riavvio del gioco...");
-        int currentLevel = levelManager.getCurrentLevel();
-
-        // Reset del livello e del gioco
-        if (levelManager != null) {
-            levelManager.resetLevel(currentLevel);
-        }
-
-        if (screenManager != null) {
-            screenManager.resetGame(); // Reset completo del gioco
-        }
-
-        // Modifica lo stato del modello per indicare che l'azione è stata eseguita
-        model.setEnabled(false);
-        System.out.println("Pulsante disabilitato: " + model.isEnabled());
+        gameLoop.stopGame();
+        GameEvent e = new GameEvent(this, levelconfig);
+        listener.startGame(e);
     }
 }
