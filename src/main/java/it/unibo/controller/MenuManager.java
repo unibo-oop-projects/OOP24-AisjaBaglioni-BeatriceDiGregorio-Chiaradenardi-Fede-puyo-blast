@@ -3,6 +3,7 @@ package it.unibo.controller;
 
 import it.unibo.GameEvent;
 import it.unibo.GameListener;
+import it.unibo.controller.interfaces.MenuManagerInterface;
 import it.unibo.model.Scale;
 import it.unibo.view.Menu;
 import it.unibo.view.MenuRules;
@@ -10,7 +11,7 @@ import it.unibo.view.MenuRules;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuManager extends JInternalFrame {
+public class MenuManager extends JInternalFrame implements MenuManagerInterface{
     private final Menu menuView;
     private final MenuRules rulesView;
     private LevelManager levelManager;
@@ -56,11 +57,13 @@ public class MenuManager extends JInternalFrame {
         });
     }
 
+    @Override
     public void start() {
         this.add(menuView);
         this.setVisible(true);
     }
 
+    @Override
     public void switchToMenuView() {
         // Imposta il menu come vista corrente
         this.getContentPane().removeAll();
@@ -69,6 +72,7 @@ public class MenuManager extends JInternalFrame {
         this.repaint();
     }
 
+    @Override
     public void switchToRulesView() {
         this.getContentPane().removeAll();
         this.getContentPane().add(rulesView);
@@ -78,6 +82,7 @@ public class MenuManager extends JInternalFrame {
 
     // The "level selected" pop-up is now a JPanel instead of a JDialog
     // Due to the JInternalFrame limitations
+    @Override
     public void showLevelPopup(String level, LevelManager.LevelConfig config) {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         JDialog levelDialog = new JDialog();
