@@ -2,7 +2,9 @@
 
 package it.unibo.model;
 
-public class Scale {
+import it.unibo.model.interfaces.ScaleInterface;
+
+public class Scale implements ScaleInterface{
     private int scale;
 
     public Scale(int scale) {
