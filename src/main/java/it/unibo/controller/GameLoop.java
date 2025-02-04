@@ -13,7 +13,7 @@ import java.util.Set;
 import javax.swing.Timer;
 
 public class GameLoop implements ActionListener {
-    private final GameView gameView;
+    private GameView gameView;
 
     private final PauseModel pauseModel;
 
@@ -34,10 +34,18 @@ public class GameLoop implements ActionListener {
         this.gameTimer = new Timer(1, this);
     }
 
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
+    }
+
     // metodo per avviare il gioco
     public void startGame() {
         this.lastTime = System.currentTimeMillis();
         this.gameTimer.start();
+    }
+
+    public void stopGame() {
+        this.gameTimer.stop();
     }
 
     // metodo per aggiungere un listener
@@ -66,6 +74,9 @@ public class GameLoop implements ActionListener {
 
     // Metodo per ridisegnare la grafica
     private void render() {
+        if (this.gameView == null) {
+            return;
+        }
         gameView.repaint();
     }
 
