@@ -23,6 +23,7 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
     }
 
     // metodo per generare un Puyo casuale e farlo cadere
+    @Override
     public void spawnAndDropPuyo() {
         if (grid.isRowFull(0)) {
             return;
@@ -38,7 +39,8 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
         Puyo puyo = new Puyo(randomColor, startX, startY);
         grid.addPuyo(puyo, startX, startY); // aggiunge il Puyo alla griglia
     }
-
+    
+    @Override
     public void fillGridRandomly(int puyoCount) {
         for (int i = 0; i < puyoCount; i++) {
             spawnAndDropPuyo(); // Genera e fa cadere un nuovo Puyo
@@ -72,6 +74,7 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
         }
     }
 
+    @Override
     public void initialize() {
         for (int y = grid.getRows() - 2; y < grid.getRows(); y++) { // Ultime due righe
             for (int x = 0; x < grid.getCols(); x++) {
