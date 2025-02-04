@@ -3,6 +3,7 @@
 package it.unibo.controller;
 
 import it.unibo.view.GameView;
+import it.unibo.controller.interfaces.GameLoopInterface;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.PauseModel;
 import it.unibo.model.StatusModel;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 import javax.swing.Timer;
 
-public class GameLoop implements ActionListener {
+public class GameLoop implements ActionListener, GameLoopInterface{
     private GameView gameView;
 
     private final PauseModel pauseModel;
@@ -34,31 +35,37 @@ public class GameLoop implements ActionListener {
         this.gameTimer = new Timer(1, this);
     }
 
+
     public void setGameView(GameView gameView) {
         this.gameView = gameView;
     }
 
     // metodo per avviare il gioco
+
     public void startGame() {
         this.lastTime = System.currentTimeMillis();
         this.gameTimer.start();
     }
+
 
     public void stopGame() {
         this.gameTimer.stop();
     }
 
     // metodo per aggiungere un listener
+
     public void addTickListener(TickListenerInterface tickListener) {
         this.tickListeners.add(tickListener);
     }
 
     // metodo per rimuovere un listener
+
     public void removeTickListener(TickListenerInterface tickListener) {
         this.tickListeners.remove(tickListener);
     }
 
     // Metodo per aggiornare lo stato del gioco
+    
     private void update() {
         if (pauseModel.getPause()) {
             return;
