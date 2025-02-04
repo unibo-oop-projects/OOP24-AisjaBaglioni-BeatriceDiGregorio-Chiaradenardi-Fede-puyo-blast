@@ -14,18 +14,22 @@ public class StatusModel implements StatusModelInterface {
         this.endStars = Optional.empty();
     }
 
+    @Override
     public void setGameEnded() {
         this.gameEnded = true;
     }
 
+    @Override
     public void setStars(int stars) {
         this.endStars = Optional.of(stars);
     }
 
+    @Override
     public boolean isGameEnded() {
         return this.gameEnded;
     }
 
+    @Override
     public Optional<Integer> getEndStars() {
         return this.endStars;
     }
