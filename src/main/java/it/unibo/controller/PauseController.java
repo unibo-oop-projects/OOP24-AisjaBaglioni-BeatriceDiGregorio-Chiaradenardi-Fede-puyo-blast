@@ -6,8 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import it.unibo.model.PauseModel;
+import it.unibo.controller.interfaces.PauseControllerInterface;
 
-public class PauseController implements KeyListener {
+public class PauseController implements KeyListener, PauseControllerInterface {
     private final PauseModel model;
 
     public PauseController(PauseModel model) {
