@@ -1,4 +1,3 @@
-//AISJA
 
 package it.unibo.controller.interfaces;
 
