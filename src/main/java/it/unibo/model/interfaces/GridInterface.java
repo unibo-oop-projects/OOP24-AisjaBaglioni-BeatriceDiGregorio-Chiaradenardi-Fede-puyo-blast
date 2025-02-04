@@ -34,4 +34,6 @@ public interface GridInterface {
 
     // Stampa lo stato della griglia (per debug)
     void printGrid();
+
+    void clear();
 }
