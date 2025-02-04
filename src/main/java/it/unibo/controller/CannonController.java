@@ -1,24 +1,18 @@
 package it.unibo.controller;
 
-import it.unibo.controller.interfaces.CannonControllerInterface;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.CannonModel;
 import it.unibo.model.KeyboardModel;
 
 import java.awt.event.KeyEvent;
 
-public class CannonController implements TickListenerInterface, CannonControllerInterface {
+public class CannonController implements TickListenerInterface{
     private final CannonModel cannonModel;
     private final KeyboardModel keyboardModel;
 
     public CannonController(CannonModel cannonModel, KeyboardModel keyboardModel, ProgressBarController progressBar) {
         this.cannonModel = cannonModel;
         this.keyboardModel = keyboardModel;
-    }
-
-    @Override
-    final public CannonModel getModel() {
-        return this.cannonModel;
     }
 
     @Override
