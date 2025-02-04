@@ -71,4 +71,14 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
             }
         }
     }
+
+    public void initialize() {
+        for (int y = grid.getRows() - 2; y < grid.getRows(); y++) { // Ultime due righe
+            for (int x = 0; x < grid.getCols(); x++) {
+                String randomColor = colors[new Random().nextInt(colors.length)];
+                Puyo puyo = new Puyo(randomColor, x, y);
+                grid.addPuyo(puyo, x, y);
+            }
+        }
+    }
 }

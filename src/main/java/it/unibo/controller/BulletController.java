@@ -23,11 +23,10 @@ public class BulletController implements TickListenerInterface {
     private final Grid grid;
     private final KeyboardModel k;
     private final ProgressBarController progressBar;
-    private final CannonView cannonView;
+    private CannonView cannonView;
     private final Scale scale;
     private final ScoreController scoreController;
     private Point2DI target;
-    private boolean special;
 
     public BulletController(BulletModel bulletModel, Grid grid, KeyboardModel k, ProgressBarController progressBar,
             CannonView cannonView, ScoreController scoreController, Scale scale) {
@@ -55,16 +54,15 @@ public class BulletController implements TickListenerInterface {
                     puyoGridOffsetX + (int) (cannonModel.getX() * grid.getCols() * puyoCellSize),
                     puyoGridOffsetY + (int) ((1.0 - cannonModel.getAngle()) * grid.getRows() * puyoCellSize));
             bulletModel.shootBullet(Point2DI.toPoint2D(source), Point2DI.toPoint2D(target));
-            this.special = progressBar.resetBar();
         }
         if (bulletModel.isActive()) {
             if (!bulletModel.updatePosition()) {
-                explodePuyos(target, special);
+                explodePuyos(target);
             }
         }
     }
 
-    private void explodePuyos(Point2DI target, boolean special) {
+    private void explodePuyos(Point2DI target) {
         PuyoInterface puyo = grid.getPuyo(target.x(), target.y());
         if (puyo == null) {
             return;
@@ -73,7 +71,7 @@ public class BulletController implements TickListenerInterface {
             return;
         }
         if (puyo.getFreezeClock().isPresent()) {
-            if (special) {
+            if (progressBar.resetBar()) {
                 puyo.setFreezeClock(Optional.empty());
             }
             return;
@@ -110,6 +108,10 @@ public class BulletController implements TickListenerInterface {
             puyoToExplode.setDeathClock(Optional.of(deathClock));
         }
         scoreController.addPoints(d.size());
+    }
+
+    public void setCannonView(CannonView cannonView) {
+        this.cannonView = cannonView;
     }
 
 }

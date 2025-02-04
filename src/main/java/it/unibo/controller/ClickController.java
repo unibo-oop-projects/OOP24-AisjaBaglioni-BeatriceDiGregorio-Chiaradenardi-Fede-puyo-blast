@@ -14,6 +14,10 @@ public class ClickController implements MouseListener {
         this.clickables = clickables;
     }
 
+    void addClickable(ClickInterface clickable) {
+        clickables.add(clickable);
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
