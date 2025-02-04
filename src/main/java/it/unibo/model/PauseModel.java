@@ -13,16 +13,19 @@ public class PauseModel implements PauseModelInterface {
     }
 
 
+    @Override
     public void setPause(boolean pause) {
         this.isPaused = pause;
     }
 
 
+    @Override
     public void togglePause() {
         this.isPaused = !this.isPaused;
     }
 
 
+    @Override
     public boolean getPause() {
         return this.isPaused;
     }
