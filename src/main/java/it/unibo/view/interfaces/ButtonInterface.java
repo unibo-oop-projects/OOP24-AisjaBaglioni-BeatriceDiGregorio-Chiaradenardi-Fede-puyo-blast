@@ -4,5 +4,4 @@ import it.unibo.model.Rectangle;
 
 public interface ButtonInterface {
     Rectangle getArea();
-
 }

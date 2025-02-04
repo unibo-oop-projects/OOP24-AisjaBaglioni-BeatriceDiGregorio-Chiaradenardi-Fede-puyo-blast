@@ -12,8 +12,5 @@ public interface GameViewInterface {
      */
     void render(Graphics g, int width, int height);
 
-    // Avvia il gioco
-
-    void startGame();
 
 }

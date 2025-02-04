@@ -4,10 +4,12 @@ package it.unibo.view;
 import it.unibo.controller.ControllerStorage;
 import it.unibo.model.*;
 import it.unibo.model.interfaces.PuyoInterface;
+import it.unibo.view.interfaces.GameViewInterface;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class GameView extends JPanel {
+public class GameView extends JPanel implements GameViewInterface{
     public final Background background;
     public final PuyoRenderer puyoRenderer;
     public final CannonView cannonView;
@@ -69,6 +71,7 @@ public class GameView extends JPanel {
 
     }
 
+    @Override
     public void render(Graphics g, int width, int height) {
         background.draw(g, width, height);
     }
