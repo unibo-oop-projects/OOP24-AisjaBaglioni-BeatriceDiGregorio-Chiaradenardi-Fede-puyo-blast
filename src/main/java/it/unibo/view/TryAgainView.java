@@ -8,9 +8,11 @@ import it.unibo.controller.TryAgainController;
 import it.unibo.model.Point2DI;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.ButtonInterface;
 import it.unibo.view.interfaces.ClickInterface;
+import it.unibo.view.interfaces.ViewInterface;
 
-public class TryAgainView implements ClickInterface {
+public class TryAgainView implements ClickInterface, ViewInterface, ButtonInterface {
     private Image tryAgainImage;
     private Scale scale;
     private int imageWidth;
@@ -32,6 +34,7 @@ public class TryAgainView implements ClickInterface {
         }
     }
 
+    @Override
     public void draw(Graphics g) {
         Rectangle buttonArea = getArea();
         g.drawImage(
@@ -47,6 +50,7 @@ public class TryAgainView implements ClickInterface {
                 null);
     }
 
+    @Override
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;

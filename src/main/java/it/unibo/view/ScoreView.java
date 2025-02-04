@@ -1,6 +1,7 @@
 package it.unibo.view;
 
 import it.unibo.model.ScoreModel;
+import it.unibo.view.interfaces.ViewInterface;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,7 +9,7 @@ import java.awt.Graphics;
 
 import it.unibo.model.Scale;
 
-public class ScoreView {
+public class ScoreView implements ViewInterface {
     private final ScoreModel score;
     private final Scale scale;
 
@@ -17,6 +18,7 @@ public class ScoreView {
         this.scale = scale;
     }
 
+    @Override
     final public void draw(Graphics g) {
         int x = this.scale.getScale() - this.scale.getScale() / 5;
         int y = this.scale.getScale() - this.scale.getScale() / 7;

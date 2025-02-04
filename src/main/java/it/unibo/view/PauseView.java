@@ -13,10 +13,13 @@ import it.unibo.model.PauseModel;
 import it.unibo.model.Point2DI;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.ButtonInterface;
 import it.unibo.view.interfaces.ClickInterface;
+import it.unibo.view.interfaces.ViewInterface;
+
 import java.awt.Color;
 
-public class PauseView implements ClickInterface {
+public class PauseView implements ClickInterface, ViewInterface, ButtonInterface {
     private Image[] pause;
     private PauseModel model;
     Scale scale;
@@ -37,6 +40,7 @@ public class PauseView implements ClickInterface {
         this.controller = controller;
     }
 
+    @Override
     final public void draw(Graphics g) {
         Rectangle button = getArea();
         if (!this.model.getPause()) {
@@ -80,6 +84,7 @@ public class PauseView implements ClickInterface {
         System.out.println("Hai cliccato Pause/Resume");
     }
 
+    @Override
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;

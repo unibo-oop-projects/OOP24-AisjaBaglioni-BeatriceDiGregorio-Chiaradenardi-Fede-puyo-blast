@@ -5,6 +5,7 @@ import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.Grid;
 import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
+import it.unibo.view.interfaces.PuyoRendererInterface;
 
 import javax.swing.ImageIcon;
 
@@ -13,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.net.URL;
 
-public class PuyoRenderer implements TickListenerInterface {
+public class PuyoRenderer implements TickListenerInterface, PuyoRendererInterface {
     // private static final int CELL_SIZE = 40; //dimensione della cella della
     // griglia
     private final Map<String, Integer> colorMap; // mappa per associare i colori
@@ -56,6 +57,7 @@ public class PuyoRenderer implements TickListenerInterface {
     }
 
     // AISJA
+    @Override
     public int sameColorNeighbour(Grid grid, int row, int col, String color) {
         if (row < 0 || col < 0 || row >= grid.getRows() || col >= grid.getCols()) {
             return 0;
@@ -71,6 +73,7 @@ public class PuyoRenderer implements TickListenerInterface {
         return 0;
     }
 
+    @Override
     public void render(Graphics g, Grid grid, int row, int col) {
         PuyoInterface puyo = grid.getPuyo(col, row);
         if (puyo == null) {

@@ -10,9 +10,11 @@ import it.unibo.controller.ExitController;
 import it.unibo.model.Point2DI;
 import it.unibo.model.Rectangle;
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.ButtonInterface;
 import it.unibo.view.interfaces.ClickInterface;
+import it.unibo.view.interfaces.ViewInterface;
 
-public class ExitView implements ClickInterface {
+public class ExitView implements ClickInterface, ViewInterface, ButtonInterface {
     private Image exit;
     Scale scale;
     private int imageWidth;
@@ -29,6 +31,7 @@ public class ExitView implements ClickInterface {
         this.imageHeight = exit.getHeight(null);
     }
 
+    @Override
     final public void draw(Graphics g) {
         Rectangle button = getArea();
         g.drawImage(
@@ -44,6 +47,7 @@ public class ExitView implements ClickInterface {
                 null);
     }
 
+    @Override
     public Rectangle getArea() {
         int newWidth = this.scale.getScale() / 7;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;

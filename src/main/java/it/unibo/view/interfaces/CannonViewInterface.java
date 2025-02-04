@@ -1,11 +1,9 @@
 package it.unibo.view.interfaces;
 
-import java.awt.Graphics;
+import it.unibo.model.Point2DI;
 
 public interface CannonViewInterface {
 
-    void draw(Graphics g);
-
     int getImageIndexForAngle(final double angle);
-
+    Point2DI getCenter();
 }

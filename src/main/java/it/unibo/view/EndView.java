@@ -10,11 +10,12 @@ import javax.swing.ImageIcon;
 import it.unibo.model.Scale;
 import it.unibo.model.ScoreModel;
 import it.unibo.model.StatusModel;
+import it.unibo.view.interfaces.ViewInterface;
 
 import java.awt.Font;
 import java.awt.Color;
 
-public class EndView {
+public class EndView implements ViewInterface {
     private final StatusModel statusModel;
     private final Scale scale;
     private final ScoreModel score;
@@ -35,6 +36,7 @@ public class EndView {
         this.imageHeight = this.stars[0].getHeight(null);
     }
 
+    @Override
     public final void draw(final Graphics g) {
         int newWidth = this.scale.getScale() / 2;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;

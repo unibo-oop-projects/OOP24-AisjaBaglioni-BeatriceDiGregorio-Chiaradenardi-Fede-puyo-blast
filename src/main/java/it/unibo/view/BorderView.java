@@ -1,13 +1,14 @@
 package it.unibo.view;
 
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.ViewInterface;
 
 import java.awt.*;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
-public class BorderView {
+public class BorderView implements ViewInterface {
     private Image borderImage;
     private Scale scale;
     private int imageWidth;
@@ -21,6 +22,7 @@ public class BorderView {
         this.imageWidth = borderImage.getWidth(null);
     }
 
+    @Override
     public void draw(final Graphics g) {
         int cellsize = this.scale.getScale() / 16;
         int shrink = cellsize / 2;

@@ -4,13 +4,14 @@ import javax.swing.*;
 
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.CannonViewInterface;
+import it.unibo.view.interfaces.ViewInterface;
 import it.unibo.model.CannonModel;
 import it.unibo.model.Point2DI;
 
 import java.awt.*;
 import java.net.URL;
 
-public class CannonView extends JPanel implements CannonViewInterface {
+public class CannonView extends JPanel implements CannonViewInterface, ViewInterface {
 
     private Image[] cannonImages;
     private CannonModel cannonModel;

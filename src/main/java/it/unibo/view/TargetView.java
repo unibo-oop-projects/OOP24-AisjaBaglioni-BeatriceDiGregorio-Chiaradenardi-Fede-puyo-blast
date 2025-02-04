@@ -4,12 +4,12 @@ import javax.swing.*;
 
 import it.unibo.model.CannonModel;
 import it.unibo.model.Scale;
-import it.unibo.view.interfaces.TargetViewInterface;
+import it.unibo.view.interfaces.ViewInterface;
 
 import java.awt.*;
 import java.net.URL;
 
-public class TargetView extends JPanel implements TargetViewInterface {
+public class TargetView extends JPanel implements ViewInterface {
 
     private final Image cannonTargetImage;
     private int imageWidth;

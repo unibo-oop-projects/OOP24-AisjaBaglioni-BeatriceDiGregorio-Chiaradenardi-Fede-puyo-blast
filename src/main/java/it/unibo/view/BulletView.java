@@ -11,8 +11,9 @@ import javax.swing.ImageIcon;
 import it.unibo.model.BulletModel;
 import it.unibo.model.Point2D;
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.ViewInterface;
 
-public class BulletView {
+public class BulletView implements ViewInterface {
     private BulletModel model;
     private Image sprites;
     Scale scale;
@@ -32,6 +33,7 @@ public class BulletView {
         this.sprites = new ImageIcon(image_path).getImage();
     }
 
+    @Override
     public void draw(Graphics g) {
         if (!this.model.isActive()) {
             return;
