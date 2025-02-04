@@ -4,6 +4,6 @@ package it.unibo.view.interfaces;
 
 import java.awt.*;
 
-public interface BackGroundInterface {
+public interface BackgroundInterface {
     void draw(Graphics g, int width, int height);
 }

@@ -2,16 +2,16 @@
 //carica e visualizza lo sfondo del gioco
 package it.unibo.view;
 
-import it.unibo.view.interfaces.BackGroundInterface;
+import it.unibo.view.interfaces.BackgroundInterface;
 
 import java.awt.*;
 import java.net.URL;
 import javax.swing.*;
 
-public class BackGround implements BackGroundInterface {
+public class Background implements BackgroundInterface {
     private Image backgroundImage;
 
-    public BackGround(String imagePath) {
+    public Background(String imagePath) {
         // Carica l'immagine dalla cartella resources/images
         URL imageUrl = getClass().getClassLoader().getResource("images/" + imagePath);
 

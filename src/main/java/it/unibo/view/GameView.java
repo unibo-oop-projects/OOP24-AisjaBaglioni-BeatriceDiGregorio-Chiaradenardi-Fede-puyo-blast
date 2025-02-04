@@ -14,7 +14,7 @@ import java.util.Set;
 
 public class GameView extends JPanel implements GameViewInterface {
     private ClickController clickController;
-    private BackGround background;
+    private Background background;
     private final PuyoRenderer renderer;
     private final Grid grid;
     private final CannonView cannonView;
@@ -44,7 +44,7 @@ public class GameView extends JPanel implements GameViewInterface {
         this.clickables.add(this.tryAgainView);
         this.clickables.add(this.pauseView);
         this.clickController = new ClickController(clickables);
-        this.background = new BackGround("background.jpg");
+        this.background = new Background("background.jpg");
         this.renderer = puyoRenderer;
         this.cannonView = cannonView;
         this.cannonSightView = new TargetView("CannonSightView.png", this.scale, cannonModel);
