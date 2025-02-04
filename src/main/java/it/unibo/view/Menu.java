@@ -3,7 +3,8 @@ package it.unibo.view;
 import javax.swing.*;
 
 import it.unibo.model.Scale;
-import it.unibo.model.interfaces.MenuInterface;
+import it.unibo.view.interfaces.MenuInterface;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -1,5 +1,5 @@
 //chiara
-package it.unibo.model.interfaces;
+package it.unibo.view.interfaces;
 
 import javax.swing.JButton;
 
