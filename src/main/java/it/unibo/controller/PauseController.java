@@ -15,6 +15,7 @@ public class PauseController implements KeyListener, PauseControllerInterface {
         this.model = model;
     }
 
+    @Override
     public void togglePause() {
         this.model.togglePause();
     }
@@ -31,6 +32,7 @@ public class PauseController implements KeyListener, PauseControllerInterface {
         }
     }
 
+    @Override
     public void keyReleased(KeyEvent e) {
 
     }
