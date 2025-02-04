@@ -2,8 +2,9 @@ package it.unibo.controller;
 
 import it.unibo.GameEvent;
 import it.unibo.GameListener;
+import it.unibo.controller.interfaces.TryAgainControllerInterface;
 
-public class TryAgainController {
+public class TryAgainController implements TryAgainControllerInterface{
     private final LevelManager.LevelConfig levelconfig;
     private final GameListener listener;
     private final GameLoop gameLoop;
@@ -14,6 +15,7 @@ public class TryAgainController {
         this.gameLoop = gameLoop;
     }
 
+    @Override
     public void handleClick() {
         System.out.println("Riavvio del gioco...");
         gameLoop.stopGame();
