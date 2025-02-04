@@ -15,6 +15,7 @@ public class Scale implements ScaleInterface{
         this.scale = 700;
     }
 
+    @Override
     public int getScale() {
         return this.scale;
     }
