@@ -9,7 +9,7 @@ public class EndController implements TickListenerInterface {
     private final Grid grid;
     private final ScoreModel score;
     private final StatusModel gameStatus;
-    private static final int[] THRESHOLDS = { 10, 20, 30 };
+    private static final int[] THRESHOLDS = { 200, 350, 500 };
 
     public EndController(Grid grid, ScoreModel score, StatusModel gameStatus) {
         this.grid = grid;
@@ -21,6 +21,7 @@ public class EndController implements TickListenerInterface {
     public void onTick() {
         if (this.score.getScore() >= THRESHOLDS[2]) {
             this.gameStatus.setStars(3);
+            this.score.setScore(Math.min(THRESHOLDS[2], this.score.getScore()));
             this.gameStatus.setGameEnded();
         } else if (this.score.getScore() >= THRESHOLDS[1]) {
             this.gameStatus.setStars(2);
