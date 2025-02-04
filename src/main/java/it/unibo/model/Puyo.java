@@ -27,22 +27,27 @@ public class Puyo implements PuyoInterface {
         freezeClock = Optional.empty();
     }
 
+    @Override
     public Optional<Integer> getDeathClock() {
         return deathClock;
     }
 
+    @Override
     public void setDeathClock(Optional<Integer> deathClock) {
         this.deathClock = deathClock;
     }
 
+    @Override
     public void setFreezeClock(Optional<Integer> freezeClock) {
         this.freezeClock = freezeClock;
     }
 
+    @Override
     public Optional<Integer> getFreezeClock() {
         return this.freezeClock;
     }
 
+    @Override
     public long getIdentifier() {
         return identifier;
     }
