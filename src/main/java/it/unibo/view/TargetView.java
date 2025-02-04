@@ -17,16 +17,10 @@ public class TargetView extends JPanel implements TargetViewInterface {
     private final Scale scale;
     private final CannonModel cannonModel;
 
-    public TargetView(String imagePath, Scale scale, CannonModel cannonModel) {
+    public TargetView(Scale scale, CannonModel cannonModel) {
         this.scale = scale;
         this.cannonModel = cannonModel;
-        final URL imageUrl = getClass().getClassLoader().getResource("images/" + imagePath);
-
-        if (imageUrl == null) {
-            System.err.println("Immagine non trovata: " + imagePath);
-            throw new RuntimeException("Immagine non trovata: " + imagePath);
-        }
-
+        final URL imageUrl = getClass().getClassLoader().getResource("images/CannonSightView.png");
         this.cannonTargetImage = new ImageIcon(imageUrl).getImage();
         this.imageWidth = cannonTargetImage.getWidth(null);
         this.imageHeight = cannonTargetImage.getHeight(null);
