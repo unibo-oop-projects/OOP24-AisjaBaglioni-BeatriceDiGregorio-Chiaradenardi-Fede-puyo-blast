@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 
+import it.unibo.controller.interfaces.BulletControllerInterface;
 import it.unibo.controller.interfaces.TickListenerInterface;
 import it.unibo.model.BulletModel;
 import it.unibo.model.CannonModel;
@@ -18,7 +19,7 @@ import it.unibo.model.Scale;
 import it.unibo.model.interfaces.PuyoInterface;
 import it.unibo.view.CannonView;
 
-public class BulletController implements TickListenerInterface {
+public class BulletController implements TickListenerInterface, BulletControllerInterface {
     private final BulletModel bulletModel;
     private final Grid grid;
     private final KeyboardModel k;
@@ -62,7 +63,8 @@ public class BulletController implements TickListenerInterface {
         }
     }
 
-    private void explodePuyos(Point2DI target) {
+    @Override
+    public void explodePuyos(Point2DI target) {
         PuyoInterface puyo = grid.getPuyo(target.x(), target.y());
         if (puyo == null) {
             return;
@@ -110,6 +112,7 @@ public class BulletController implements TickListenerInterface {
         scoreController.addPoints(d.size());
     }
 
+    @Override
     public void setCannonView(CannonView cannonView) {
         this.cannonView = cannonView;
     }
