@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import it.unibo.model.Scale;
+import it.unibo.view.interfaces.MenuRulesInterface;
 
-public class MenuRules extends JPanel {
+public class MenuRules extends JPanel implements MenuRulesInterface {
     private final JButton backButton;
     private Image backgroundImage; // Immagine di sfondo
     private Image decoration1;
@@ -95,6 +96,7 @@ public class MenuRules extends JPanel {
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
+    @Override
     public void addBackButtonListener(ActionListener listener) {
         backButton.addActionListener(listener);
     }
