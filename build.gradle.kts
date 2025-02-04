@@ -7,8 +7,9 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    java
     application
-    id("org.openjfx.javafxplugin") version "0.1.0"
+    id("com.gradleup.shadow") version "9.0.0-beta7"
 }
 
 repositories {
@@ -36,7 +37,15 @@ application {
     mainClass = "it.unibo.Main"
 }
 
-javafx {
-    version = "21"
-    modules("javafx.controls", "javafx.fxml")
+buildscript {
+  repositories {
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath("com.gradleup.shadow:shadow-gradle-plugin:9.0.0-beta7")
+  }
 }
+
+// `apply plugin` stuffs are used with `buildscript`.
+apply(plugin = "java")
+apply(plugin = "com.gradleup.shadow")
