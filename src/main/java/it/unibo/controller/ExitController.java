@@ -1,19 +1,21 @@
 package it.unibo.controller;
 
-import it.unibo.model.ExitModel;
+import it.unibo.GameEvent;
+import it.unibo.GameListener;
 
 public class ExitController {
-    private ExitModel model;
-    private ScreenManager screenManager;
+    private final GameListener listener;
+    private final GameLoop gameLoop;
 
-    public ExitController(ExitModel model, ScreenManager screenManager) {
-        this.model = model;
-        this.screenManager = screenManager;
+    public ExitController(GameListener listener, GameLoop gameLoop) {
+        this.listener = listener;
+        this.gameLoop = gameLoop;
     }
 
     public void onExitClicked() {
-        model.setExitClicked(true);
+        gameLoop.stopGame();
+        GameEvent e = new GameEvent(this);
+        listener.goToMainMenu(e);
         System.out.println("Hai cliccato Main Menu");
-        screenManager.switchToMenuView();
     }
 }
