@@ -1,8 +1,6 @@
 package it.unibo.view;
 
 import it.unibo.model.ScoreModel;
-import it.unibo.view.interfaces.ScoreViewInterface;
-//import javafx.scene.text.Font;
 
 import java.awt.Color;
 import java.awt.Font;
