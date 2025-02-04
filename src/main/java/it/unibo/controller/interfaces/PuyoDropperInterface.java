@@ -11,4 +11,8 @@ public interface PuyoDropperInterface {
      * Logica di caduta dei Puyo
      */
     void dropPuyo();
+
+    void initialize();
+
+    void fillGridRandomly(int puyoCount);
 }
