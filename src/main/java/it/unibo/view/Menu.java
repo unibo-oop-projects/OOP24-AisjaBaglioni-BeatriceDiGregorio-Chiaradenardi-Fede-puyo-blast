@@ -1,6 +1,8 @@
-package it.unibo.model;
+package it.unibo.view;
 
 import javax.swing.*;
+
+import it.unibo.model.Scale;
 import it.unibo.model.interfaces.MenuInterface;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
