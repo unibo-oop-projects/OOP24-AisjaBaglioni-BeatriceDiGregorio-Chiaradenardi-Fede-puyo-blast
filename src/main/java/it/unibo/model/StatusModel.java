@@ -2,7 +2,9 @@ package it.unibo.model;
 
 import java.util.Optional;
 
-public class StatusModel {
+import it.unibo.model.interfaces.StatusModelInterface;
+
+public class StatusModel implements StatusModelInterface {
     private boolean gameEnded;
 
     private Optional<Integer> endStars;
