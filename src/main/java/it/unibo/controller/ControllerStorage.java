@@ -3,10 +3,11 @@ package it.unibo.controller;
 import java.util.HashSet;
 
 import it.unibo.GameListener;
+import it.unibo.controller.interfaces.ControllerStorageInterface;
 import it.unibo.model.ModelStorage;
 import it.unibo.view.GameView;
 
-public class ControllerStorage {
+public class ControllerStorage implements ControllerStorageInterface{
     public final BulletController bulletController;
     public final CannonController cannonController;
     public final ClickController clickController;
@@ -43,7 +44,9 @@ public class ControllerStorage {
         this.clickController = new ClickController(new HashSet<>());
     }
 
-    private void addTickListeners() {
+
+    @Override
+    public void addTickListeners() {
         this.gameLoop.addTickListener(this.cannonController);
         this.gameLoop.addTickListener(this.progressBarController);
         this.gameLoop.addTickListener(this.freezeController);
@@ -53,6 +56,7 @@ public class ControllerStorage {
         this.gameLoop.addTickListener(this.bulletController);
     }
 
+    @Override
     public void linkGameView(GameView gameView) {
         this.gameLoop.setGameView(gameView);
         this.bulletController.setCannonView(gameView.cannonView);
