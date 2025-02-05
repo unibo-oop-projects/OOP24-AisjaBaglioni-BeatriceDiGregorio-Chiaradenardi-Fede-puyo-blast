@@ -14,6 +14,10 @@ import it.unibo.view.interfaces.ButtonInterface;
 import it.unibo.view.interfaces.ClickInterface;
 import it.unibo.view.interfaces.ViewInterface;
 
+/**
+ * The ExitView class is responsible for displaying the red button "Main Menu",
+ * which allows to move from the game to the menu.
+ */
 public class ExitView implements ClickInterface, ViewInterface, ButtonInterface {
     private Image exit;
     Scale scale;
@@ -21,10 +25,14 @@ public class ExitView implements ClickInterface, ViewInterface, ButtonInterface 
     private int imageHeight;
     private ExitController controller;
 
+    /**
+     * The constructor takes as parameters the
+     * graphics scaling and the {@link ExitController},
+     * to trigger the event when the ExitView button is clicked.
+     */
     public ExitView(Scale scale, ExitController controller) {
         this.scale = scale;
         this.controller = controller;
-        System.out.println("ExitView controller inizializzato: " + (controller != null)); // Log
         URL exit_path = getClass().getClassLoader().getResource("images/mainmenu_button.png");
         exit = new ImageIcon(exit_path).getImage();
         this.imageWidth = exit.getWidth(null);
@@ -67,9 +75,7 @@ public class ExitView implements ClickInterface, ViewInterface, ButtonInterface 
     @Override
     public void doAction() {
         if (controller != null) {
-            controller.onExitClicked(); // Delegare l'azione al controller
-        } else {
-            System.out.println("Errore: controller non inizializzato.");
+            controller.onExitClicked();
         }
     }
 }
