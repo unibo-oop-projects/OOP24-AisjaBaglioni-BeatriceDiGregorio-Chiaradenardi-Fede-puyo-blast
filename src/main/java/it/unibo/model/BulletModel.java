@@ -31,7 +31,7 @@ public class BulletModel implements BulletModelInterface {
     /**
      * Constructs a new inactive bullet
      */
-    BulletModel() {
+    public BulletModel() {
         this.source = null;
         this.target = null;
         this.active = false;
