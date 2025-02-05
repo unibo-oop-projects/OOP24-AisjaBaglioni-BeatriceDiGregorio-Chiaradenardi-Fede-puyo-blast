@@ -21,7 +21,8 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
     private int ticksPassed;
 
     /**
-     * Constructs a {@code PuyoDropper} with a specified grid and level configuration.
+     * Constructs a {@code PuyoDropper} with a specified grid and level
+     * configuration.
      * 
      * @param grid        The game grid where Puyos are placed.
      * @param levelConfig The configuration defining the delay and number of Puyos.
@@ -43,13 +44,13 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
             return;
         }
         String randomColor = colors[random.nextInt(colors.length)];
-        int startX = random.nextInt(grid.getCols()); 
+        int startX = random.nextInt(grid.getCols());
         while (grid.getPuyo(startX, 0) != null) {
             startX = random.nextInt(grid.getCols());
         }
-        int startY = 0; 
+        int startY = 0;
         Puyo puyo = new Puyo(randomColor, startX, startY);
-        grid.addPuyo(puyo, startX, startY); 
+        grid.addPuyo(puyo, startX, startY);
     }
 
     /**
@@ -60,12 +61,12 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
     @Override
     public void fillGridRandomly(int puyoCount) {
         for (int i = 0; i < puyoCount; i++) {
-            spawnAndDropPuyo(); 
+            spawnAndDropPuyo();
         }
     }
 
     /**
-     * Called on each game tick. Manages the timing for Puyo dropping and 
+     * Called on each game tick. Manages the timing for Puyo dropping and
      * spawning based on the level configuration.
      */
     @Override
@@ -99,11 +100,12 @@ public class PuyoDropper implements PuyoDropperInterface, TickListenerInterface 
     }
 
     /**
-     * Initializes the grid by placing Puyos in the last two rows with random colors.
+     * Initializes the grid by placing Puyos in the last two rows with random
+     * colors.
      */
     @Override
     public void initialize() {
-        for (int y = grid.getRows() - 2; y < grid.getRows(); y++) { 
+        for (int y = grid.getRows() - 2; y < grid.getRows(); y++) {
             for (int x = 0; x < grid.getCols(); x++) {
                 String randomColor = colors[random.nextInt(colors.length)];
                 Puyo puyo = new Puyo(randomColor, x, y);
