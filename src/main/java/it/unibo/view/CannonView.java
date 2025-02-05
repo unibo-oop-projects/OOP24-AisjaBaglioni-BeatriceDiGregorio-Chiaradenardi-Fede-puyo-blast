@@ -11,18 +11,54 @@ import it.unibo.model.Point2DI;
 import java.awt.*;
 import java.net.URL;
 
+/**
+ * The CannonView class represents the visual aspect of the cannon in the game.
+ * It is responsible for rendering the cannon's image based on its state
+ * (position and angle).
+ */
 public class CannonView extends JPanel implements CannonViewInterface, ViewInterface {
+    /**
+     * An array to hold the images of the cannon in different angles.
+     * Each image corresponds to a specific angle range of the cannon.
+     */
 
     private Image[] cannonImages;
+    /**
+     * The CannonModel that stores the cannon's state, including its position and
+     * angle.
+     */
+
     private CannonModel cannonModel;
+    /**
+     * The width of the cannon image.
+     */
+
     private int imageWidth;
+    /**
+     * The height of the cannon image.
+     */
+    
     private int imageHeight;
+    /**
+     * The scale used to determine the size of the cannon based on the window size.
+     */
     private Scale scale;
 
+    /**
+     * Constructor for CannonView, initializing the cannon's state and loading the
+     * images for the cannon.
+     * 
+     * @param scale       The scale object used to determine the appropriate size of
+     *                    the cannon.
+     * @param cannonModel The CannonModel that holds the state of the cannon.
+     */
     public CannonView(Scale scale, CannonModel cannonModel) {
         this.scale = scale;
         this.cannonModel = cannonModel;
         this.cannonImages = new Image[5];
+        /**
+         * Paths for cannon images corresponding to different angles.
+         */
         String[] cannonImagePaths = { "CannonImage.png", "CannonImage1.png", "CannonImage2.png", "CannonImage3.png",
                 "CannonImage4.png" };
 
@@ -34,42 +70,72 @@ public class CannonView extends JPanel implements CannonViewInterface, ViewInter
                 this.cannonImages[i] = new ImageIcon(imageUrl).getImage();
             }
         }
-        // Inizializza dimensioni e posizione
+        /**
+         * Initialize dimensions based on the first cannon image.
+         */
         this.imageWidth = cannonImages[0].getWidth(null);
         this.imageHeight = cannonImages[0].getHeight(null);
     }
 
+    /**
+     * Returns the CannonModel associated with this view.
+     * 
+     * @return the cannon model.
+     */
     public CannonModel getCannonModel() {
         return this.cannonModel;
     }
 
+    /**
+     * Calculates the center point for drawing the cannon, based on its position and
+     * the window's scale.
+     * 
+     * @return the Point2DI object representing the center position of the cannon.
+     */
     public Point2DI getCenter() {
-        // La larghezza del cannone occupa tot della larghezza della finestra
+        /**
+         * Calculate the new width based on the scale
+         */
         int newWidth = this.scale.getScale() / 10;
         int puyoCellSize = this.scale.getScale() / 16;
         int offsetX = puyoCellSize * 4;
-        // L'altezza Ã¨ calcolata in proporzione
-        // newWidth : newHeight = imageWidth : imageHeight
+        /**
+         * Calculate the new height in proportion to the width
+         * newWidth : newHeight = imageWidth : imageHeight
+         */
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
         int y = (this.scale.getScale() * 6) / 8;
-        // xModel : 1 = x : scale - newWidth
+        /**
+         * Calculate the x position of the cannon
+         * xModel : 1 = x : scale - newWidth
+         */
         double xdouble = offsetX + this.cannonModel.getX() * (this.scale.getScale() - newWidth - 2 * offsetX);
         int x = (int) xdouble;
+
         return new Point2DI(x + newWidth / 2, y + newHeight / 2);
     }
 
+    /**
+     * Draws the cannon image at its correct position and with the correct angle.
+     * 
+     * @param g the Graphics object used to render the cannon.
+     */
     @Override
     public final void draw(final Graphics g) {
         int newWidth = this.scale.getScale() / 10;
         int newHeight = (newWidth * this.imageHeight) / this.imageWidth;
+
         Point2DI center = getCenter();
-        // Calcola l'indice dell'immagine in base all'angolo
+
+        /**
+         * Calculate the image index based on the cannon's angle
+         */
         double angle = this.cannonModel.getAngle();
         int imageIndex = getImageIndexForAngle(angle);
 
-        // Disegna l'immagine corrispondente
-        // targetx1, targety1, targetx2, targety2, sourcex1, sourcey1, sourcex2,
-        // sourcey2
+        /**
+         * Draw the cannon image at the calculated position and with the correct size.
+         */
         g.drawImage(
                 cannonImages[imageIndex],
                 center.x() - newWidth / 2,
@@ -80,6 +146,13 @@ public class CannonView extends JPanel implements CannonViewInterface, ViewInter
                 imageWidth, imageHeight, null);
     }
 
+    /**
+     * Determines the index of the cannon image to be used based on the angle.
+     * The angle is divided into 5 ranges, each corresponding to a different image.
+     * 
+     * @param angle the angle of the cannon.
+     * @return the index of the image corresponding to the angle.
+     */
     public int getImageIndexForAngle(final double angle) {
         if (angle <= 0.2) {
             return 0;
