@@ -8,7 +8,7 @@ public interface TryAgainControllerInterface {
 
     /**
      * Method to handle the "Try Again" button click event.
-     * This method will define the actions to take when the user clicks on the try again button, taht is restarting the game
+     * This method will define the actions to take when the user clicks on the try again button, that is restarting the game
      * with the previous configuration.
      */
     void handleClick();
