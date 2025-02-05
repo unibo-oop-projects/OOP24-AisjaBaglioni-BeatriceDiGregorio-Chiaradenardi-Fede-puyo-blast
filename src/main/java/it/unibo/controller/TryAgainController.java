@@ -17,7 +17,6 @@ public class TryAgainController implements TryAgainControllerInterface{
 
     @Override
     public void handleClick() {
-        System.out.println("Riavvio del gioco...");
         gameLoop.stopGame();
         GameEvent e = new GameEvent(this, levelconfig);
         listener.startGame(e);
