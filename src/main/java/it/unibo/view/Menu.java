@@ -25,7 +25,6 @@ public class Menu extends JPanel implements MenuInterface {
         try {
             backgroundImage = new ImageIcon(getClass().getResource("/images/puyomenu.jpg")).getImage();
         } catch (Exception e) {
-            System.out.println("Errore nel caricamento dell'immagine");
             e.printStackTrace();
         }
 

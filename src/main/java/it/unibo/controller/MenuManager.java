@@ -1,4 +1,3 @@
-// CHIARA
 package it.unibo.controller;
 
 import it.unibo.GameEvent;
@@ -11,18 +10,31 @@ import it.unibo.view.MenuRules;
 import javax.swing.*;
 import java.awt.*;
 
-public class MenuManager extends JInternalFrame implements MenuManagerInterface{
+/**
+ * This class manages the menu system of the game. It allows the user to select levels, view rules, and start a new game.
+ * It handles interactions with the menu and the level selection process, including the display of a popup for the selected level.
+ */
+public class MenuManager extends JInternalFrame implements MenuManagerInterface {
+
     private final Menu menuView;
     private final MenuRules rulesView;
     private LevelManager levelManager;
     private final GameListener gameListener;
 
+    /**
+     * Constructor for the MenuManager class.
+     * Initializes the menu view, rules view, and the level manager.
+     * Sets up the listeners for menu actions.
+     * 
+     * @param gameListener the listener to handle game events
+     * @param scale the scale to adjust the UI components
+     */
     public MenuManager(GameListener gameListener, Scale scale) {
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        String[] levels = { "1", "2", "3" };
+        
         this.gameListener = gameListener;
-
+        String[] levels = { "1", "2", "3" };
         this.menuView = new Menu(levels, scale);
         this.rulesView = new MenuRules(scale);
 
@@ -32,46 +44,72 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface{
         this.start();
     }
 
-    // Allows to start game from the menu, via an object GameEvent
+    /**
+     * Starts the game with a specific level configuration.
+     * 
+     * @param config the level configuration to start the game with
+     */
     private void startGameWithConfig(LevelManager.LevelConfig config) {
         GameEvent event = new GameEvent(this, config);
         gameListener.startGame(event);
     }
 
+    /**
+     * Sets up listeners for actions in the main menu.
+     * Includes starting the game with the selected level and navigating to the rules view.
+     */
     private void setupMenuListeners() {
-        // Quando avvii un livello dal menu
+        /**
+         * Action when a level is selected and the "Start" button is clicked
+         */
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
             LevelManager.LevelConfig config = levelManager.getLevelConfig(Integer.parseInt(selectedLevel));
-            showLevelPopup(selectedLevel, config); // mostra il popup
+            showLevelPopup(selectedLevel, config); 
         });
 
+        /**
+         * Action when the "Controls" button is clicked and switch to the rules view
+         */
         menuView.getControlsButton().addActionListener(e -> {
-            switchToRulesView();
+            switchToRulesView(); 
         });
     }
 
+    /**
+     * Sets up listeners for actions in the rules view.
+     * Includes navigating back to the main menu when the button is clicked.
+     */
     private void setupRulesListeners() {
         rulesView.addBackButtonListener(e -> {
-            switchToMenuView();
+            switchToMenuView(); 
         });
     }
 
+    /**
+     * Starts the menu view.
+     * Adds the menu view to the internal frame and sets it visible.
+     */
     @Override
     public void start() {
         this.add(menuView);
         this.setVisible(true);
     }
 
+    /**
+     * Switches the current view to the main menu.
+     */
     @Override
     public void switchToMenuView() {
-        // Imposta il menu come vista corrente
         this.getContentPane().removeAll();
         this.getContentPane().add(menuView);
         this.revalidate();
         this.repaint();
     }
 
+    /**
+     * Switches the current view to the rules view.
+     */
     @Override
     public void switchToRulesView() {
         this.getContentPane().removeAll();
@@ -80,8 +118,13 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface{
         this.repaint();
     }
 
-    // The "level selected" pop-up is now a JPanel instead of a JDialog
-    // Due to the JInternalFrame limitations
+    /**
+     * Displays a popup dialog when a level is selected.
+     * This dialog confirms the selected level and starts the game once the "OK" button is clicked.
+     * 
+     * @param level the level that the user selected
+     * @param config the configuration of the selected level
+     */
     @Override
     public void showLevelPopup(String level, LevelManager.LevelConfig config) {
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -105,7 +148,7 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface{
         panel.setLayout(new BorderLayout());
 
         JLabel levelMessage = new JLabel(
-                "<html><div style='text-align: center;'>Hai selezionato il livello:<br><span style='color: #FFFFFF; font-size: 24px; font-weight: bold;'>"
+                "<html><div style='text-align: center;'>You have selected level:<br><span style='color: #FFFFFF; font-size: 24px; font-weight: bold;'>"
                         + level + "</span></div></html>",
                 JLabel.CENTER);
         levelMessage.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
@@ -138,9 +181,12 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface{
             }
         });
 
+        /**
+         * Start the game with the selected level configuration
+         */
         okButton.addActionListener(e -> {
             levelDialog.dispose();
-            startGameWithConfig(config); // avvia il gioco
+            startGameWithConfig(config); 
         });
 
         buttonPanel.add(okButton);
@@ -151,5 +197,4 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface{
         levelDialog.setContentPane(panel);
         levelDialog.setVisible(true);
     }
-
 }

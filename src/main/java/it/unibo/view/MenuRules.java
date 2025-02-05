@@ -24,7 +24,6 @@ public class MenuRules extends JPanel implements MenuRulesInterface {
             decoration1 = new ImageIcon(getClass().getResource("/images/pers1.png")).getImage();
             decoration2 = new ImageIcon(getClass().getResource("/images/pers2.png")).getImage();
         } catch (Exception e) {
-            System.out.println("Errore nel caricamento dell'immagine");
             e.printStackTrace();
         }
 
