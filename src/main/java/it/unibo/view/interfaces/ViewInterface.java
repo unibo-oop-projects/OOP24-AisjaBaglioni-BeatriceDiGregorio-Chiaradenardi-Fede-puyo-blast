@@ -16,6 +16,9 @@ public interface ViewInterface {
      * - The upper-left and lower-right corners of the source image
      * - The observer of the image
      * 
+     * The positioning of objects is based on the {@link Scale} as a reference,
+     * with offsets calculated using the size of a single Puyo.
+     * 
      * @param g The graphics context to draw the view.
      */
     void draw(final Graphics g);

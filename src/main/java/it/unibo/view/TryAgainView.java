@@ -12,26 +12,28 @@ import it.unibo.view.interfaces.ButtonInterface;
 import it.unibo.view.interfaces.ClickInterface;
 import it.unibo.view.interfaces.ViewInterface;
 
+/**
+ * The TryAgainView class is responsible for displaying
+ * the cyan button "Try Again",
+ * whose controller allows to restart the level by stopping the {@link GameLoop}
+ * and triggering a new
+ * {@link GameEvent}.
+ */
 public class TryAgainView implements ClickInterface, ViewInterface, ButtonInterface {
     private Image tryAgainImage;
     private Scale scale;
     private int imageWidth;
     private int imageHeight;
-    private TryAgainController controller; // Riferimento al controller
+    private TryAgainController controller;
 
     public TryAgainView(Scale scale, TryAgainController controller) {
         this.scale = scale;
-        this.controller = controller; // Assegna il controller
+        this.controller = controller;
 
-        // Carica l'immagine del pulsante
         URL imagePath = getClass().getClassLoader().getResource("images/tryagain_button.png");
-        if (imagePath == null) {
-            System.out.println("Errore: Immagine 'tryagain_button.png' non trovata.");
-        } else {
-            tryAgainImage = new ImageIcon(imagePath).getImage();
-            this.imageWidth = tryAgainImage.getWidth(null);
-            this.imageHeight = tryAgainImage.getHeight(null);
-        }
+        tryAgainImage = new ImageIcon(imagePath).getImage();
+        this.imageWidth = tryAgainImage.getWidth(null);
+        this.imageHeight = tryAgainImage.getHeight(null);
     }
 
     @Override
@@ -71,8 +73,6 @@ public class TryAgainView implements ClickInterface, ViewInterface, ButtonInterf
     public void doAction() {
         if (controller != null) {
             controller.handleClick(); // Chiama il metodo del controller per gestire l'azione
-        } else {
-            System.out.println("Errore: controller non inizializzato.");
         }
     }
 }

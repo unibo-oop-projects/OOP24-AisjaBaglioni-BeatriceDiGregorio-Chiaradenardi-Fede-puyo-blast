@@ -37,7 +37,7 @@ public class CannonView extends JPanel implements CannonViewInterface, ViewInter
     /**
      * The height of the cannon image.
      */
-    
+
     private int imageHeight;
     /**
      * The scale used to determine the size of the cannon based on the window size.
@@ -64,11 +64,7 @@ public class CannonView extends JPanel implements CannonViewInterface, ViewInter
 
         for (int i = 0; i < cannonImagePaths.length; i++) {
             final URL imageUrl = getClass().getClassLoader().getResource("images/" + cannonImagePaths[i]);
-            if (imageUrl == null) {
-                System.err.println("Immagine non trovata: " + cannonImagePaths[i]);
-            } else {
-                this.cannonImages[i] = new ImageIcon(imageUrl).getImage();
-            }
+            this.cannonImages[i] = new ImageIcon(imageUrl).getImage();
         }
         /**
          * Initialize dimensions based on the first cannon image.
