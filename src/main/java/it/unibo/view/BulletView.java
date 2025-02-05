@@ -1,5 +1,3 @@
-//AISJA
-
 package it.unibo.view;
 
 import java.awt.Graphics;
@@ -13,18 +11,14 @@ import it.unibo.model.Point2D;
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ViewInterface;
 
+/**
+ * The BulletView class is responsible for rendering the bullet's graphical
+ * representation on the screen, and the update of its position.
+ */
 public class BulletView implements ViewInterface {
     private BulletModel model;
     private Image sprites;
     Scale scale;
-    /*
-     * // Sono uguali a quelle del cannone
-     * private int spawnX;
-     * private int spawnY;
-     * // Sono uguali a quelle del mirino
-     * private int targetX;
-     * private int targetY;
-     */
 
     public BulletView(BulletModel model, Scale scale) {
         this.scale = scale;
@@ -33,6 +27,15 @@ public class BulletView implements ViewInterface {
         this.sprites = new ImageIcon(image_path).getImage();
     }
 
+    /**
+     * The bullet is only drawn if the model is active.
+     * Its position is calculated in the model using linear interpolation.
+     * The bullet image is retrieved from the spritesheet and represents a black
+     * Puyo.
+     * While the cannon moves horizontally, the bullet is always fired vertically.
+     * However, if the cannon's position were fixed, the bullet could also move
+     * diagonally.
+     */
     @Override
     public void draw(Graphics g) {
         if (!this.model.isActive()) {

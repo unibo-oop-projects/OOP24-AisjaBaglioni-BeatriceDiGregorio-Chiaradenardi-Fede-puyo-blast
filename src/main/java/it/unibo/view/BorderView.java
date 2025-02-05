@@ -1,5 +1,6 @@
 package it.unibo.view;
 
+import it.unibo.model.Grid;
 import it.unibo.model.Scale;
 import it.unibo.view.interfaces.ViewInterface;
 
@@ -8,6 +9,10 @@ import java.net.URL;
 
 import javax.swing.ImageIcon;
 
+/**
+ * The BorderView class is responsible for displaying the {@link Grid} border,
+ * based on a specified scale.
+ */
 public class BorderView implements ViewInterface {
     private Image borderImage;
     private Scale scale;
@@ -22,15 +27,14 @@ public class BorderView implements ViewInterface {
         this.imageWidth = borderImage.getWidth(null);
     }
 
+    /**
+     * Here, the shrink variable is used to make the image slightly smaller,
+     * ensuring it fits well with the other graphics.
+     */
     @Override
     public void draw(final Graphics g) {
         int cellsize = this.scale.getScale() / 16;
         int shrink = cellsize / 2;
-        /*
-         * int newWidth = this.scale.getScale() / 10;
-         * int x = cellsize * 8;
-         * int y = cellsize * 5;
-         */
         g.drawImage(
                 borderImage,
                 cellsize * 3 + shrink,
