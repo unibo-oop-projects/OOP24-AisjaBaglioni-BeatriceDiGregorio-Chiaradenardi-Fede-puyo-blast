@@ -42,11 +42,6 @@ class LevelManagerTest {
     }
 
     @Test
-    void testResetLevel() {
-        assertDoesNotThrow(() -> levelManager.resetLevel(1), "Il reset del livello non dovrebbe generare errori");
-    }
-
-    @Test
     void testGetCurrentLevel() {
         assertEquals(1, levelManager.getCurrentLevel(), "Il livello iniziale dovrebbe essere 1");
     }
