@@ -1,38 +1,68 @@
-//FEDE
-//gestisce la griglia e la disposizione dei puyos
-
 package it.unibo.model;
 
 import it.unibo.model.interfaces.GridInterface;
 import it.unibo.model.interfaces.PuyoInterface;
 
+/**
+ * Manages the game grid and the positioning of Puyos.
+ * The grid is represented as a 2D array of {@link PuyoInterface}.
+ */
 public class Grid implements GridInterface {
-    private PuyoInterface[][] grid; // Matrice bidimensionale per i Puyo (uso PuyoInterface)
-    private final int rows; // Numero di righe
-    private final int cols; // Numero di colonne
+    /**
+     * 2D array representing the grid
+     */
+    private PuyoInterface[][] grid; 
+    /**
+     * Number of rows
+     */
+    private final int rows; 
+    /**
+     * Number of columns
+     */
+    private final int cols; 
 
-    // Costruttore
+    /**
+     * Constructs a new grid with the specified number of rows and columns.
+     *
+     * @param rows The number of rows in the grid.
+     * @param cols The number of columns in the grid.
+     */
     public Grid(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-        this.grid = new PuyoInterface[rows][cols]; // Array di PuyoInterface
+        this.grid = new PuyoInterface[rows][cols]; 
     }
 
-    // ritorna il numero di righe
+    /**
+     * Gets the number of rows in the grid.
+     *
+     * @return The number of rows.
+     */
     @Override
     public int getRows() {
         return rows;
     }
 
-    // ritorna il numero di colonne
+    /**
+     * Gets the number of columns in the grid.
+     *
+     * @return The number of columns.
+     */
     @Override
     public int getCols() {
         return cols;
     }
 
-    // aggiunge un puyo alla griglia in una posizione specifica
+    /**
+     * Adds a Puyo to a specific position in the grid.
+     *
+     * @param puyo The {@link PuyoInterface} to be placed.
+     * @param x    The x-coordinate (column index).
+     * @param y    The y-coordinate (row index).
+     * @return True if the Puyo was added successfully, false if the position is invalid or already occupied.
+     */
     @Override
-    public boolean addPuyo(PuyoInterface puyo, int x, int y) { // Usa PuyoInterface
+    public boolean addPuyo(PuyoInterface puyo, int x, int y) {
         if (isValidPosition(x, y) && grid[y][x] == null) {
             grid[y][x] = puyo;
             return true;
@@ -40,7 +70,12 @@ public class Grid implements GridInterface {
         return false;
     }
 
-    // rimuove un puyo dalla griglia in una posizione specifica
+    /**
+     * Removes a Puyo from a specific position in the grid.
+     *
+     * @param x The x-coordinate (column index).
+     * @param y The y-coordinate (row index).
+     */
     @Override
     public void removePuyo(int x, int y) {
         if (isValidPosition(x, y)) {
@@ -48,22 +83,39 @@ public class Grid implements GridInterface {
         }
     }
 
-    // controlla se una posizione è valida
+    /**
+     * Checks if a position in the grid is valid.
+     *
+     * @param x The x-coordinate (column index).
+     * @param y The y-coordinate (row index).
+     * @return True if the position is within bounds, false otherwise.
+     */
     @Override
     public boolean isValidPosition(int x, int y) {
         return x >= 0 && x < cols && y >= 0 && y < rows;
     }
 
-    // ritorna il puyo in una posizione specifica
+    /**
+     * Gets the Puyo at a specific position in the grid.
+     *
+     * @param x The x-coordinate (column index).
+     * @param y The y-coordinate (row index).
+     * @return The {@link PuyoInterface} at the specified position, or null if empty.
+     */
     @Override
-    public PuyoInterface getPuyo(int x, int y) { // Restituisce PuyoInterface
+    public PuyoInterface getPuyo(int x, int y) {
         if (isValidPosition(x, y)) {
             return grid[y][x];
         }
         return null;
     }
 
-    // controlla se una colonna è piena
+    /**
+     * Checks if a column is completely filled with Puyos.
+     *
+     * @param x The x-coordinate (column index).
+     * @return True if the column is full, false otherwise.
+     */
     @Override
     public boolean isColumnFull(int x) {
         for (int y = 0; y < rows; y++) {
@@ -74,7 +126,12 @@ public class Grid implements GridInterface {
         return true;
     }
 
-    // controllo se una riga è piena
+    /**
+     * Checks if a row is completely filled with Puyos.
+     *
+     * @param y The y-coordinate (row index).
+     * @return True if the row is full, false otherwise.
+     */
     @Override
     public boolean isRowFull(int y) {
         for (int x = 0; x < cols; x++) {
@@ -85,7 +142,11 @@ public class Grid implements GridInterface {
         return true;
     }
 
-    // controlla se la griglia è piena
+    /**
+     * Checks if the entire grid is full.
+     *
+     * @return True if the grid is completely filled with Puyos, false otherwise.
+     */
     @Override
     public boolean isGridFull() {
         for (int x = 0; x < cols; x++) {
@@ -96,34 +157,15 @@ public class Grid implements GridInterface {
         return true;
     }
 
-    // aggiorna la griglia facendo cadere i puyos nelle posizioni pù basse
-    // disponibili
-    @Override
-    public void updateGrid() {
-
-    }
-
-    @Override
-    public void printGrid() {
-        for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < cols; x++) {
-                if (grid[y][x] != null) {
-                    System.out.print(grid[y][x].getColor().charAt(0) + " ");
-                } else {
-                    System.out.print(". ");
-                }
-            }
-            System.out.println();
-        }
-    }
-
+    /**
+     * Clears the grid by setting all positions to null.
+     */
     @Override
     public void clear() {
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-                grid[x][y] = null; // Imposta ogni cella a null
+                grid[y][x] = null;
             }
         }
     }
-
 }
