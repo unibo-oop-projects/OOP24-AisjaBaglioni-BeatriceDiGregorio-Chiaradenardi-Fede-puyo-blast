@@ -1,5 +1,3 @@
-//AISJA
-
 package it.unibo;
 
 import javax.swing.JFrame;
@@ -19,18 +17,14 @@ public class Main extends JFrame implements GameListener {
 
     public Main(String title) {
         super(title);
-        // Sets window size to dynamic screen size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
         int dim = (int) (Math.min(width, height) * 0.75);
         this.scale = new Scale(dim);
         this.setSize(scale.getScale(), scale.getScale());
-        // Not resizable
         this.setResizable(false);
-        // Exits on close
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Creates the menu: parameters are the event listener and the frame
         this.menuManager = new MenuManager(this, scale);
         this.add(menuManager);
         this.menuManager.setVisible(true);
@@ -68,7 +62,6 @@ public class Main extends JFrame implements GameListener {
     }
 
     public static void main(String[] args) {
-        // Adds in the system process queue this application
         EventQueue.invokeLater(() -> {
             Main main = new Main("Puyo Pop: Blast!");
             main.setVisible(true);
