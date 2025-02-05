@@ -3,12 +3,12 @@ package it.unibo.model.interfaces;
 import it.unibo.model.Point2D;
 
 /**
- * Interface representing the bullet model in the game.
- * Provides methods for updating the position and the status of the bullet.
+ * An interface representing the bullet model in the game.
+ * Defines methods to update the bullet's position and status.
  */
 public interface BulletModelInterface {
     /**
-     * Initializes the bullet and shoots it towards the grid
+     * Initializes and fires the bullet towards the grid
      * 
      * @param source The source position of the bullet
      * @param target The target position of the bullet
@@ -24,7 +24,7 @@ public interface BulletModelInterface {
     boolean targetReached();
 
     /**
-     * Updates the bullet's life time if the bullet is still active.
+     * Updates the bullet's lifetime if the bullet is still active.
      * 
      * @return {@code true} if the bullet can still update its position,
      *         {@code false} otherwise.
@@ -40,8 +40,8 @@ public interface BulletModelInterface {
     boolean isActive();
 
     /**
-     * Calculates the current position of the projectile
-     * along the trajectory between source and target, based on elapsed time.
+     * Computes the projectile's current position along its trajectory from source
+     * to target, based on elapsed time.
      * It uses a linear interpolation with the alpha value:
      * alpha = ticks / ANIMATIONTIME which varies from 0 (start) to 1 (finish).
      * 

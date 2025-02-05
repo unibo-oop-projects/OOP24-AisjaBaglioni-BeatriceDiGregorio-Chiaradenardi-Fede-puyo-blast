@@ -21,9 +21,9 @@ import it.unibo.view.CannonView;
 
 /**
  * A controller responsible for handling the {@link BulletModel} mechanics.
- * Bullets are fired one by one from a cannon and
+ * Bullets are fired sequentially from the cannon and
  * interact with the {@link Grid} of {@link Puyo}.
- * This controller listens for game ticks, processes the keyboard input,
+ * This controller listens for game ticks, processes keyboard input,
  * updates the bullet movement, triggers an explosion or unfreeze when
  * the target is hit, triggers the progress bar reset,
  * and updates the {@link ScoreModel} points.
@@ -87,13 +87,12 @@ public class BulletController implements TickListenerInterface, BulletController
 
     /**
      * This method is executed every game tick and controls bullet behavior.
-     * If the spacebar is pressed AND the bullet is currently inactive, it fires.
+     * If the spacebar is pressed and the bullet is currently inactive, it fires.
      * The bullet's start and target positions are determined based on the cannon's
      * angle and x position,
-     * and then approximated to a Point2DI position, to better the grid
+     * and then approximated to a Point2DI position, to improve the grid
      * explosions' precision.
-     * When the bullet cannot longer update its position, then it calls
-     * explodePuyos.
+     * When the bullet cannot longer update its position, it calls explodePuyos.
      */
     @Override
     public void onTick() {

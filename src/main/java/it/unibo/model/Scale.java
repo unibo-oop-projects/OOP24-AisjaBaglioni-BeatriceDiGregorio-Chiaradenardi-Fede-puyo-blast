@@ -1,17 +1,14 @@
-//AISJA
-
 package it.unibo.model;
 
 import it.unibo.model.interfaces.ScaleInterface;
 
 /**
- * A utility class representing the size of the window,
- * and the game graphics scaling,
- * being the unit of measurement adopted by all the views
+ * A utility class representing the window size and game graphics scaling,
+ * serving as the unit of measurement for all views.
  */
 public class Scale implements ScaleInterface {
     /*
-     * A single integer value, since the window is a square
+     * A single integer value, as the window is a square
      */
     private int scale;
 
@@ -25,7 +22,7 @@ public class Scale implements ScaleInterface {
     }
 
     /**
-     * Constructs a new scale with a default size of 700x700
+     * Constructs a new scale with a default size of 700x700 pixels
      */
     public Scale() {
         this.scale = 700;

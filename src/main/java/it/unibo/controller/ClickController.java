@@ -7,17 +7,40 @@ import java.util.Set;
 import it.unibo.model.Point2DI;
 import it.unibo.view.interfaces.ClickInterface;
 
+/**
+ * This class is a controller that manages mouse click
+ * interactions with objects that implement the ClickInterface
+ */
 public class ClickController implements MouseListener {
+
+    /**
+     * A set that holds all objects that can be clicked. These objects must
+     * implement the {@link ClickInterface}
+     */
     private Set<ClickInterface> clickables;
 
+    /**
+     * Constructs a new ClickController,
+     * initializing it with a set of clickable objects
+     */
     public ClickController(Set<ClickInterface> clickables) {
         this.clickables = clickables;
     }
 
-    void addClickable(ClickInterface clickable) {
+    /**
+     * Adds a new clickable object to the set
+     * 
+     * @param clickable The object implementing the ClickInterface to be added
+     */
+    public void addClickable(ClickInterface clickable) {
         clickables.add(clickable);
     }
 
+    /**
+     * This method is called when the mouse is clicked. It determines the position
+     * of the click and checks which clickable object was clicked, then triggers the
+     * corresponding action.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();

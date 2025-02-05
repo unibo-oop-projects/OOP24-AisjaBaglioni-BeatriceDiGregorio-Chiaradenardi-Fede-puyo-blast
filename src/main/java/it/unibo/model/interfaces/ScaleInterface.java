@@ -1,12 +1,13 @@
 package it.unibo.model.interfaces;
 
 /**
- * An interface representing the scale, aka the size of the square game window
- * and the unit of measurement for all its elements
+ * An interface representing the scale, or the size of the game window,
+ * serving as the unit of measurement for all its elements
  */
 public interface ScaleInterface {
     /**
-     * A method to get the scale's width and height from outside.
+     * Retrieves the scale value, representing both the width and height of the
+     * window.
      * 
      * @return the scale size
      */
