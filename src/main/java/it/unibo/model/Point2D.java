@@ -1,8 +1,8 @@
 package it.unibo.model;
 
 /**
- * A utility record representing a 2D point with x and y double coordinates.
- * It provides the static utility methods for basic vector operations.
+ * A utility record representing a 2D point with x and y coordinates as doubles.
+ * It provides the utility methods for basic vector operations.
  */
 public record Point2D(double x, double y) {
 
@@ -12,7 +12,7 @@ public record Point2D(double x, double y) {
      * @param a The first Point2D addend
      * @param b The second Point2D addend
      * 
-     * @return a Point2D being the sum of the two parameters
+     * @return A new Point2D representing the sum of the two given points.
      */
     public static Point2D add(Point2D a, Point2D b) {
         return new Point2D(a.x + b.x, a.y + b.y);
@@ -24,7 +24,7 @@ public record Point2D(double x, double y) {
      * @param a The Point2D minuend
      * @param b The Point2D subtrahend
      * 
-     * @return a Point2D being the subtraction of the two parameters
+     * @return A new Point2D representing the difference between the two given points.
      */
     public static Point2D sub(Point2D a, Point2D b) {
         return new Point2D(a.x - b.x, a.y - b.y);
@@ -35,7 +35,7 @@ public record Point2D(double x, double y) {
      * 
      * @param a The Point2D to flip
      * 
-     * @return a Point2D being the negative of the parameter
+     * @return A new Point2D with the negated coordinates of the given point.
      */
     public static Point2D neg(Point2D a) {
         return new Point2D(-a.x, -a.y);

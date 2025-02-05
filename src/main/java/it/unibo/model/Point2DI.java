@@ -3,7 +3,7 @@ package it.unibo.model;
 
 /**
  * A utility record representing a 2D point with x and y integer coordinates.
- * It provides the static utility methods for basic vector operations,
+ * It provides the utility methods for basic vector operations,
  * an hash generator, a compare method and a Point2DI to Point2D converter.
  */
 public record Point2DI(int x, int y) {
@@ -14,7 +14,7 @@ public record Point2DI(int x, int y) {
      * @param a The first Point2DI addend
      * @param b The second Point2DI addend
      * 
-     * @return a Point2DI being the sum of the two parameters
+     * @return A new Point2DI representing the sum of the two given points.
      */
     public static Point2DI add(Point2DI a, Point2DI b) {
         return new Point2DI(a.x + b.x, a.y + b.y);
@@ -26,7 +26,8 @@ public record Point2DI(int x, int y) {
      * @param a The Point2DI minuend
      * @param b The Point2DI subtrahend
      * 
-     * @return a Point2DI being the subtraction of the two parameters
+     * @return A new Point2DI representing the difference between the two given
+     *         points.
      */
     public static Point2DI sub(Point2DI a, Point2DI b) {
         return new Point2DI(a.x - b.x, a.y - b.y);
@@ -37,7 +38,7 @@ public record Point2DI(int x, int y) {
      * 
      * @param a The Point2DI to flip
      * 
-     * @return a Point2DI being the negative of the parameter
+     * @return A new Point2DI with the negated coordinates of the given point.
      */
     public static Point2DI neg(Point2DI a) {
         return new Point2DI(-a.x, -a.y);
@@ -49,7 +50,7 @@ public record Point2DI(int x, int y) {
      * @param a The Point2DI multiplicand
      * @param b The scalar multiplier
      * 
-     * @return a Point2D being the product of the two parameters
+     * @return A new Point2DI being the product of the two parameters
      */
     public static Point2DI mul(Point2DI a, int k) {
         return new Point2DI(a.x * k, a.y * k);
@@ -61,7 +62,7 @@ public record Point2DI(int x, int y) {
      * @param a The Point2DI dividend
      * @param b The scalar divisor
      * 
-     * @return a Point2DI being the quotient of the two parameters
+     * @return A new Point2DI being the quotient of the two parameters
      */
     public static Point2DI div(Point2DI a, int k) {
         return new Point2DI(a.x / k, a.y / k);
@@ -72,7 +73,7 @@ public record Point2DI(int x, int y) {
      * 
      * @param a The Point2DI to convert
      * 
-     * @return a Point2D
+     * @return A new Point2D
      */
     public static Point2D toPoint2D(Point2DI a) {
         return new Point2D(a.x, a.y);

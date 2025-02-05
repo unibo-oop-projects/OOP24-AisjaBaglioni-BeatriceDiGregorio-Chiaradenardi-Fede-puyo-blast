@@ -1,5 +1,3 @@
-//AISJA
-
 package it.unibo.model;
 
 import it.unibo.model.interfaces.BulletModelInterface;
@@ -18,20 +16,20 @@ public class BulletModel implements BulletModelInterface {
      */
     private Point2D target;
     /**
-     * States if the bullet is still in the game
+     * Indicates whether the bullet is still in the game.
      */
     private boolean active;
     /**
-     * Life time of the bullet since being shot
+     * Lifetime of the bullet since it was shot.
      */
     private int ticks;
     /**
-     * Life time of the bullet (same as animation)
+     * Total lifetime of the bullet (same as animation)
      */
     private static final int ANIMATIONTIME = 15;
 
     /**
-     * Constructs a new empty bullet
+     * Constructs a new inactive bullet
      */
     BulletModel() {
         this.source = null;
@@ -70,7 +68,7 @@ public class BulletModel implements BulletModelInterface {
     }
 
     /**
-     * Updates the bullet's life time if the bullet is still active.
+     * Updates the bullet's lifetime if it is still active.
      * 
      * @return {@code true} if the bullet can still update its position,
      *         {@code false} otherwise.
@@ -100,7 +98,7 @@ public class BulletModel implements BulletModelInterface {
 
     /**
      * Calculates the current position of the projectile
-     * along the trajectory between source and target, based on elapsed time.
+     * along its trajectory from the source to the target, based on elapsed time.
      * It uses a linear interpolation with the alpha value:
      * alpha = ticks / ANIMATIONTIME which varies from 0 (start) to 1 (finish).
      * 
