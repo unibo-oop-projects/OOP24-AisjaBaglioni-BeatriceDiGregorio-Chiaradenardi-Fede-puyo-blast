@@ -14,23 +14,23 @@ import java.awt.event.MouseEvent;
  */
 public class Menu extends JPanel implements MenuInterface {
     /**
-     * Button to start the game
+     * Button to start the game.
      */
     private final JButton startButton; 
     /**
-     * Button to view controls
+     * Button to view controls.
      */
     private final JButton controlsButton; 
     /**
-     * Dropdown to select the level
+     * Dropdown to select the level.
      */
     private final JComboBox<String> levelsDropdown; 
     /**
-     * Background image for the menu
+     * Background image for the menu.
      */
     private Image backgroundImage; 
     /**
-     * Scale value to adjust element sizes
+     * Scale value to adjust element sizes.
      */
     private final int scale; 
 
@@ -68,7 +68,7 @@ public class Menu extends JPanel implements MenuInterface {
         titlePanel.add(titleWrapper, BorderLayout.SOUTH);
 
         /**
-         *  Dropdown for selecting the level
+         *  Dropdown for selecting the level.
          */
         levelsDropdown = new JComboBox<>(levels);
         levelsDropdown.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, scale / 35)); 
@@ -83,7 +83,7 @@ public class Menu extends JPanel implements MenuInterface {
         levelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         /**
-         * Buttons for starting the game and viewing controls
+         * Buttons for starting the game and viewing controls.
          */
         startButton = new JButton("Inizia Gioco");
         controlsButton = new JButton("Comandi");
@@ -119,7 +119,7 @@ public class Menu extends JPanel implements MenuInterface {
         button.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
         /**
-         * Mouse hover effect: darken the button color on hover
+         * Mouse hover effect: darken the button color on hover.
          */
         button.addMouseListener(new MouseAdapter() {
             private Color hoverColor = backgroundColor.darker(); 

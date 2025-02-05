@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the {@link Grid} class.
- * These tests check the functionality of the Grid, including adding/removing Puyos,
+ * These tests check the functionality of the grid, including adding/removing Puyos,
  * checking for full rows, columns, and the entire grid, as well as clearing the grid.
  */
 class GridTest {

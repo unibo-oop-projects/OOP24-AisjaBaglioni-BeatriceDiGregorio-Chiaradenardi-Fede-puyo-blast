@@ -9,15 +9,15 @@ import it.unibo.model.interfaces.PuyoInterface;
  */
 public class Grid implements GridInterface {
     /**
-     * 2D array representing the grid
+     * 2D array representing the grid.
      */
     private PuyoInterface[][] grid; 
     /**
-     * Number of rows
+     * Number of rows.
      */
     private final int rows; 
     /**
-     * Number of columns
+     * Number of columns.
      */
     private final int cols; 
 

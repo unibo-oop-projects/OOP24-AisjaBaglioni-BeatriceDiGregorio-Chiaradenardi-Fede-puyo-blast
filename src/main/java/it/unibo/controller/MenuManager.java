@@ -60,7 +60,7 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface 
      */
     private void setupMenuListeners() {
         /**
-         * Action when a level is selected and the "Start" button is clicked
+         * Action when a level is selected and the "Start" button is clicked.
          */
         menuView.getStartButton().addActionListener(e -> {
             String selectedLevel = menuView.getSelectedLevel();
@@ -69,7 +69,7 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface 
         });
 
         /**
-         * Action when the "Controls" button is clicked and switch to the rules view
+         * Action when the "Controls" button is clicked and switch to the rules view.
          */
         menuView.getControlsButton().addActionListener(e -> {
             switchToRulesView(); 
@@ -182,7 +182,7 @@ public class MenuManager extends JInternalFrame implements MenuManagerInterface 
         });
 
         /**
-         * Start the game with the selected level configuration
+         * Start the game with the selected level configuration.
          */
         okButton.addActionListener(e -> {
             levelDialog.dispose();

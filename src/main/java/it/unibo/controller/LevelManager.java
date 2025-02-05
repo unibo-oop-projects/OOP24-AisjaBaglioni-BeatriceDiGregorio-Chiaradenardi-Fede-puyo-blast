@@ -10,11 +10,11 @@ import it.unibo.controller.interfaces.LevelManagerInterface;
  */
 public class LevelManager implements LevelManagerInterface {
     /**
-     * Map to store level configurations
+     * Map to store level configurations.
      */
     private final Map<Integer, LevelConfig> levels; 
     /**
-     * The current level in the game
+     * The current level in the game.
      */
     private int currentLevel; 
     /**
@@ -25,9 +25,9 @@ public class LevelManager implements LevelManagerInterface {
         this.currentLevel = 1;
 
         /**
-         * Level 1: 1 Puyo per second, difficulty 0.04 (=puyoCount/delay)
-         * Level 2: 2 Puyos per second, difficulty 0.067
-         * Level 3: 3 Puyos per second, difficulty 0.1
+         * Level 1: 1 Puyo per second, difficulty 0.04 (=puyoCount/delay).
+         * Level 2: 2 Puyos per second, difficulty 0.067.
+         * Level 3: 3 Puyos per second, difficulty 0.1.
          */
         levels.put(1, new LevelConfig(25, 1));  
         levels.put(2, new LevelConfig(30, 2)); 
@@ -51,11 +51,11 @@ public class LevelManager implements LevelManagerInterface {
      */
     public static class LevelConfig {
         /**
-         * Delay between Puyo drops in seconds
+         * Delay between Puyo drops in seconds.
          */
         private final int delay; 
         /**
-         * Number of Puyos generated per tick
+         * Number of Puyos generated per tick.
          */
         private final int puyoCount; 
 
