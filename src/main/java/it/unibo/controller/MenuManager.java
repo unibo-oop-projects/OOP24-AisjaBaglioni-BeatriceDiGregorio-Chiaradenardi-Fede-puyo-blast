@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class manages the menu system of the game. It allows the user to select levels, view rules, and start a new game.
+ * This class manages the logic of the menu system of the game. It allows the user to select levels, view rules, and start a new game.
  * It handles interactions with the menu and the level selection process, including the display of a popup for the selected level.
  */
 public class MenuManager extends JInternalFrame implements MenuManagerInterface {
