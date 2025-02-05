@@ -6,6 +6,7 @@ import it.unibo.model.interfaces.ScaleInterface;
 
 /**
  * A utility class representing the size of the window,
+ * and the game graphics scaling,
  * being the unit of measurement adopted by all the views
  */
 public class Scale implements ScaleInterface {
