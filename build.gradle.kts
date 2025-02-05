@@ -4,48 +4,53 @@
  * This generated file contains a sample Java application project to get you started.
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.11.1/userguide/building_java_projects.html in the Gradle documentation.
  */
-
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
+    // Plugin per il progetto Java e l'applicazione
     java
     application
     id("com.gradleup.shadow") version "9.0.0-beta7"
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
+    // Usa Maven Central per risolvere le dipendenze
     mavenCentral()
 }
 
 dependencies {
-    // Use JUnit test framework.
-    testImplementation(libs.junit)
+    // JUnit 5: Aggiungi la libreria completa
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // This dependency is used by the application.
-    implementation(libs.guava)
+    // Dipendenze dell'applicazione
+    implementation("com.google.guava:guava:32.1.2-jre") // Usa una versione specifica
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
+// Configura la versione di Java
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = "it.unibo.Main"
+    // Specifica la classe principale
+    mainClass.set("it.unibo.Main")
 }
 
+// Abilita JUnit 5 nei test
+tasks.test {
+    useJUnitPlatform()
+}
+
+// Configurazione del plugin shadowJar per creare un JAR eseguibile
 buildscript {
-  repositories {
-    gradlePluginPortal()
-  }
-  dependencies {
-    classpath("com.gradleup.shadow:shadow-gradle-plugin:9.0.0-beta7")
-  }
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.gradleup.shadow:shadow-gradle-plugin:9.0.0-beta7")
+    }
 }
 
-// `apply plugin` stuffs are used with `buildscript`.
 apply(plugin = "java")
 apply(plugin = "com.gradleup.shadow")
