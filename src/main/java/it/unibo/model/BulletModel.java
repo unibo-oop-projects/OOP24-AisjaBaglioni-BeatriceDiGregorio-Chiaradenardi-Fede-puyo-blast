@@ -61,7 +61,6 @@ public class BulletModel implements BulletModelInterface {
     @Override
     public boolean targetReached() {
         if (this.ticks >= ANIMATIONTIME) {
-            this.active = false;
             return true;
         }
         return false;
