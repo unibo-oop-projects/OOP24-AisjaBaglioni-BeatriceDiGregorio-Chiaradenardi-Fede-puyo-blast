@@ -21,6 +21,7 @@ dependencies {
     // JUnit 5: Aggiungi la libreria completa
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.mockito:mockito-core:3.+")
 
     // Dipendenze dell'applicazione
     implementation("com.google.guava:guava:32.1.2-jre") // Usa una versione specifica
