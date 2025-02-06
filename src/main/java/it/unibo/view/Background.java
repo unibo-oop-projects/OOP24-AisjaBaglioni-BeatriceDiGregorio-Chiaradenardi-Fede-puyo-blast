@@ -25,9 +25,13 @@ public class Background implements BackgroundInterface {
      *                  "resources/images".
      */
     public Background(String imagePath) {
-        // Loads the image from the "resources/images" directory
+        /**
+         * Loads the image from the "resources/images" directory
+         */
         URL imageUrl = getClass().getClassLoader().getResource("images/" + imagePath);
-        // Assign the loaded image to backgroundImage
+        /**
+         *  Assign the loaded image to backgroundImage
+         */
         this.backgroundImage = new ImageIcon(imageUrl).getImage();
     }
 

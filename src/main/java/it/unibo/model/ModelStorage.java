@@ -1,4 +1,3 @@
-//fede
 package it.unibo.model;
 
 public class ModelStorage {
