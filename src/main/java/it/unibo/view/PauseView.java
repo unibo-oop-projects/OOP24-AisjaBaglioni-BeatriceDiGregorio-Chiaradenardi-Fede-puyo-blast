@@ -23,7 +23,6 @@ import java.awt.Color;
  * It displays a pause button when the game is running and a resume button when
  * the game is paused.
  * 
- * <p>
  * This view allows the player to click on the pause/resume button to toggle the
  * pause state of the game.
  * It implements the {@link ClickInterface}, {@link ViewInterface}, and
@@ -64,7 +63,7 @@ public class PauseView implements ClickInterface, ViewInterface, ButtonInterface
         this.scale = scale;
         this.pause = new Image[2];
 
-        // Load pause and resume button images
+        /* Load pause and resume button images*/
         URL pause_path = getClass().getClassLoader().getResource("images/pause_button.png");
         URL resume_path = getClass().getClassLoader().getResource("images/resume_button.png");
 
@@ -91,7 +90,7 @@ public class PauseView implements ClickInterface, ViewInterface, ButtonInterface
     final public void draw(Graphics g) {
         Rectangle button = getArea();
 
-        // If the game is not paused, draw the pause button
+        /* If the game is not paused, draw the pause button*/
         if (!this.model.getPause()) {
             g.drawImage(
                     this.pause[0],
@@ -105,7 +104,7 @@ public class PauseView implements ClickInterface, ViewInterface, ButtonInterface
                     imageHeight,
                     null);
         } else {
-            // Draw a semi-transparent overlay and the resume button when the game is paused
+            /* Draw a semi-transparent overlay and the resume button when the game is paused*/
             g.setColor(new Color(0, 0, 0, 100));
             g.fillRect(0, 0, this.scale.getScale(), this.scale.getScale());
             g.drawImage(
