@@ -6,7 +6,7 @@ import it.unibo.model.interfaces.PauseModelInterface;
  * The {@code PauseModel} class is responsible for managing the pause state of the game.
  * It allows checking if the game is paused, setting the pause state, and toggling the pause state.
  * 
- * <p>This class implements the {@link PauseModelInterface} and provides methods to update
+ * This class implements the {@link PauseModelInterface} and provides methods to update
  * and retrieve the pause status of the game.
  */
 public class PauseModel implements PauseModelInterface {
