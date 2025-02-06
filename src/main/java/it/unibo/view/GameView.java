@@ -1,4 +1,3 @@
-//fede
 package it.unibo.view;
 
 import it.unibo.controller.ControllerStorage;
