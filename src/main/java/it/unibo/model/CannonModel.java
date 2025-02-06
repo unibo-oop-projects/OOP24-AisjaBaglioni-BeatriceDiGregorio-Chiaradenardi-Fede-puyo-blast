@@ -36,7 +36,7 @@ public class CannonModel implements CannonModelInterface {
      * Moves the cannon left within the allowed range.
      */
     @Override
-    final public void moveLeft() {
+    public void moveLeft() {
         this.x = Math.max(this.x - STEP, 0);
     }
 
@@ -44,7 +44,7 @@ public class CannonModel implements CannonModelInterface {
      * Moves the cannon right within the allowed range.
      */
     @Override
-    final public void moveRight() {
+    public void moveRight() {
         this.x = Math.min(this.x + STEP, 1);
     }
 
@@ -54,7 +54,7 @@ public class CannonModel implements CannonModelInterface {
      * @return the x-coordinate of the cannon.
      */
     @Override
-    final public double getX() {
+    public double getX() {
         return this.x;
     }
 
@@ -62,7 +62,7 @@ public class CannonModel implements CannonModelInterface {
      * Aims the cannon upward within the allowed range.
      */
     @Override
-    final public void aimUp() {
+    public void aimUp() {
         this.angle = Math.min(this.angle + ANGLE_STEP, 1);
     }
 
@@ -70,7 +70,7 @@ public class CannonModel implements CannonModelInterface {
      * Aims the cannon downward within the allowed range.
      */
     @Override
-    final public void aimDown() {
+    public void aimDown() {
         this.angle = Math.max(this.angle - ANGLE_STEP, 0);
     }
 
@@ -80,7 +80,7 @@ public class CannonModel implements CannonModelInterface {
      * @return the angle of the cannon.
      */
     @Override
-    final public double getAngle() {
+    public double getAngle() {
         return this.angle;
     }
 
