@@ -12,7 +12,7 @@ import it.unibo.controller.interfaces.PauseControllerInterface;
  * It implements both {@link KeyListener} to capture keyboard events and 
  * {@link PauseControllerInterface} to manage the game's pause functionality.
  * 
- * <p>This controller is responsible for checking if the player has pressed the 'P' key 
+ * This controller is responsible for checking if the player has pressed the 'P' key 
  * to pause or unpause the game.
  */
 public class PauseController implements KeyListener, PauseControllerInterface {
