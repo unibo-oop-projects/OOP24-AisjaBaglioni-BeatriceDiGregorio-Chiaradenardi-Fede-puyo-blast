@@ -7,7 +7,7 @@ import it.unibo.model.interfaces.StatusModelInterface;
  * The {@code StatusModel} class represents the current status of the game, 
  * tracking whether the game has ended and the number of stars earned at the end.
  * 
- * <p>This class implements the {@link StatusModelInterface} and provides methods 
+ * This class implements the {@link StatusModelInterface} and provides methods 
  * to update and retrieve the game state.
  */
 public class StatusModel implements StatusModelInterface {
