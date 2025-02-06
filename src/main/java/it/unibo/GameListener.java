@@ -14,13 +14,15 @@ public interface GameListener extends EventListener {
      * the start of the game. Implementing classes will provide the specific logic
      * for starting the game when this event is received.
      * 
-     * @param e
+     * @param e event
      */
     void startGame(GameEvent e);
 
     /**
      * This method is intended to be called when an event occurs that should
      * transition the game back to the main menu.
+     * 
+     * @param e event
      */
     void goToMainMenu(GameEvent e);
 }
