@@ -35,7 +35,7 @@ public class ProgressBarModel implements ProgressBarModelInterface {
      * @return the charge level, ranging from 0 to 1.
      */
     @Override
-    final public double getChargeLevel() {
+    public double getChargeLevel() {
         return this.chargeLevel;
     }
 
@@ -43,7 +43,7 @@ public class ProgressBarModel implements ProgressBarModelInterface {
      * Resets the charge level of the progress bar to 0.
      */
     @Override
-    final public void resetCharge() {
+    public void resetCharge() {
         this.chargeLevel = 0;
     }
 
@@ -52,7 +52,7 @@ public class ProgressBarModel implements ProgressBarModelInterface {
      * The charge level is capped at 1 to ensure it never exceeds the maximum value.
      */
     @Override
-    final public void incrementProgress() {
+    public void incrementProgress() {
         this.chargeLevel = Math.min(1, this.chargeLevel + STEP);
     }
 }
