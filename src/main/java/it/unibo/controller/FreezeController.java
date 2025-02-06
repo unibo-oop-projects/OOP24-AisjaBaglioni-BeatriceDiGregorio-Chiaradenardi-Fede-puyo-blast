@@ -22,8 +22,11 @@ public class FreezeController implements TickListenerInterface {
     /** The probability of a {@code Puyo} freezing each tick (scaled by 30 ticks per second). */
     private static final double FREEZE_PROBABILITY = 0.0003;
     
-    /** The duration (in ticks) for which a {@code Puyo} remains frozen once the freeze effect is applied. */
-    private static final int FREEZE_DURATION = 30 * 20;  // 20 seconds at 30 ticks per second
+    /** The duration (in ticks) for which a {@code Puyo} remains frozen once the freeze effect is applied. 
+     * 
+     * 20 seconds at 30 ticks per second
+    */
+    private static final int FREEZE_DURATION = 30 * 20;  
 
     /**
      * Constructs a {@code FreezeController} instance with the given {@code Grid}.
