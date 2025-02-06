@@ -11,7 +11,7 @@ import javax.swing.*;
  * The {@code GameManager} class is responsible for initializing and managing the core game components.
  * It extends {@link JInternalFrame} and serves as a container for the game view and its associated logic.
  * 
- * <p> The class initializes the game model, controllers, and view, and ensures that they are properly linked.
+ * The class initializes the game model, controllers, and view, and ensures that they are properly linked.
  * Once instantiated, it starts the game loop and adds the graphical representation to the UI.
  */
 public class GameManager extends JInternalFrame {
@@ -33,26 +33,40 @@ public class GameManager extends JInternalFrame {
      * @param levelConfig the configuration settings for the current level, including difficulty and environment parameters
      */
     public GameManager(GameListener gameListener, Scale scale, LevelManager.LevelConfig levelConfig) {
-        // Removes the title bar from the internal frame
+        /**
+         *  Removes the title bar from the internal frame
+         */
         ((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        // Initializes the model storage, responsible for managing game data
+        /**
+         * Initializes the model storage, responsible for managing game data
+         */
         this.modelStorage = new ModelStorage(scale);
 
-        // Initializes the controller storage, which handles user inputs and game mechanics
+        /**
+         * Initializes the controller storage, which handles user inputs and game mechanics
+         */
         this.controllerStorage = new ControllerStorage(modelStorage, gameListener, levelConfig);
 
-        // Initializes the game view, which is responsible for rendering the game
+        /**
+         * Initializes the game view, which is responsible for rendering the game
+         */
         this.gameView = new GameView(modelStorage, controllerStorage);
 
-        // Links the controller storage to the game view
+        /**
+         * Links the controller storage to the game view
+         */
         this.controllerStorage.linkGameView(gameView);
 
-        // Starts the game logic
+        /**
+         * Starts the game logic
+         */
         controllerStorage.start();
 
-        // Adds the game view to the internal frame and makes it visible
+        /**
+         * Adds the game view to the internal frame and makes it visible
+         */
         this.add(gameView);
         gameView.setVisible(true);
     }
