@@ -1,16 +1,17 @@
 package it.unibo;
 
+import it.unibo.model.TryAgainModel;
 import it.unibo.model.interfaces.TryAgainModelInterface;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class tests the functionality of the TryAgainModel class.
  * It verifies the behavior of the "Try Again" feature, specifically 
  * its enabling and disabling functionality.
  */
-public class TryAgainModelTest {
+class TryAgainModelTest {
 
     private TryAgainModelInterface tryAgainModel;
 
