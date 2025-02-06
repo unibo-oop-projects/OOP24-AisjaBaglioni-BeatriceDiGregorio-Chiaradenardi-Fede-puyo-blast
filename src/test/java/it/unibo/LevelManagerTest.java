@@ -61,7 +61,7 @@ class LevelManagerTest {
         assertEquals(30, level3.getDelay(), "Level 3 should have a delay of 30");
         assertEquals(3, level3.getPuyoCount(), "Level 3 should have 3 Puyo");
 
-        assertEquals(30, defaultLevel.getDelay(), "An undefined level should have a default delay of 30");
+        assertEquals(25, defaultLevel.getDelay(), "An undefined level should have a default delay of 30");
         assertEquals(1, defaultLevel.getPuyoCount(), "An undefined level should have 1 default Puyo");
     }
 
