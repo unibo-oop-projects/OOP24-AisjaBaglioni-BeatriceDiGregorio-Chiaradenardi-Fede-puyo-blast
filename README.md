@@ -1,4 +1,4 @@
-# OOP25puyo-blast
+# OOP24puyo-blast
 Il gruppo si pone come obiettivo di realizzare un gioco ispirato a Puyo Pop di Sega Superstar Tennis.
 
 Il gioco prevede un campo in cui i "Puyo" (sfere colorate) cadono in una griglia. Il giocatore deve controllare un cannone per sparare una pallina. Quando la pallina colpisce un Puyo singolo, esplode solo quello; se colpisce più Puyo dello stesso colore, esplodono tutti i Puyo dello stesso colore. I livelli si vincono accumulando un punteggio minimo per ottenere 1-3 stelle. Si perde invece quando, una volta riempita la griglia, non si è raggiunta almeno la prima stella.
