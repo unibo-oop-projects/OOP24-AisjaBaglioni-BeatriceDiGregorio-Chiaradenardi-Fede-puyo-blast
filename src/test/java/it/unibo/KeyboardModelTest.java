@@ -47,17 +47,14 @@ class KeyboardModelTest {
      */
     @Test
     void testMultipleKeys() {
-        // Simulate pressing multiple keys
-        keyboardModel.keyDown(87); // "W"
-        keyboardModel.keyDown(65); // "A"
-        keyboardModel.keyDown(68); // "D"
+        keyboardModel.keyDown(87);
+        keyboardModel.keyDown(65);
+        keyboardModel.keyDown(68);
 
-        // Verify that all keys are pressed
         assertTrue(keyboardModel.isKeyPressed(87), "The 'W' key should be pressed.");
         assertTrue(keyboardModel.isKeyPressed(65), "The 'A' key should be pressed.");
         assertTrue(keyboardModel.isKeyPressed(68), "The 'D' key should be pressed.");
 
-        // Now release the "A" key and verify that it's no longer pressed
         keyboardModel.keyUp(65);
         assertFalse(keyboardModel.isKeyPressed(65), "The 'A' key should not be pressed after release.");
     }
@@ -67,7 +64,6 @@ class KeyboardModelTest {
      */
     @Test
     void testKeyNotPressed() {
-        // Verify that a key that was never pressed is not considered as pressed
         assertFalse(keyboardModel.isKeyPressed(87), "The 'W' key should not be pressed initially.");
     }
 }

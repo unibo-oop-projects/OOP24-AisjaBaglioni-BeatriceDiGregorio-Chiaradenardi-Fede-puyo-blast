@@ -25,7 +25,7 @@ public class PauseViewTest {
 
     @BeforeEach
     void setUp() {
-        scale = new Scale(500); // Example scale value
+        scale = new Scale(500);
         model = new PauseModel();
         controller = Mockito.mock(PauseController.class);
         pauseView = new PauseView(scale, model, controller);

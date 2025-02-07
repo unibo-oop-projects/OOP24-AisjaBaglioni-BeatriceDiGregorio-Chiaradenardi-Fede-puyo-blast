@@ -122,7 +122,6 @@ public class EndView implements ViewInterface {
              * Check the number of stars to display
              */
             if (this.statusModel.getEndStars().isEmpty()) {
-                // No stars -> "Level Failed"
                 g.drawImage(
                         this.stars[0],
                         xstring,
@@ -132,15 +131,13 @@ public class EndView implements ViewInterface {
                         0, 0,
                         imageWidth, imageHeight, null);
 
-                // Display the "Level Failed" message
                 g.setColor(Color.RED);
                 g.setFont(result);
                 g.drawString(string[0], xstring, ystring);
 
             } else if (this.statusModel.getEndStars().equals(Optional.of(3))) {
-                // 3 stars -> "Level Complete"
                 g.drawImage(
-                        this.stars[3], // Display 3 stars image
+                        this.stars[3],
                         xstring,
                         ystring - cellsize * 5,
                         xstring + newWidth,
@@ -148,16 +145,14 @@ public class EndView implements ViewInterface {
                         0, 0,
                         imageWidth, imageHeight, null);
 
-                // Display the "Level Complete" message
                 g.setColor(Color.GREEN);
                 g.setFont(result);
                 g.drawString(string[1], xstring, ystring);
 
             } else {
-                // 1 or 2 stars -> "Not Bad"
                 if (this.statusModel.getEndStars().equals(Optional.of(1))) {
                     g.drawImage(
-                            this.stars[1], // Display 1 star image
+                            this.stars[1],
                             xstring,
                             ystring - cellsize * 5,
                             xstring + newWidth,
@@ -166,7 +161,7 @@ public class EndView implements ViewInterface {
                             imageWidth, imageHeight, null);
                 } else if (this.statusModel.getEndStars().equals(Optional.of(2))) {
                     g.drawImage(
-                            this.stars[2], // Display 2 stars image
+                            this.stars[2],
                             xstring,
                             ystring - cellsize * 5,
                             xstring + newWidth,
@@ -175,13 +170,11 @@ public class EndView implements ViewInterface {
                             imageWidth, imageHeight, null);
                 }
 
-                // Display the "Not Bad" message
                 g.setColor(Color.YELLOW);
                 g.setFont(result);
                 g.drawString(string[2], xstring, ystring);
             }
 
-            // Display the final score text
             g.setColor(Color.WHITE);
             g.setFont(points);
             g.drawString("Final score: \n" + String.valueOf(this.score.getScore()), xstring,

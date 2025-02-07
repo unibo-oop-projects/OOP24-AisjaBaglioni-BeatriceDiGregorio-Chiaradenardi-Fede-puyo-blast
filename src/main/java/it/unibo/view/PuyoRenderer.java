@@ -43,22 +43,22 @@ public class PuyoRenderer implements TickListenerInterface, PuyoRendererInterfac
      * the left or right.
      */
     private static final int[] SPRITE_MAPPER = {
-            0, // 0000
-            1, // 0001
-            4, // 0010
-            5, // 0011
-            2, // 0100
-            3, // 0101
-            6, // 0110
-            7, // 0111
-            8, // 1000
-            9, // 1001
-            12, // 1010
-            13, // 1011
-            10, // 1100
-            11, // 1101
-            14, // 1110
-            15 // 1111
+            0, /** 0000 */ 
+            1, /** 0001 */
+            4, /** 0010 */
+            5, /** 0011 */
+            2, /** 0100 */
+            3, /** 0101 */
+            6, /** 0110 */
+            7, /** 0111 */
+            8, /** 1000 */
+            9, /** 1001 */ 
+            12, /** 1010 */
+            13, /** 1011 */ 
+            10, /** 1100 */
+            11, /** 1101 */
+            14, /** 1110 */
+            15 /** 1111 */
     };
 
     /**
@@ -139,21 +139,21 @@ public class PuyoRenderer implements TickListenerInterface, PuyoRendererInterfac
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         String puyoColor = puyo.getColor();
         int mask = 0;
-        // null, null, null, null
-        mask |= sameColorNeighbour(grid, row, col - 1, puyoColor); // <-
-        // null, null, null, sinistra
+        /** null, null, null, null */
+        mask |= sameColorNeighbour(grid, row, col - 1, puyoColor);
+        /** null, null, null, sinistra */
         mask <<= 1;
-        // null, null, sinistra, null
-        mask |= sameColorNeighbour(grid, row - 1, col, puyoColor); // ^
-        // null, null, sinistra, su
+        /** null, null, sinistra, null */
+        mask |= sameColorNeighbour(grid, row - 1, col, puyoColor);
+        /** null, null, sinistra, su */
         mask <<= 1;
-        // null, sinistra, su, null
-        mask |= sameColorNeighbour(grid, row, col + 1, puyoColor); // ->
-        // null, sinistra, su, destra
+        /** null, sinistra, su, null */
+        mask |= sameColorNeighbour(grid, row, col + 1, puyoColor);
+        /** null, sinistra, su, destra */
         mask <<= 1;
-        // sinistra, su, destra, null
-        mask |= sameColorNeighbour(grid, row + 1, col, puyoColor); // v
-        // sinistra, su, destra, giù
+        /** sinistra, su, destra, null */
+        mask |= sameColorNeighbour(grid, row + 1, col, puyoColor);
+        /** sinistra, su, destra, giù */
 
         if (mask != 0) {
             offset_animation = SPRITE_MAPPER[mask] * 32;
