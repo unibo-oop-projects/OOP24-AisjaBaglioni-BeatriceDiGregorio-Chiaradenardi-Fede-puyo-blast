@@ -29,8 +29,8 @@ class ScoreControllerTest {
     @Test
     void testAddPoints() {
         when(scoreModel.getScore()).thenReturn(10);
-        scoreController.addPoints(3); // 3^2 = 9 points to add
-        verify(scoreModel).setScore(19); // 10 + 9 = 19
+        scoreController.addPoints(3);
+        verify(scoreModel).setScore(19);
     }
 
     /**
@@ -39,8 +39,8 @@ class ScoreControllerTest {
     @Test
     void testAddZeroPoints() {
         when(scoreModel.getScore()).thenReturn(5);
-        scoreController.addPoints(0); // 0^2 = 0 points
-        verify(scoreModel).setScore(5); // Score should remain unchanged
+        scoreController.addPoints(0);
+        verify(scoreModel).setScore(5);
     }
 
     /**
@@ -49,8 +49,8 @@ class ScoreControllerTest {
     @Test
     void testAddOnePoint() {
         when(scoreModel.getScore()).thenReturn(7);
-        scoreController.addPoints(1); // 1^2 = 1 point
-        verify(scoreModel).setScore(8); // 7 + 1 = 8
+        scoreController.addPoints(1);
+        verify(scoreModel).setScore(8);
     }
 
     /**
@@ -59,7 +59,7 @@ class ScoreControllerTest {
     @Test
     void testAddLargePoints() {
         when(scoreModel.getScore()).thenReturn(50);
-        scoreController.addPoints(10); // 10^2 = 100 points
-        verify(scoreModel).setScore(150); // 50 + 100 = 150
+        scoreController.addPoints(10);
+        verify(scoreModel).setScore(150);
     }
 }

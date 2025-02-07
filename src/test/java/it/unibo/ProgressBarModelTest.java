@@ -37,7 +37,7 @@ class ProgressBarModelTest {
      */
     @Test
     void testIncrementProgress() {
-        progressBar.incrementProgress(); // Increases the charge level
+        progressBar.incrementProgress();
         assertTrue(progressBar.getChargeLevel() > 0,
                 "The charge level should increase after an increment.");
     }
@@ -47,7 +47,7 @@ class ProgressBarModelTest {
      */
     @Test
     void testChargeDoesNotExceedOne() {
-        for (int i = 0; i < 1000; i++) { // Perform many increments
+        for (int i = 0; i < 1000; i++) {
             progressBar.incrementProgress();
         }
         assertEquals(1.0, progressBar.getChargeLevel(), 0.0001,
@@ -59,10 +59,10 @@ class ProgressBarModelTest {
      */
     @Test
     void testResetCharge() {
-        progressBar.incrementProgress(); // First, increase the charge
+        progressBar.incrementProgress();
         assertTrue(progressBar.getChargeLevel() > 0,
                 "The charge level should be greater than 0 before reset.");
-        progressBar.resetCharge(); // Then reset
+        progressBar.resetCharge();
         assertEquals(0.0, progressBar.getChargeLevel(),
                 "The charge level should be reset to 0.");
     }

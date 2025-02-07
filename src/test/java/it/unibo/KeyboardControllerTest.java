@@ -13,8 +13,8 @@ import static org.mockito.Mockito.*;
  * Unit tests for the {@link KeyboardController} class.
  */
 class KeyboardControllerTest {
-    private KeyboardModel keyboardModel; // Mocked KeyboardModel
-    private KeyboardController keyboardController; // KeyboardController to be tested
+    private KeyboardModel keyboardModel;
+    private KeyboardController keyboardController;
 
     /**
      * Sets up the testing environment before each test.
@@ -32,7 +32,7 @@ class KeyboardControllerTest {
     @Test
     void testKeyPressed() {
         KeyEvent keyEvent = mock(KeyEvent.class);
-        when(keyEvent.getKeyCode()).thenReturn(KeyEvent.VK_W); // Simulate the "W" key being pressed
+        when(keyEvent.getKeyCode()).thenReturn(KeyEvent.VK_W);
 
         keyboardController.keyPressed(keyEvent);
         verify(keyboardModel).keyDown(KeyEvent.VK_W);
@@ -44,7 +44,7 @@ class KeyboardControllerTest {
     @Test
     void testKeyReleased() {
         KeyEvent keyEvent = mock(KeyEvent.class);
-        when(keyEvent.getKeyCode()).thenReturn(KeyEvent.VK_W); // Simulate the "W" key being released
+        when(keyEvent.getKeyCode()).thenReturn(KeyEvent.VK_W);
 
         keyboardController.keyReleased(keyEvent);
         verify(keyboardModel).keyUp(KeyEvent.VK_W);

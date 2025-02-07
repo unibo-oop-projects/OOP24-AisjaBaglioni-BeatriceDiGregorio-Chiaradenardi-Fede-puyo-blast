@@ -86,7 +86,7 @@ class GridTest {
     @Test
     void testIsColumnFull() {
         for (int y = 0; y < grid.getRows(); y++) {
-            grid.addPuyo(mockPuyo, 2, y); // Adds Puyos to column 2
+            grid.addPuyo(mockPuyo, 2, y);
         }
         assertTrue(grid.isColumnFull(2), "Column 2 should be full after adding Puyos to all its rows.");
     }

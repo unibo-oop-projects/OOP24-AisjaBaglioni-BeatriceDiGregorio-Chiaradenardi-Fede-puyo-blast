@@ -72,7 +72,7 @@ public class TryAgainView implements ClickInterface, ViewInterface, ButtonInterf
     @Override
     public void doAction() {
         if (controller != null) {
-            controller.handleClick(); // Chiama il metodo del controller per gestire l'azione
+            controller.handleClick();
         }
     }
 }

@@ -26,7 +26,7 @@ class KeyboardModelTest {
      */
     @Test
     void testKeyDown() {
-        keyboardModel.keyDown(87); // 87 is the key code for "W"
+        keyboardModel.keyDown(87); /** 87 is the key code for "W" */
         assertTrue(keyboardModel.isKeyPressed(87), "The 'W' key should be pressed.");
     }
 

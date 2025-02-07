@@ -26,9 +26,9 @@ class FreezeControllerTest {
      */
     @BeforeEach
     void setUp() {
-        grid = mock(Grid.class); // Mocking the grid
-        puyo = mock(PuyoInterface.class); // Mocking a Puyo
-        freezeController = new FreezeController(grid); // Initializing the FreezeController
+        grid = mock(Grid.class); 
+        puyo = mock(PuyoInterface.class); 
+        freezeController = new FreezeController(grid); 
     }
 
     /**
@@ -41,11 +41,11 @@ class FreezeControllerTest {
         when(grid.getCols()).thenReturn(1);
         when(grid.getPuyo(0, 0)).thenReturn(puyo);
         when(puyo.getDeathClock()).thenReturn(Optional.empty());
-        when(puyo.getFreezeClock()).thenReturn(Optional.of(5)); // Puyo is frozen with 5 ticks remaining
+        when(puyo.getFreezeClock()).thenReturn(Optional.of(5));
 
-        freezeController.onTick(); // Simulate one game tick
+        freezeController.onTick();
 
-        verify(puyo).setFreezeClock(Optional.of(4)); // Freeze clock should decrement to 4
+        verify(puyo).setFreezeClock(Optional.of(4));
     }
 
     /**
@@ -58,11 +58,11 @@ class FreezeControllerTest {
         when(grid.getCols()).thenReturn(1);
         when(grid.getPuyo(0, 0)).thenReturn(puyo);
         when(puyo.getDeathClock()).thenReturn(Optional.empty());
-        when(puyo.getFreezeClock()).thenReturn(Optional.of(1)); // Puyo has 1 tick left of freeze
+        when(puyo.getFreezeClock()).thenReturn(Optional.of(1));
 
-        freezeController.onTick(); // Simulate one game tick
+        freezeController.onTick();
 
-        verify(puyo).setFreezeClock(Optional.empty()); // Freeze clock should be removed
+        verify(puyo).setFreezeClock(Optional.empty());
     }
 }
 

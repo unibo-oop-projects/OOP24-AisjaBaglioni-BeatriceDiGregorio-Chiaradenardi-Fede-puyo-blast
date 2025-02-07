@@ -97,12 +97,12 @@ public class TargetView extends JPanel implements ViewInterface {
          */
         g.drawImage(
                 cannonTargetImage,
-                cannonPosX - width / 2, // x-position (centered)
-                cannonPosY - height / 2, // y-position (centered)
-                cannonPosX + width / 2, // x-position (centered)
-                cannonPosY + height / 2, // y-position (centered)
-                0, 0, // Source coordinates (top-left corner of image)
-                imageWidth, imageHeight, // Source image dimensions
-                null); // ImageObserver (null here, as we're not observing)
+                cannonPosX - width / 2, 
+                cannonPosY - height / 2,
+                cannonPosX + width / 2, 
+                cannonPosY + height / 2, 
+                0, 0, 
+                imageWidth, imageHeight, 
+                null); 
     }
 }
