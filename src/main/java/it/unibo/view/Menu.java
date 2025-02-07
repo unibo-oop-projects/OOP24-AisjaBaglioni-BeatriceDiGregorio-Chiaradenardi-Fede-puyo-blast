@@ -77,7 +77,7 @@ public class Menu extends JPanel implements MenuInterface {
         levelsDropdown.setBackground(new Color(57, 143, 192)); 
         levelsDropdown.setForeground(Color.BLACK); 
 
-        JLabel levelLabel = new JLabel("Seleziona Livello:"); 
+        JLabel levelLabel = new JLabel("Select the level:"); 
         levelLabel.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, scale / 35));
         levelLabel.setForeground(Color.BLACK);
         levelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -85,8 +85,8 @@ public class Menu extends JPanel implements MenuInterface {
         /**
          * Buttons for starting the game and viewing controls.
          */
-        startButton = new JButton("Inizia Gioco");
-        controlsButton = new JButton("Comandi");
+        startButton = new JButton("Start the game!");
+        controlsButton = new JButton("Rules");
         styleButton(startButton, new Color(57, 143, 191), scale); 
         styleButton(controlsButton, new Color(57, 143, 191), scale); 
 
