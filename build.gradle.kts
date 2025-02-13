@@ -9,7 +9,12 @@ plugins {
     application
     id("com.gradleup.shadow") version "9.0.0-beta7"
     jacoco
+
+    id("org.danilopianini.unibo-oop-gradle-plugin") version "1.0.13"
 }
+
+java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
+
 
 repositories {
     mavenCentral()
