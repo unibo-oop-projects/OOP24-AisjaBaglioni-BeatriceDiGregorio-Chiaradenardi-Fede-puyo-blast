@@ -10,7 +10,7 @@ plugins {
     id("com.gradleup.shadow") version "9.0.0-beta7"
     jacoco
 
-    id("org.danilopianini.unibo-oop-gradle-plugin") version "1.0.13"
+    id("org.danilopianini.unibo-oop-gradle-plugin") version "1.0.14-dev0o-a764058"
 }
 
 java { toolchain { languageVersion.set(JavaLanguageVersion.of(17)) } }
